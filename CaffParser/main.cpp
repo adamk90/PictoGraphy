@@ -398,4 +398,6 @@ int main()
     } else {
         cout << "testCiffGoodHeightWrongContent1 succeded" << endl;
     }
+
+    //TODO: write tests to test CAFF!
 }
