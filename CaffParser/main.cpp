@@ -301,7 +301,7 @@ bool testCiffGoodHeightWrongContent1() {
     return result;
 }
 
-bool testEmptyCaptionNoTags() {
+bool testCiffEmptyCaptionNoTags() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
                        0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x2, 0x6, //headerSize=38
                        0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //contentSize=0
@@ -324,7 +324,7 @@ bool testEmptyCaptionNoTags() {
     return result;
 }
 
-bool testCaptionWithoutEnd() {
+bool testCiffCaptionWithoutEnd() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
                        0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x2, 0xb, //headerSize=43
                        0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //contentSize=0
@@ -347,7 +347,7 @@ bool testCaptionWithoutEnd() {
     return result;
 }
 
-bool testGoodCaption() {
+bool testCiffGoodCaption() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
                        0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x2, 0xc, //headerSize=44
                        0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //contentSize=0
@@ -370,7 +370,7 @@ bool testGoodCaption() {
     return result;
 }
 
-bool testNoTagWithoutEnding() {
+bool testCiffNoTagWithoutEnding() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
                        0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x2, 0xb, //headerSize=43
                        0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //contentSize=0
@@ -392,7 +392,7 @@ bool testNoTagWithoutEnding() {
     return result;
 }
 
-bool testMultilineTag() {
+bool testCiffMultilineTag() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
                        0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x4, 0x0, //hederSize=64
                        0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //contentSize=0
@@ -418,7 +418,7 @@ bool testMultilineTag() {
     return result;
 }
 
-bool testGoodTags() {
+bool testCiffGoodTags() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
                        0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3, 0xf, //headerSize=63
                        0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //contentSize=0
@@ -452,7 +452,7 @@ bool testGoodTags() {
     return result;
 }
 
-bool testWrongPixelNumber() {
+bool testCiffWrongPixelNumber() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
                        0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3, 0xf, //headerSize=63
                        0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3,  //contentSize=3
@@ -479,7 +479,7 @@ bool testWrongPixelNumber() {
     return result;
 }
 
-bool testPixels() {
+bool testCiffPixels() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
                        0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3, 0xf, //headerSize=63
                        0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x9,  //contentSize=9
@@ -517,148 +517,39 @@ bool testPixels() {
 
 int main()
 {
-    if (!testCiffWithBadMagic()) {
-        cout << "testCiffWithBadMagic failed" << endl;
-    } else {
-        cout << "testCiffWithBadMagic succeded" << endl;
-    }
+    vector<pair<function<bool()>, string>> tests{
+        {&testCiffWithBadMagic, "testCiffWithBadMagic"},
+        {&testCiffWithNoMagic, "testCiffWithNoMagic"},
+        {&testCiffWithHalfMagic, "testCiffWithHalfMagic"},
+        {&testCiffWithGoodMagic, "testCiffWithGoodMagic"},
+        {&testCiffGoodHeaderSize1, "testCiffGoodHeaderSize1"},
+        {&testCiffGoodHeaderSize1, "testCiffGoodHeaderSize2"},
+        {&testCiffGoodHeaderSize1, "testCiffGoodHeaderSize3"},
+        {&testCiffBadHeaderSize, "testCiffBadHeaderSize"},
+        {&testCiffNoHeaderSize, "testCiffNoHeaderSize"},
+        {&testCiffHalfHeaderSize, "testCiffHalfHeaderSize"},
+        {&testCiffGoodContentSize, "testCiffGoodContentSize"},
+        {&testCiffNoContentSize, "testCiffNoContentSize"},
+        {&testCiffHalfContentSize, "testCiffHalfContentSize"},
+        {&testCiffGoodWidth, "testCiffGoodWidth"},
+        {&testCiffGoodHeightCorrectContent, "testCiffGoodHeightCorrectContent"},
+        {&testCiffGoodHeightWrongContent1, "testCiffGoodHeightWrongContent1"},
+        {&testCiffEmptyCaptionNoTags, "testCiffEmptyCaptionNoTags"},
+        {&testCiffCaptionWithoutEnd, "testCiffCaptionWithoutEnd"},
+        {&testCiffGoodCaption, "testCiffGoodCaption"},
+        {&testCiffNoTagWithoutEnding, "testCiffNoTagWithoutEnding"},
+        {&testCiffMultilineTag, "testCiffMultilineTag"},
+        {&testCiffGoodTags, "testCiffGoodTags"},
+        {&testCiffWrongPixelNumber, "testCiffWrongPixelNumber"},
+        {&testCiffPixels, "testCiffPixels"},
+        //TODO: write tests to test CAFF!
+    };
 
-    if (!testCiffWithNoMagic()) {
-        cout << "testCiffWithNoMagic failed" << endl;
-    } else {
-        cout << "testCiffWithNoMagic succeded" << endl;
+    for (auto& test : tests) {
+        if (!test.first()) {
+            cout << test.second << " failed" << endl;
+        } else {
+            cout << test.second << " succeeded" << endl;
+        }
     }
-    if (!testCiffWithHalfMagic()) {
-        cout << "testCiffWithHalfMagic failed" << endl;
-    } else {
-        cout << "testCiffWithHalfMagic succeded" << endl;
-    }
-
-    if (!testCiffWithGoodMagic()) {
-        cout << "testCiffWithGoodMagic failed" << endl;
-    } else {
-        cout << "testCiffWithGoodMagic succeded" << endl;
-    }
-
-    if (!testCiffGoodHeaderSize1()) {
-        cout << "testCiffGoodHeaderSize1 failed" << endl;
-    } else {
-        cout << "testCiffGoodHeaderSize1 succeded" << endl;
-    }
-
-    if (!testCiffGoodHeaderSize2()) {
-        cout << "testCiffGoodHeaderSize2 failed" << endl;
-    } else {
-        cout << "testCiffGoodHeaderSize2 succeded" << endl;
-    }
-
-    if (!testCiffGoodHeaderSize3()) {
-        cout << "testCiffGoodHeaderSize3 failed" << endl;
-    } else {
-        cout << "testCiffGoodHeaderSize3 succeded" << endl;
-    }
-
-    if (!testCiffBadHeaderSize()) {
-        cout << "testCiffBadHeaderSize failed" << endl;
-    } else {
-        cout << "testCiffBadHeaderSize succeded" << endl;
-    }
-
-    if (!testCiffNoHeaderSize()) {
-        cout << "testCiffNoHeaderSize failed" << endl;
-    } else {
-        cout << "testCiffNoHeaderSize succeded" << endl;
-    }
-
-    if (!testCiffHalfHeaderSize()) {
-        cout << "testCiffHalfHeaderSize failed" << endl;
-    } else {
-        cout << "testCiffHalfHeaderSize succeded" << endl;
-    }
-
-    if (!testCiffGoodContentSize()) {
-        cout << "testCiffGoodContentSize failed" << endl;
-    } else {
-        cout << "testCiffGoodContentSize succeded" << endl;
-    }
-
-    if (!testCiffNoContentSize()) {
-        cout << "testCiffNoContentSize failed" << endl;
-    } else {
-        cout << "testCiffNoContentSize succeded" << endl;
-    }
-
-    if (!testCiffHalfContentSize()) {
-        cout << "testCiffHalfContentSize failed" << endl;
-    } else {
-        cout << "testCiffHalfContentSize succeded" << endl;
-    }
-
-    if (!testCiffGoodWidth()) {
-        cout << "testCiffGoodWidth failed" << endl;
-    } else {
-        cout << "testCiffGoodWidth succeded" << endl;
-    }
-
-    if (!testCiffGoodHeightCorrectContent()) {
-        cout << "testCiffGoodHeightCorrectContent failed" << endl;
-    } else {
-        cout << "testCiffGoodHeightCorrectContent succeded" << endl;
-    }
-
-    if (!testCiffGoodHeightWrongContent1()) {
-        cout << "testCiffGoodHeightWrongContent1 failed" << endl;
-    } else {
-        cout << "testCiffGoodHeightWrongContent1 succeded" << endl;
-    }
-
-    if (!testEmptyCaptionNoTags()) {
-        cout << "testEmptyCaptionNoTags failed" << endl;
-    } else {
-        cout << "testEmptyCaptionNoTags succeded" << endl;
-    }
-
-    if (!testCaptionWithoutEnd()) {
-        cout << "testCaptionWithoutEnd failed" << endl;
-    } else {
-        cout << "testCaptionWithoutEnd succeded" << endl;
-    }
-
-    if (!testGoodCaption()) {
-        cout << "testGoodCaption failed" << endl;
-    } else {
-        cout << "testGoodCaption succeded" << endl;
-    }
-
-    if (!testNoTagWithoutEnding()) {
-        cout << "testNoTagWithoutEnding failed" << endl;
-    } else {
-        cout << "testNoTagWithoutEnding succeded" << endl;
-    }
-
-    if (!testMultilineTag()) {
-        cout << "testMultilineTag failed" << endl;
-    } else {
-        cout << "testMultilineTag succeded" << endl;
-    }
-
-    if (!testGoodTags()) {
-        cout << "testGoodTags failed" << endl;
-    } else {
-        cout << "testGoodTags succeded" << endl;
-    }
-
-    if (!testWrongPixelNumber()) {
-        cout << "testWrongPixelNumber failed" << endl;
-    } else {
-        cout << "testWrongPixelNumber succeded" << endl;
-    }
-
-    if (!testPixels()) {
-        cout << "testPixels failed" << endl;
-    } else {
-        cout << "testPixels succeded" << endl;
-    }
-
-    //TODO: write tests to test CAFF!
 }

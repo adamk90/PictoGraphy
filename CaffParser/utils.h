@@ -6,6 +6,8 @@
 #include <exception>
 #include <iostream>
 #include <memory>
+#include <utility>
+#include <functional>
 
 typedef unsigned int uint;
 typedef unsigned char byte;
