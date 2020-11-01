@@ -1,17 +1,18 @@
 #include "ciff.h"
+#include <iomanip>
 
-Pixel Ciff::getPixel(uint i) {
+Pixel Ciff::getPixel(ull i) {
     if (i >= pixels.size()) {
         throw out_of_range("Index is out of bound");
     }
     return pixels[i];
 }
 
-Ciff Ciff::parse(istream& in, int stage = Ciff::STAGES) {
-    uint headerSize;
-    uint contentSize;
-    uint width;
-    uint height;
+Ciff Ciff::parse(istream& in, int stage = Ciff::STAGES, bool checkSoftLimits = true) {
+    ull headerSize;
+    ull contentSize;
+    ull width;
+    ull height;
     string caption;
     vector<string> tags;
     vector<Pixel> pixels;
@@ -39,6 +40,9 @@ Ciff Ciff::parse(istream& in, int stage = Ciff::STAGES) {
         } else {
             throw domain_error("Invalid CIFF format: short headerSize");
         }
+        if (checkSoftLimits && headerSize > Ciff::MAX_CIFF_SIZE) {
+            throw domain_error("Ciff file can't exceed 5MB");
+        }
     }
 
     //Content size
@@ -48,6 +52,14 @@ Ciff Ciff::parse(istream& in, int stage = Ciff::STAGES) {
             contentSize = Utils::intFromBytes(contentS, 8);
         } else {
             throw domain_error("Invalid CIFF format: short contentSize");
+        }
+
+        ull ciffSize = contentSize + headerSize;
+        if (ciffSize < contentSize) {
+            throw overflow_error("contentSize + headerSize should fit into 8 bytes");
+        }
+        if (checkSoftLimits && ciffSize > Ciff::MAX_CIFF_SIZE) {
+            throw domain_error("Ciff file can't exceed 5MB");
         }
     }
 
@@ -72,7 +84,14 @@ Ciff Ciff::parse(istream& in, int stage = Ciff::STAGES) {
 
         //Check contentSize
         ull resolution = width * height;
-        if (resolution >= numeric_limits<uint>::max() || resolution * 3 != contentSize) {
+        if (width != 0 && resolution / width != height) {
+            throw overflow_error("width * height should fit into 8 bytes");
+        }
+        ull pixelNumber = resolution * 3;
+        if (resolution != 0 && pixelNumber / resolution != 3) {
+            throw overflow_error("width * height * 3 should fit into 8 bytes");
+        }
+        if (pixelNumber != contentSize) {
             throw domain_error("contentSize should equal to width * height * 3");
         }
     }
@@ -81,40 +100,36 @@ Ciff Ciff::parse(istream& in, int stage = Ciff::STAGES) {
     if (stage >= 6) {
         //Get the remaining bytes of the header -> Header size - (4 + 8 + 8 + 8 + 8)
         size_t headerContentSize = headerSize - 36;
-        char* headerContent = new char[headerContentSize + 1];
+        unique_ptr<char[]> headerContent{new char[headerContentSize + 1]};
         size_t tagsStart = 0;
-        if (in.read(headerContent, headerContentSize) && in.gcount() == (streamsize)headerContentSize) {
+        if (in.read(headerContent.get(), headerContentSize) && in.gcount() == (streamsize)headerContentSize) {
             size_t i = 0;
             for (; i < headerContentSize; ++i) {
-                if (headerContent[i] == '\n') {
+                if (headerContent.get()[i] == '\n') {
                     break;
                 }
             }
             if (i == headerContentSize) {
-                delete[] headerContent;;
                 throw domain_error("Invalid CIFF format: caption should be ended with '\n'");
             }
-            caption = string{headerContent, i};
+            caption = string{headerContent.get(), i};
             tagsStart = i + 1;
         } else {
-            delete[] headerContent;;
             throw domain_error("Invalid CIFF format: invalid headerSize");
         }
 
         //Tags
         if (stage >= 7) {
-            if (headerContent[headerContentSize - 1] != '\0') {
-                delete[] headerContent;;
+            if (headerContent.get()[headerContentSize - 1] != '\0') {
                 throw domain_error("Invalid CIFF format: invalid tags ending");
             }
             size_t currentTagStart = tagsStart;
             for (size_t i = tagsStart; i < headerContentSize; ++i) {
-                if (headerContent[i] == '\n') {
-                    delete[] headerContent;;
+                if (headerContent.get()[i] == '\n') {
                     throw domain_error("Invalid CIFF format: tags can't be multiline");
                 }
-                if (headerContent[i] == '\0') {
-                    tags.push_back(string{&headerContent[currentTagStart], i - currentTagStart});
+                if (headerContent.get()[i] == '\0') {
+                    tags.push_back(string{&headerContent.get()[currentTagStart], i - currentTagStart});
                     currentTagStart = i + 1;
                 }
             }
@@ -126,18 +141,68 @@ Ciff Ciff::parse(istream& in, int stage = Ciff::STAGES) {
             for (size_t p = 0; p < contentSize / 3; ++p) {
                 char pixelContent[3];
                 if (in.read(pixelContent, 3) && in.gcount() == 3) {
-                    uint red = (uint) pixelContent[0];
-                    uint green = (uint) pixelContent[1];
-                    uint blue = (uint) pixelContent[2];
+                    ull red = (ull) pixelContent[0];
+                    ull green = (ull) pixelContent[1];
+                    ull blue = (ull) pixelContent[2];
                     pixels.push_back(Pixel(red, green, blue));
                 } else {
-                    delete[] headerContent;;
                     throw domain_error("Invalid CIFF format: contentSize and actual content size does not match");
                 }
             }
         }
-        delete[] headerContent;
+    }
+    return Ciff{headerSize, contentSize, width, height, caption, tags, pixels};
+}
+
+shared_ptr<byte> Ciff::getBMP(ull& bmpSize) {
+    //Determined size is 54 byte + pixels.size() * 3 bytes
+    //Note that BMP width and height can only be 4 bytes, but CIFF defines 8 byte long width and height
+    //First check for compatibility
+    if (width > 4294967295 || height > 4294967295) {
+        throw domain_error("Height and width can be max 4 bytes big each");
     }
 
-    return Ciff{headerSize, contentSize, width, height, caption, tags, pixels};
+    //lines should be padded to nearest 4-byte
+    int widthPad = 4 - ((width * 3) % 4);
+
+    bmpSize = 54 + ((width * 3 + widthPad) * height);
+    byte* bmp = new byte[bmpSize];
+
+    //bmp header
+    bmp[0] = 0x42; // B
+    bmp[1] = 0x4D; // M
+    Utils::fillWithIntToBytes(bmp, bmpSize, 2, 4);
+    bmp[6] = bmp[7] = bmp[8] = bmp[9] = 0x00;
+    bmp[11] = bmp[12] = bmp[13] = 0x00;
+    bmp[10] = 0x36; // No color palette
+    bmp[15] = bmp[16] = bmp[17] = 0x00;
+    bmp[14] = 0x28;
+    Utils::fillWithIntToBytes(bmp, width, 18, 4);
+    Utils::fillWithIntToBytes(bmp, height, 22, 4);
+    bmp[26] = 0x01; //num of color planes
+    bmp[27] = 0x00; //num of color planes
+    bmp[28] = 0x18; //24 bits per pixel
+    bmp[29] = 0x00; 
+    bmp[30] = bmp[31] = bmp[32] = bmp[33] = 0x00; //No compression
+    bmp[34] = bmp[35] = bmp[36] = bmp[37] = 0x00; //No compression
+    bmp[38] = bmp[39] = bmp[40] = bmp[41] = 0x00;
+    bmp[42] = bmp[43] = bmp[44] = bmp[45] = 0x00;
+    bmp[46] = bmp[47] = bmp[48] = bmp[49] = 0x00;
+    bmp[50] = bmp[51] = bmp[52] = bmp[53] = 0x00;
+
+    //pixels
+    ull index = 54;
+    ull currByteNum = 0;
+    for (const Pixel& p : pixels) {
+        bmp[index++] = p.red;
+        bmp[index++] = p.green;
+        bmp[index++] = p.blue;
+        ++currByteNum;
+        if (currByteNum % width == 0) {
+            for(int i = 0; i < widthPad; ++i) {
+                bmp[index++] = 0x00;
+            }
+        }
+    }
+    return shared_ptr<byte>(bmp, default_delete<byte[]>{});
 }

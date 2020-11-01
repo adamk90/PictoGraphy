@@ -1,10 +1,16 @@
 #include "utils.h"
 
-uint Utils::intFromBytes(char* bytes, uint size) {
-    uint res = 0;
-    for (uint i = 0; i < size; ++i) {
-        uint val = static_cast<byte>(bytes[i]);
-        res = res | val << (size - i - 1) * 4;
+ull Utils::intFromBytes(char* bytes, ull size) {
+    ull res = 0;
+    for (ull i = 0; i < size; ++i) {
+        ull val = static_cast<byte>(bytes[i]);
+        res = res | val << (size - i - 1) * 8;
     }
     return res;
+}
+
+void Utils::fillWithIntToBytes(byte* buff, ull num, int from, int siz) {
+	for (int i = 0; i < siz; ++i) {
+		buff[i + from] = (num >> (i * 8));
+	}
 }

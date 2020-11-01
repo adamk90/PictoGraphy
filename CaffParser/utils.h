@@ -9,9 +9,8 @@
 #include <utility>
 #include <functional>
 
-typedef unsigned int uint;
-typedef unsigned char byte;
 typedef unsigned long long ull;
+typedef unsigned char byte;
 
 using namespace std;
 
@@ -19,5 +18,6 @@ class Utils {
 public:
 	Utils() = delete;
 
-	static uint intFromBytes(char*, uint);
+	static ull intFromBytes(char*, ull);
+	static void fillWithIntToBytes(byte*, ull, int, int);
 };

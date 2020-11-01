@@ -4,12 +4,19 @@
 
 using namespace std;
 
-void injectCiffToFile(byte* ciff, uint ciffSize, ifstream& ifile) {
+void injectCiffToFile(byte* ciff, ull ciffSize, ifstream& ifile) {
     ofstream ofile;
-    ofile.open("test.ciff", ofstream::out | ofstream::trunc);
+    ofile.open("test.ciff", ofstream::out | ofstream::trunc | ofstream::binary);
     ofile.write(reinterpret_cast<char *>(ciff), ciffSize);
     ofile.close();
     ifile.open("test.ciff", ifstream::in);
+}
+
+void outputBmpToFile(shared_ptr<byte> bmp, ull bmpSize) {
+    ofstream ofile;
+    ofile.open("test.bmp", ofstream::out | ofstream::trunc | ofstream::binary);
+    ofile.write(reinterpret_cast<const char *>(bmp.get()), bmpSize);
+    ofile.close();
 }
 
 bool testCiffWithBadMagic() {
@@ -19,7 +26,7 @@ bool testCiffWithBadMagic() {
     injectCiffToFile(testCiff, 4, ifile);
     bool result = false;
     try {
-        Ciff::parse(ifile, 1);
+        Ciff::parse(ifile, 1, true);
     } catch (domain_error& e) {
         if (string{e.what()}.compare("CIFF should start with 'CIFF'") == 0) {
             result = true;
@@ -35,7 +42,7 @@ bool testCiffWithNoMagic() {
     injectCiffToFile(testCiff, 0, ifile);
     bool result = false;
     try {
-        Ciff::parse(ifile, 1);
+        Ciff::parse(ifile, 1, true);
     } catch (domain_error& e) {
         if (string{e.what()}.compare("Invalid CIFF format: short magic") == 0) {
             result = true;
@@ -51,7 +58,7 @@ bool testCiffWithHalfMagic() {
     injectCiffToFile(testCiff, 2, ifile);
     bool result = false;
     try {
-        Ciff::parse(ifile, 1);
+        Ciff::parse(ifile, 1, true);
     } catch (domain_error& e) {
         if (string{e.what()}.compare("Invalid CIFF format: short magic") == 0) {
             result = true;
@@ -68,7 +75,7 @@ bool testCiffWithGoodMagic() {
     injectCiffToFile(testCiff, 4, ifile);
     bool result = false;
     try {
-        Ciff::parse(ifile, 1);
+        Ciff::parse(ifile, 1, true);
         result = true;
     } catch (domain_error& e) {
     }
@@ -76,15 +83,15 @@ bool testCiffWithGoodMagic() {
     return result;
 }
 
-bool testCiffGoodHeaderSize1() {
+bool testCiffGoodHeaderSizeWithLimit1() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
-                       0x0, 0x0, 0x0, 0x1, 0xe, 0x2, 0x4, 0x0,  //headerSize=123456
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0xe2, 0x40,  //headerSize=123456
                       };
     ifstream ifile;
     injectCiffToFile(testCiff, 12, ifile);
     bool result = false;
     try {
-        Ciff c = Ciff::parse(ifile, 2);
+        Ciff c = Ciff::parse(ifile, 2, true);
         if (c.getHeaderSize() == 123456) {
             result = true;
         }
@@ -94,16 +101,16 @@ bool testCiffGoodHeaderSize1() {
     return result;
 }
 
-bool testCiffGoodHeaderSize2() {
+bool testCiffGoodHeaderSizeWithLimit2() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
-                       0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf,  //headerSize=4294967295
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x50, 0x00, 0x00, //headerSize=5242880
                       };
     ifstream ifile;
     injectCiffToFile(testCiff, 12, ifile);
     bool result = false;
     try {
-        Ciff c = Ciff::parse(ifile, 2);
-        if (c.getHeaderSize() == 4294967295) {
+        Ciff c = Ciff::parse(ifile, 2, true);
+        if (c.getHeaderSize() == Ciff::MAX_CIFF_SIZE) {
             result = true;
         }
     } catch (domain_error& e) {
@@ -112,16 +119,16 @@ bool testCiffGoodHeaderSize2() {
     return result;
 }
 
-bool testCiffGoodHeaderSize3() {
+bool testCiffGoodHeaderSizeWithLimit3() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
-                       0x0, 0x0, 0x0, 0x1, 0xe, 0x2, 0x4, 0x0, //headerSize=123456
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x26,  //headerSize=38
                       };
     ifstream ifile;
     injectCiffToFile(testCiff, 12, ifile);
     bool result = false;
     try {
-        Ciff c = Ciff::parse(ifile, 2);
-        if (c.getHeaderSize() == 123456) {
+        Ciff c = Ciff::parse(ifile, 2, true);
+        if (c.getHeaderSize() == 38) {
             result = true;
         }
     } catch (domain_error& e) {
@@ -130,17 +137,53 @@ bool testCiffGoodHeaderSize3() {
     return result;
 }
 
-bool testCiffBadHeaderSize() {
+bool testCiffBadHeaderSizeWithLimit1() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x2, 0x5 //headerSize=37 (MIN_HEADER_SIZE - 1)
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x25 //headerSize=37 (MIN_HEADER_SIZE - 1)
                       };
     ifstream ifile;
     injectCiffToFile(testCiff, 12, ifile);
     bool result = false;
     try {
-        Ciff c = Ciff::parse(ifile, 2);
+        Ciff c = Ciff::parse(ifile, 2, true);
     } catch (domain_error& e) {
         if (string{e.what()}.compare("Invalid headerSize") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCiffBadHeaderSizeWithLimit2() {
+    byte testCiff[] = {'C', 'I', 'F', 'F', //magic
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x50, 0x00, 0x01 //headerSize=5242881
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCiff, 12, ifile);
+    bool result = false;
+    try {
+        Ciff c = Ciff::parse(ifile, 2, true);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Ciff file can't exceed 5MB") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCiffBadHeaderSizeWithLimit3() {
+    byte testCiff[] = {'C', 'I', 'F', 'F', //magic
+                       0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff //headerSize=18 446 744 073 709 551 615
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCiff, 12, ifile);
+    bool result = false;
+    try {
+        Ciff c = Ciff::parse(ifile, 2, true);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Ciff file can't exceed 5MB") == 0) {
             result = true;
         }
     }
@@ -155,7 +198,7 @@ bool testCiffNoHeaderSize() {
     injectCiffToFile(testCiff, 4, ifile);
     bool result = false;
     try {
-        Ciff c = Ciff::parse(ifile, 2);
+        Ciff c = Ciff::parse(ifile, 2, true);
     } catch (domain_error& e) {
         if (string{e.what()}.compare("Invalid CIFF format: short headerSize") == 0) {
             result = true;
@@ -167,13 +210,13 @@ bool testCiffNoHeaderSize() {
 
 bool testCiffHalfHeaderSize() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
-                       0xf, 0xf, 0xf, 0xf
+                       0x00, 0x00, 0xff, 0xff
                       }; 
     ifstream ifile;
     injectCiffToFile(testCiff, 8, ifile);
     bool result = false;
     try {
-        Ciff c = Ciff::parse(ifile, 2);
+        Ciff c = Ciff::parse(ifile, 2, true);
     } catch (domain_error& e) {
         if (string{e.what()}.compare("Invalid CIFF format: short headerSize") == 0) {
             result = true;
@@ -183,17 +226,17 @@ bool testCiffHalfHeaderSize() {
     return result;
 }
 
-bool testCiffGoodContentSize() {
+bool testCiffGoodContentSizeWithoutLimit1() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
-                       0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf,  //headerSize=4294967295
-                       0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf,  //contentSize=4294967295
+                       0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,  //headerSize=18 446 744 073 709 551 615
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //contentSize=0
                       }; 
     ifstream ifile;
     injectCiffToFile(testCiff, 20, ifile);
     bool result = false;
     try {
-        Ciff c = Ciff::parse(ifile, 3);
-        if (c.getContentSize() == 4294967295) {
+        Ciff c = Ciff::parse(ifile, 3, false);
+        if (c.getContentSize() == 0) {
             result = true;
         }
     } catch (domain_error& e) {
@@ -202,15 +245,148 @@ bool testCiffGoodContentSize() {
     return result;
 }
 
+bool testCiffGoodContentSizeWithoutLimit2() {
+    byte testCiff[] = {'C', 'I', 'F', 'F', //magic
+                       0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xfe,  //headerSize=18 446 744 073 709 551 614
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01,  //contentSize=1
+                      }; 
+    ifstream ifile;
+    injectCiffToFile(testCiff, 20, ifile);
+    bool result = false;
+    try {
+        Ciff c = Ciff::parse(ifile, 3, false);
+        if (c.getContentSize() == 1) {
+            result = true;
+        }
+    } catch (domain_error& e) {
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCiffGoodContentSizeWithLimit1() {
+    byte testCiff[] = {'C', 'I', 'F', 'F', //magic
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x50, 0x00, 0x00, //headerSize=5242880
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //contentSize=0
+                      }; 
+    ifstream ifile;
+    injectCiffToFile(testCiff, 20, ifile);
+    bool result = false;
+    try {
+        Ciff c = Ciff::parse(ifile, 3, true);
+        if (c.getContentSize() == 0) {
+            result = true;
+        }
+    } catch (domain_error& e) {
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCiffGoodContentSizeWithLimit2() {
+    byte testCiff[] = {'C', 'I', 'F', 'F', //magic
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x26, //headerSize=38
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x4f, 0xff, 0xda, //contentSize=5242842
+                      }; 
+    ifstream ifile;
+    injectCiffToFile(testCiff, 20, ifile);
+    bool result = false;
+    try {
+        Ciff c = Ciff::parse(ifile, 3, true);
+        if (c.getContentSize() == 5242842) {
+            result = true;
+        }
+    } catch (domain_error& e) {
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCiffBadContentSizeWithoutLimit1() {
+    byte testCiff[] = {'C', 'I', 'F', 'F', //magic
+                       0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,  //headerSize=18 446 744 073 709 551 615
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01,  //contentSize=1
+                      }; 
+    ifstream ifile;
+    injectCiffToFile(testCiff, 20, ifile);
+    bool result = false;
+    try {
+        Ciff c = Ciff::parse(ifile, 3, false);
+    } catch (overflow_error& e) {
+        if (string{e.what()}.compare("contentSize + headerSize should fit into 8 bytes") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCiffBadContentSizeWithoutLimit2() {
+    byte testCiff[] = {'C', 'I', 'F', 'F', //magic
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x26,  //headerSize=38
+                       0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xda,  //contentSize=18 446 744 073 709 551 615 - 37
+                      }; 
+    ifstream ifile;
+    injectCiffToFile(testCiff, 20, ifile);
+    bool result = false;
+    try {
+        Ciff c = Ciff::parse(ifile, 3, false);
+    } catch (overflow_error& e) {
+        if (string{e.what()}.compare("contentSize + headerSize should fit into 8 bytes") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCiffBadContentSizeWithLimit1() {
+    byte testCiff[] = {'C', 'I', 'F', 'F', //magic
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x26, //headerSize=38
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x4f, 0xff, 0xdb, //contentSize=5242843
+                      }; 
+    ifstream ifile;
+    injectCiffToFile(testCiff, 20, ifile);
+    bool result = false;
+    try {
+        Ciff c = Ciff::parse(ifile, 3, true);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Ciff file can't exceed 5MB") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCiffBadContentSizeWithLimit2() {
+    byte testCiff[] = {'C', 'I', 'F', 'F', //magic
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x50, 0x00, 0x00, //headerSize=5242880
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, //contentSize=1
+                      }; 
+    ifstream ifile;
+    injectCiffToFile(testCiff, 20, ifile);
+    bool result = false;
+    try {
+        Ciff c = Ciff::parse(ifile, 3, true);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Ciff file can't exceed 5MB") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
 bool testCiffNoContentSize() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
-                       0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, //headerSize=4294967295
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, //headerSize=64
                       }; 
     ifstream ifile;
     injectCiffToFile(testCiff, 12, ifile);
     bool result = false;
     try {
-        Ciff c = Ciff::parse(ifile, 3);
+        Ciff c = Ciff::parse(ifile, 3, true);
     } catch (domain_error& e) {
         if (string{e.what()}.compare("Invalid CIFF format: short contentSize") == 0) {
             result = true;
@@ -222,14 +398,14 @@ bool testCiffNoContentSize() {
 
 bool testCiffHalfContentSize() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
-                       0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, //headerSize=4294967295
-                       0xf, 0xf, 0xf, 0xf
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, //headerSize=64
+                       0x0f, 0x0f, 0x0f, 0x0f
                       }; 
     ifstream ifile;
     injectCiffToFile(testCiff, 16, ifile);
     bool result = false;
     try {
-        Ciff c = Ciff::parse(ifile, 3);
+        Ciff c = Ciff::parse(ifile, 3, true);
     } catch (domain_error& e) {
         if (string{e.what()}.compare("Invalid CIFF format: short contentSize") == 0) {
             result = true;
@@ -239,18 +415,18 @@ bool testCiffHalfContentSize() {
     return result;
 }
 
-bool testCiffGoodWidth() {
+bool testCiffGoodWidthWithoutLimit() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
-                       0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf,  //headerSize=4294967295
-                       0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf,  //contentSize=4294967295
-                       0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf,  //width=4294967295
+                       0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff,  //headerSize=4294967295
+                       0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff,  //contentSize=4294967295
+                       0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,  //width=unsigned long long max
                       }; 
     ifstream ifile;
     injectCiffToFile(testCiff, 28, ifile);
     bool result = false;
     try {
-        Ciff c = Ciff::parse(ifile, 4);
-        if (c.getWidth() == 4294967295) {
+        Ciff c = Ciff::parse(ifile, 4, false);
+        if (c.getWidth() == numeric_limits<ull>::max()) {
             result = true;
         }
     } catch (domain_error& e) {
@@ -261,16 +437,16 @@ bool testCiffGoodWidth() {
 
 bool testCiffGoodHeightCorrectContent() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
-                       0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf,  //headerSize=4294967295
-                       0x0, 0x0, 0x3, 0x8, 0x4, 0x0, 0x0, 0x0,  //contentSize=3686400 (1200*1024*3)
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x4, 0xb, 0x0,  //width=1200
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x4, 0x0, 0x0,  //height=1024
+                       0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff,  //headerSize=4294967295
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x38, 0x40, 0x00,  //contentSize=3686400 (1200*1024*3)
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x04, 0xb0,  //width=1200
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x04, 0x00,  //height=1024
                       }; 
     ifstream ifile;
     injectCiffToFile(testCiff, 36, ifile);
     bool result = false;
     try {
-        Ciff c = Ciff::parse(ifile, 5);
+        Ciff c = Ciff::parse(ifile, 5, false);
         if (c.getWidth() == 1200 && c.getHeight() == 1024) {
             result = true;
         }
@@ -280,18 +456,81 @@ bool testCiffGoodHeightCorrectContent() {
     return result;
 }
 
-bool testCiffGoodHeightWrongContent1() {
+bool testGoodWidthHeightWithMaxCiffSize() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
-                       0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf, 0xf,  //headerSize=4294967295
-                       0x0, 0x0, 0x3, 0x8, 0x4, 0x0, 0x0, 0x1,  //contentSize=3686401 (1200*1024*3 + 1)
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x4, 0xb, 0x0,  //width=1200
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x4, 0x0, 0x0,  //height=1024
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x27,  //headerSize=39
+                       0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xd8,  //contentSize=max - 39
+                       0x55, 0x55, 0x55, 0x55, 0x55, 0x55, 0x55, 0x48,  //width=(max - 39) / 3
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01,  //height=1
                       }; 
     ifstream ifile;
     injectCiffToFile(testCiff, 36, ifile);
     bool result = false;
     try {
-        Ciff c = Ciff::parse(ifile, 5);
+        Ciff c = Ciff::parse(ifile, 5, false);
+        if (c.getWidth() == (numeric_limits<ull>::max() - 39) / 3 && c.getHeight() == 1) {
+            result = true;
+        }
+    } catch (domain_error& e) {
+    }
+    ifile.close();
+    return result;
+}
+
+bool testWidthHeightOverflow1() {
+    byte testCiff[] = {'C', 'I', 'F', 'F', //magic
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x27,  //headerSize=39
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03,  //contentSize=3 (after overflow -> (max / 3 + 1) * 3)
+                       0x55, 0x55, 0x55, 0x55, 0x55, 0x55, 0x55, 0x56,  //width=max / 3 + 1
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01,  //height=1
+                      }; 
+    ifstream ifile;
+    injectCiffToFile(testCiff, 36, ifile);
+    bool result = false;
+    try {
+        Ciff c = Ciff::parse(ifile, 5, false);
+    } catch (overflow_error& e) {
+        if (string{e.what()}.compare("width * height * 3 should fit into 8 bytes") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testWidthHeightOverflow2() {
+    byte testCiff[] = {'C', 'I', 'F', 'F', //magic
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x27,  //headerSize=39
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x09,  //contentSize=3 (after overflow -> (max / 3 + 1) * 3) * 3
+                       0x55, 0x55, 0x55, 0x55, 0x55, 0x55, 0x55, 0x56,  //width=max / 3 + 1
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03,  //height=1
+                      }; 
+    ifstream ifile;
+    injectCiffToFile(testCiff, 36, ifile);
+    bool result = false;
+    try {
+        Ciff c = Ciff::parse(ifile, 5, false);
+    } catch (overflow_error& e) {
+        if (string{e.what()}.compare("width * height should fit into 8 bytes") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCiffGoodHeightWrongContent1() {
+    byte testCiff[] = {'C', 'I', 'F', 'F', //magic
+                       0x00, 0x00, 0x00, 0x00, 0xff, 0xff, 0xff, 0xff,  //headerSize=4294967295
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x38, 0x40, 0x01,  //contentSize=3686401 (1200*1024*3 + 1)
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x04, 0x0b, 0x00,  //width=1200
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00,  //height=1024
+                      }; 
+    ifstream ifile;
+    injectCiffToFile(testCiff, 36, ifile);
+    bool result = false;
+    try {
+        Ciff c = Ciff::parse(ifile, 5, false);
     } catch (domain_error& e) {
         if (string{e.what()}.compare("contentSize should equal to width * height * 3") == 0) {
             result = true;
@@ -303,10 +542,10 @@ bool testCiffGoodHeightWrongContent1() {
 
 bool testCiffEmptyCaptionNoTags() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x2, 0x6, //headerSize=38
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //contentSize=0
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //width=0
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //height=0
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x26, //headerSize=38
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //contentSize=0
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //width=0
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //height=0
                        '\n', //caption
                        '\0', //end of tags
                       };
@@ -314,7 +553,7 @@ bool testCiffEmptyCaptionNoTags() {
     injectCiffToFile(testCiff, 38, ifile);
     bool result = false;
     try {
-        Ciff c = Ciff::parse(ifile, 6);
+        Ciff c = Ciff::parse(ifile, 6, true);
         if (c.getCaption().compare("") == 0) {
             result = true;
         }
@@ -326,10 +565,10 @@ bool testCiffEmptyCaptionNoTags() {
 
 bool testCiffCaptionWithoutEnd() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x2, 0xb, //headerSize=43
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //contentSize=0
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //width=0
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //height=0
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x2b, //headerSize=43
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //contentSize=0
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //width=0
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //height=0
                        'v', 'a', 'l', 'a', 'm', 'i', //caption
                        '\0', //end of tags
                       };
@@ -337,7 +576,7 @@ bool testCiffCaptionWithoutEnd() {
     injectCiffToFile(testCiff, 43, ifile);
     bool result = false;
     try {
-        Ciff c = Ciff::parse(ifile, 6);
+        Ciff c = Ciff::parse(ifile, 6, true);
     } catch (domain_error& e) {
         if (string{e.what()}.compare("Invalid CIFF format: caption should be ended with '\n'") == 0) {
             result = true;
@@ -349,10 +588,10 @@ bool testCiffCaptionWithoutEnd() {
 
 bool testCiffGoodCaption() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x2, 0xc, //headerSize=44
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //contentSize=0
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //width=0
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //height=0
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x2c, //headerSize=44
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //contentSize=0
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //width=0
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //height=0
                        'v', 'a', 'l', 'a', 'm', 'i', '\n', //caption
                        '\0', //end of tags
                       };
@@ -360,7 +599,7 @@ bool testCiffGoodCaption() {
     injectCiffToFile(testCiff, 44, ifile);
     bool result = false;
     try {
-        Ciff c = Ciff::parse(ifile, 6);
+        Ciff c = Ciff::parse(ifile, 6, true);
         if (c.getCaption().compare("valami") == 0) {
             result = true;
         }
@@ -372,17 +611,17 @@ bool testCiffGoodCaption() {
 
 bool testCiffNoTagWithoutEnding() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x2, 0xb, //headerSize=43
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //contentSize=0
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //width=0
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //height=0
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x2b, //headerSize=43
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //contentSize=0
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //width=0
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //height=0
                        'v', 'a', 'l', 'a', 'm', 'i', '\n', //caption
                       };
     ifstream ifile;
     injectCiffToFile(testCiff, 43, ifile);
     bool result = false;
     try {
-        Ciff c = Ciff::parse(ifile, 7);
+        Ciff c = Ciff::parse(ifile, 7, true);
     } catch (domain_error& e) {
         if (string{e.what()}.compare("Invalid CIFF format: invalid tags ending") == 0) {
             result = true;
@@ -394,10 +633,10 @@ bool testCiffNoTagWithoutEnding() {
 
 bool testCiffMultilineTag() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x4, 0x0, //hederSize=64
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //contentSize=0
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //width=0
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //height=0
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, //hederSize=64
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //contentSize=0
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //width=0
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //height=0
                        'v', 'a', 'l', 'a', 'm', 'i', '\n', //caption
                        't', 'a', 'g', '1', '\0',
                        't', 'a', 'g', '2', '\0',
@@ -408,7 +647,7 @@ bool testCiffMultilineTag() {
     injectCiffToFile(testCiff, 64, ifile);
     bool result = false;
     try {
-        Ciff c = Ciff::parse(ifile, 7);
+        Ciff c = Ciff::parse(ifile, 7, true);
     } catch (domain_error& e) {
         if (string{e.what()}.compare("Invalid CIFF format: tags can't be multiline") == 0) {
             result = true;
@@ -420,10 +659,10 @@ bool testCiffMultilineTag() {
 
 bool testCiffGoodTags() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3, 0xf, //headerSize=63
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //contentSize=0
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //width=0
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,  //height=0
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3f, //headerSize=63
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //contentSize=0
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //width=0
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //height=0
                        'v', 'a', 'l', 'a', 'm', 'i', '\n', //caption
                        't', 'a', 'g', '1', '\0',
                        't', 'a', 'g', '2', '\0',
@@ -435,10 +674,10 @@ bool testCiffGoodTags() {
     injectCiffToFile(testCiff, 63, ifile);
     bool result = true;
     try {
-        Ciff c = Ciff::parse(ifile, 7);
+        Ciff c = Ciff::parse(ifile, 7, true);
         auto& tags = c.getTags();
         if (tags.size() == goodTags.size()) {
-            for (uint i = 0; i < tags.size(); ++i) {
+            for (ull i = 0; i < tags.size(); ++i) {
                 if (tags[i].compare(goodTags[i]) != 0) {
                     result = false;
                     break;
@@ -454,22 +693,22 @@ bool testCiffGoodTags() {
 
 bool testCiffWrongPixelNumber() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3, 0xf, //headerSize=63
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3,  //contentSize=3
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1,  //width=1
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1,  //height=1
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3f, //headerSize=63
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03,  //contentSize=3
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01,  //width=1
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01,  //height=1
                        'v', 'a', 'l', 'a', 'm', 'i', '\n', //caption
                        't', 'a', 'g', '1', '\0',
                        't', 'a', 'g', '2', '\0',
                        't', 'a', 'g', '3', '\0',
                        't', 'a', 'g', '4', '\0',
-                       0x1, 0x1,
+                       0x01, 0x01,
                       };
     ifstream ifile;
     injectCiffToFile(testCiff, 65, ifile);
     bool result = false;
     try {
-        Ciff c = Ciff::parse(ifile, 8);
+        Ciff c = Ciff::parse(ifile, 8, true);
     } catch (domain_error& e) {
         if (string{e.what()}.compare("Invalid CIFF format: contentSize and actual content size does not match") == 0) {
             result = true;
@@ -481,25 +720,25 @@ bool testCiffWrongPixelNumber() {
 
 bool testCiffPixels() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3, 0xf, //headerSize=63
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x9,  //contentSize=9
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3,  //width=3
-                       0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1,  //height=1
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3f, //headerSize=63
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x09,  //contentSize=9
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03,  //width=3
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01,  //height=1
                        'v', 'a', 'l', 'a', 'm', 'i', '\n', //caption
                        't', 'a', 'g', '1', '\0',
                        't', 'a', 'g', '2', '\0',
                        't', 'a', 'g', '3', '\0',
                        't', 'a', 'g', '4', '\0',
-                       0x1, 0x2, 0x3,
+                       0x01, 0x02, 0x03,
                        0xff, 0xff, 0xff,
-                       0x9, 0xa, 0xb,
+                       0x09, 0x0a, 0x0b,
                       };
     ifstream ifile;
     injectCiffToFile(testCiff, 72, ifile);
     bool result = true;
     vector<Pixel> goodPixels = { {1, 2, 3}, {255, 255, 255}, {9, 10, 11} };
     try {
-        Ciff c = Ciff::parse(ifile, 8);
+        Ciff c = Ciff::parse(ifile, 8, true);
         for (size_t i = 0; i < goodPixels.size(); ++i) {
             if (goodPixels[i] != c.getPixel(i)) {
                 result = false;
@@ -518,21 +757,34 @@ bool testCiffPixels() {
 int main()
 {
     vector<pair<function<bool()>, string>> tests{
+        //CIFF tests
         {&testCiffWithBadMagic, "testCiffWithBadMagic"},
         {&testCiffWithNoMagic, "testCiffWithNoMagic"},
         {&testCiffWithHalfMagic, "testCiffWithHalfMagic"},
         {&testCiffWithGoodMagic, "testCiffWithGoodMagic"},
-        {&testCiffGoodHeaderSize1, "testCiffGoodHeaderSize1"},
-        {&testCiffGoodHeaderSize1, "testCiffGoodHeaderSize2"},
-        {&testCiffGoodHeaderSize1, "testCiffGoodHeaderSize3"},
-        {&testCiffBadHeaderSize, "testCiffBadHeaderSize"},
+        {&testCiffGoodHeaderSizeWithLimit1, "testCiffGoodHeaderSizeWithLimit1"},
+        {&testCiffGoodHeaderSizeWithLimit2, "testCiffGoodHeaderSizeWithLimit2"},
+        {&testCiffGoodHeaderSizeWithLimit3, "testCiffGoodHeaderSizeWithLimit3"},
+        {&testCiffBadHeaderSizeWithLimit1, "testCiffBadHeaderSizeWithLimit1"},
+        {&testCiffBadHeaderSizeWithLimit2, "testCiffBadHeaderSizeWithLimit2"},
+        {&testCiffBadHeaderSizeWithLimit3, "testCiffBadHeaderSizeWithLimit3"},
         {&testCiffNoHeaderSize, "testCiffNoHeaderSize"},
         {&testCiffHalfHeaderSize, "testCiffHalfHeaderSize"},
-        {&testCiffGoodContentSize, "testCiffGoodContentSize"},
+        {&testCiffGoodContentSizeWithoutLimit1, "testCiffGoodContentSizeWithoutLimit1"},
+        {&testCiffGoodContentSizeWithoutLimit2, "testCiffGoodContentSizeWithoutLimit2"},
+        {&testCiffGoodContentSizeWithLimit1, "testCiffGoodContentSizeWithLimit1"},
+        {&testCiffGoodContentSizeWithLimit2, "testCiffGoodContentSizeWithLimit2"},
+        {&testCiffBadContentSizeWithoutLimit1, "testCiffBadContentSizeWithoutLimit1"},
+        {&testCiffBadContentSizeWithoutLimit2, "testCiffBadContentSizeWithoutLimit2"},
+        {&testCiffBadContentSizeWithLimit1, "testCiffBadContentSizeWithLimit1"},
+        {&testCiffBadContentSizeWithLimit2, "testCiffBadContentSizeWithLimit2"},
         {&testCiffNoContentSize, "testCiffNoContentSize"},
         {&testCiffHalfContentSize, "testCiffHalfContentSize"},
-        {&testCiffGoodWidth, "testCiffGoodWidth"},
+        {&testCiffGoodWidthWithoutLimit, "testCiffGoodWidthWithoutLimit"},
         {&testCiffGoodHeightCorrectContent, "testCiffGoodHeightCorrectContent"},
+        {&testGoodWidthHeightWithMaxCiffSize, "testGoodWidthHeightWithMaxCiffSize"},
+        {&testWidthHeightOverflow1, "testWidthHeightOverflow1"},
+        {&testWidthHeightOverflow2, "testWidthHeightOverflow2"},
         {&testCiffGoodHeightWrongContent1, "testCiffGoodHeightWrongContent1"},
         {&testCiffEmptyCaptionNoTags, "testCiffEmptyCaptionNoTags"},
         {&testCiffCaptionWithoutEnd, "testCiffCaptionWithoutEnd"},
@@ -545,11 +797,34 @@ int main()
         //TODO: write tests to test CAFF!
     };
 
+    int successes = 0;
     for (auto& test : tests) {
         if (!test.first()) {
             cout << test.second << " failed" << endl;
         } else {
-            cout << test.second << " succeeded" << endl;
+            ++successes;
+            //cout << test.second << " succeeded" << endl;
         }
     }
+    cout << "SUCCEEDED TESTS: " << successes << " FAILED TESTS: " << tests.size() - successes << endl;
+    byte testCiff[] = {'C', 'I', 'F', 'F', //magic
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x3f, //headerSize=63
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x09,  //contentSize=9
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03,  //width=3
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01,  //height=1
+                       'v', 'a', 'l', 'a', 'm', 'i', '\n', //caption
+                       't', 'a', 'g', '1', '\0',
+                       't', 'a', 'g', '2', '\0',
+                       't', 'a', 'g', '3', '\0',
+                       't', 'a', 'g', '4', '\0',
+                       0x01, 0x02, 0x03,
+                       0xff, 0xff, 0xff,
+                       0x09, 0x0a, 0x0b,
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCiff, 72, ifile);
+    Ciff c = Ciff::parse(ifile, 8, true);
+    ull bmpSize = 0;
+    auto bmp = c.getBMP(bmpSize);
+    outputBmpToFile(bmp, bmpSize);
 }

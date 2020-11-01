@@ -1,15 +1,15 @@
 #include "caff.h"
 
-/*uint intFromBytes(char* bytes, uint size) {
-    uint res = 0;
-    for (uint i = 0; i < size; ++i) {
-        uint val = static_cast<byte>(bytes[i]);
+/*ull intFromBytes(char* bytes, ull size) {
+    ull res = 0;
+    for (ull i = 0; i < size; ++i) {
+        ull val = static_cast<byte>(bytes[i]);
         res = res | val << (size - i - 1) * 4;
     }
     return res;
 }
 
-Ciff Caff::getCiff(uint i) {
+Ciff Caff::getCiff(ull i) {
     if (i >= ciffs.size()) {
         throw out_of_range("Index is out of bound");
     }
@@ -17,16 +17,16 @@ Ciff Caff::getCiff(uint i) {
 }
 
 Caff Caff::parse(istream& in, int main_stage = CAFF::MAIN_STAGES, int sub_stage){
-    uint headerSize;
-    uint numAnim;
+    ull headerSize;
+    ull numAnim;
     byte[] year;
     byte month;
     byte day;
     byte hour;
     byte minute;
-    uint creatorLen;
+    ull creatorLen;
     string creator;
-    uint duration;
+    ull duration;
 
     bool header = false;
     bool credit = false;
