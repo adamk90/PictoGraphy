@@ -1,15 +1,5 @@
 #pragma once
-#include <string>
-#include <vector>
-#include <fstream>
-#include <exception>
-#include <iostream>
-
-typedef unsigned int uint;
-typedef unsigned char byte;
-typedef unsigned long long ull;
-
-using namespace std;
+#include "utils.h"
 
 struct Pixel {
     byte red;
@@ -18,6 +8,9 @@ struct Pixel {
 
     Pixel(byte r, byte g, byte b): red(r), green(g), blue(b) {}
     Pixel() {}
+
+    bool operator==(const Pixel& other) { return red == other.red && green == other.green && blue == other.blue; }
+    bool operator!=(const Pixel& other) { return !(*this == other); }
 };
 
 class Ciff {
@@ -27,23 +20,26 @@ private:
     uint width;
     uint height;
     string caption;
+    vector<string> tags;
     vector<Pixel> pixels;
+    char* headerContent;
 
-    Ciff(uint hs, uint cs, uint w, uint h, const string& c, const vector<Pixel>& p):
-        headerSize(hs), contentSize(cs), width(w), height(h), caption(c), pixels(p) {};
+    Ciff(uint hs, uint cs, uint w, uint h, const string& c, const vector<string>& t, const vector<Pixel>& p):
+        headerSize(hs), contentSize(cs), width(w), height(h), caption(c), tags(t), pixels(p) {};
 
     Ciff() {};
 
 public:
     //Magic + Header + Content + Width + Height + '\n' + '\0'
     static const int MIN_HEADER_SIZE = 4 + 8 + 8 + 8 + 8 + 1 + 1;
-    static const int STAGES = 7;
+    static const int STAGES = 8;
 
-    inline uint getHeaderSize() { return headerSize; }
-    inline uint getContentSize() { return contentSize; }
-    inline uint getWidth() { return width; }
-    inline uint getHeight() { return height; }
-    inline string getCaption() { return caption; }
+    inline uint getHeaderSize() const { return headerSize; }
+    inline uint getContentSize() const { return contentSize; }
+    inline uint getWidth() const { return width; }
+    inline uint getHeight() const { return height; }
+    inline string getCaption() const { return caption; }
+    inline const vector<string>& getTags() const { return tags; }
 
     Pixel getPixel(uint);
     static Ciff parse(istream&, int);

@@ -1,6 +1,6 @@
 #include "caff.h"
 
-uint intFromBytes(char* bytes, uint size) {
+/*uint intFromBytes(char* bytes, uint size) {
     uint res = 0;
     for (uint i = 0; i < size; ++i) {
         uint val = static_cast<byte>(bytes[i]);
@@ -152,4 +152,4 @@ Caff Caff::parse(istream& in, int main_stage = CAFF::MAIN_STAGES, int sub_stage)
     }
 
     return Caff{headerSize, numAnim, year, month, day, hour, minute, creatorLen, "", duration, vector<Ciff>(0)};
-}
+}*/

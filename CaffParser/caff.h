@@ -1,6 +1,7 @@
 #pragma once
 #include "ciff.h"
 
+/*
 class Caff
 {
 private:
@@ -41,4 +42,4 @@ public:
     CIFF getCIFF(uint);
     static Caff parse(istream&, int , int);
 };
-
+*/
