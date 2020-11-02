@@ -163,7 +163,7 @@ shared_ptr<byte> Ciff::getBMP(ull& bmpSize) {
     }
 
     //lines should be padded to nearest 4-byte
-    int widthPad = 4 - ((width * 3) % 4);
+    int widthPad = (4 - (width * 3) % 4) % 4;
 
     bmpSize = 54 + ((width * 3 + widthPad) * height);
     byte* bmp = new byte[bmpSize];
@@ -191,17 +191,23 @@ shared_ptr<byte> Ciff::getBMP(ull& bmpSize) {
     bmp[50] = bmp[51] = bmp[52] = bmp[53] = 0x00;
 
     //pixels
-    ull index = 54;
-    ull currByteNum = 0;
+    ull currLineStart = bmpSize - 1;
+    ull currByte = 0;
+    ull index = 0;
     for (const Pixel& p : pixels) {
-        bmp[index++] = p.red;
-        bmp[index++] = p.green;
-        bmp[index++] = p.blue;
-        ++currByteNum;
-        if (currByteNum % width == 0) {
-            for(int i = 0; i < widthPad; ++i) {
-                bmp[index++] = 0x00;
+        if (currByte == 0) {
+            for (int i = 0; i < widthPad; ++i) {
+                bmp[currLineStart - index++] = 0x00;
             }
+        }
+        bmp[currLineStart - index++] = p.red;
+        bmp[currLineStart - index++] = p.green;
+        bmp[currLineStart - index++] = p.blue;
+        ++currByte;
+        if (currByte == width) {
+            currLineStart -= (width * 3 + widthPad);
+            index = 0;
+            currByte = 0;
         }
     }
     return shared_ptr<byte>(bmp, default_delete<byte[]>{});
