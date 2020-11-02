@@ -8,7 +8,7 @@ Pixel Ciff::getPixel(ull i) {
     return pixels[i];
 }
 
-Ciff Ciff::parse(istream& in, int stage = Ciff::STAGES, bool checkSoftLimits = true) {
+Ciff Ciff::parse(istream& in, int stage, bool checkSoftLimits) {
     ull headerSize;
     ull contentSize;
     ull width;
@@ -99,11 +99,11 @@ Ciff Ciff::parse(istream& in, int stage = Ciff::STAGES, bool checkSoftLimits = t
     //Caption
     if (stage >= 6) {
         //Get the remaining bytes of the header -> Header size - (4 + 8 + 8 + 8 + 8)
-        size_t headerContentSize = headerSize - 36;
+        ull headerContentSize = headerSize - 36;
         unique_ptr<char[]> headerContent{new char[headerContentSize + 1]};
-        size_t tagsStart = 0;
-        if (in.read(headerContent.get(), headerContentSize) && in.gcount() == (streamsize)headerContentSize) {
-            size_t i = 0;
+        ull tagsStart = 0;
+        if (in.read(headerContent.get(), headerContentSize) && in.gcount() > 0 && (ull)in.gcount() == headerContentSize) {
+            ull i = 0;
             for (; i < headerContentSize; ++i) {
                 if (headerContent.get()[i] == '\n') {
                     break;
@@ -123,8 +123,8 @@ Ciff Ciff::parse(istream& in, int stage = Ciff::STAGES, bool checkSoftLimits = t
             if (headerContent.get()[headerContentSize - 1] != '\0') {
                 throw domain_error("Invalid CIFF format: invalid tags ending");
             }
-            size_t currentTagStart = tagsStart;
-            for (size_t i = tagsStart; i < headerContentSize; ++i) {
+            ull currentTagStart = tagsStart;
+            for (ull i = tagsStart; i < headerContentSize; ++i) {
                 if (headerContent.get()[i] == '\n') {
                     throw domain_error("Invalid CIFF format: tags can't be multiline");
                 }
@@ -176,7 +176,7 @@ shared_ptr<byte> Ciff::getBMP(ull& bmpSize) {
     bmp[11] = bmp[12] = bmp[13] = 0x00;
     bmp[10] = 0x36; // No color palette
     bmp[15] = bmp[16] = bmp[17] = 0x00;
-    bmp[14] = 0x28;
+    bmp[14] = 0x28; //length of this subheader
     Utils::fillWithIntToBytes(bmp, width, 18, 4);
     Utils::fillWithIntToBytes(bmp, height, 22, 4);
     bmp[26] = 0x01; //num of color planes

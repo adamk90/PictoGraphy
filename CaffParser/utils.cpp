@@ -4,7 +4,7 @@ ull Utils::intFromBytes(char* bytes, ull size) {
     ull res = 0;
     for (ull i = 0; i < size; ++i) {
         ull val = static_cast<byte>(bytes[i]);
-        res = res | val << (size - i - 1) * 8;
+        res = res | val << (i * 8);
     }
     return res;
 }
