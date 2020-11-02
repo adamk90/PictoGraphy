@@ -172,8 +172,7 @@ Caff Caff::parse(istream& in){
     if (status.numAnims != status.processedAnims) {
         throw domain_error("Invalid Caff: number of anims declared in header not matching actual");
     } else if (!status.creditsDone) {
-        //Should we do this?
-        //throw domain_error("Invalid Caff: no credits block found");
+        throw domain_error("Invalid Caff: no credits block found");
     }
 
     return Caff{credits, anims};
