@@ -381,7 +381,7 @@ bool testCiffBadContentSizeWithLimit2() {
 
 bool testCiffNoContentSize() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
-                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x40, //headerSize=64
+                       0x40, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //headerSize=64
                       };
     ifstream ifile;
     injectCiffToFile(testCiff, 12, ifile);
@@ -798,7 +798,7 @@ int main()
         //TODO: write tests to test CAFF!
     };
 
-    /*int successes = 0;
+    int successes = 0;
     for (auto& test : tests) {
         if (!test.first()) {
             cout << test.second << " failed" << endl;
@@ -807,7 +807,7 @@ int main()
             //cout << test.second << " succeeded" << endl;
         }
     }
-    cout << "SUCCEEDED TESTS: " << successes << " FAILED TESTS: " << tests.size() - successes << endl;*/
+    cout << "SUCCEEDED TESTS: " << successes << " FAILED TESTS: " << tests.size() - successes << endl;
 
     ifstream in;
     in.open("testfiles/1.caff", ifstream::in);
