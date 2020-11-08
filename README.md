@@ -27,6 +27,8 @@ We have reached almost 100% line coverage with our tests. There are a few lines 
 
 Also there are uncovered lines in **test.cpp** but it's not in the SUT, so it does not have to be fully covered. **main.cpp** is only used as an interface for the parser, so it is not included in coverage report, the reported coverage for it is 0 (or it does not matter).
 
+Current coverage report can be seen [here](https://github.com/adamk90/PictoGraphy/blob/master/CaffParser/coverage/coverage.html).
+
 ## Using valgrind
 
 By default, makefile compiles the project with debug options, so **valgrind** can be used without any modifications by for example running `valgrind ./test`. Our run of **valgrind**:
