@@ -275,7 +275,7 @@
           </tr>
           <tr>
             <td class="headerName">Date:</td>
-            <td class="headerValue">2020-11-08 19:08:58</td>
+            <td class="headerValue">2020-11-08 19:16:42</td>
             <td></td>
             <td class="headerName">Branches:</td>
             <td class="headerTableEntry">4</td>
@@ -316,35 +316,35 @@
     <tr>
     <td align="right" class="lineno"><pre>3</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>718</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>359</pre></td>
     <td align="left" class="src coveredLine"><pre>ull Utils::intFromBytes(char* bytes, ull size) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>4</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>718</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>359</pre></td>
     <td align="left" class="src coveredLine"><pre>    ull res = 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>5</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 4184 times">&check;</span><span class="takenBranch" title="Branch 1 taken 718 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>4902</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2092 times">&check;</span><span class="takenBranch" title="Branch 1 taken 359 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2451</pre></td>
     <td align="left" class="src coveredLine"><pre>    for (ull i = 0; i &lt; size; ++i) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>6</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>4184</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>2092</pre></td>
     <td align="left" class="src coveredLine"><pre>        ull val = static_cast&lt;byte>(bytes[i]);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>7</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>4184</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>2092</pre></td>
     <td align="left" class="src coveredLine"><pre>        res = res | val &lt;&lt; (i * 8);</pre></td>
     </tr>
 
@@ -358,7 +358,7 @@
     <tr>
     <td align="right" class="lineno"><pre>9</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>718</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>359</pre></td>
     <td align="left" class="src coveredLine"><pre>    return res;</pre></td>
     </tr>
 
@@ -379,21 +379,21 @@
     <tr>
     <td align="right" class="lineno"><pre>12</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>36</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>18</pre></td>
     <td align="left" class="src coveredLine"><pre>void Utils::fillWithIntToBytes(byte* buff, ull num, int from, int siz) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>13</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 144 times">&check;</span><span class="takenBranch" title="Branch 1 taken 36 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>180</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 72 times">&check;</span><span class="takenBranch" title="Branch 1 taken 18 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>90</pre></td>
     <td align="left" class="src coveredLine"><pre>	for (int i = 0; i &lt; siz; ++i) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>14</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>144</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>72</pre></td>
     <td align="left" class="src coveredLine"><pre>		buff[i + from] = (num >> (i * 8));</pre></td>
     </tr>
 
@@ -407,7 +407,7 @@
     <tr>
     <td align="right" class="lineno"><pre>16</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>36</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>18</pre></td>
     <td align="left" class="src coveredLine"><pre>}</pre></td>
     </tr>
 

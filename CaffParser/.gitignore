@@ -3,4 +3,10 @@
 !*.*
 *.o
 *.gcno
+<<<<<<< HEAD
 *.gcda
+=======
+*.gcda
+test
+test.ciff
+>>>>>>> d6d280b9b8f52dc8ec02d485b2a313694b392c8f

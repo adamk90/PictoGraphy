@@ -13,6 +13,9 @@ main: main.o ciff.o utils.o caff.o
 test: utils.o test.o ciff.o caff.o 
 	${CXX} ${TESTFLAGS} utils.o test.o ciff.o caff.o -o test
 
+all: utils.o test.o ciff.o caff.o 
+	${CXX} ${TESTFLAGS} utils.o test.o ciff.o caff.o -o test
+
 utils.o: utils.cpp utils.h
 	${CXX} ${TESTFLAGS} -c utils.cpp
 
@@ -49,7 +52,6 @@ endif
 afl: check-afl-env
 	${AFLCXX} ${TESTFLAGS} utils.cpp ciff.cpp caff.cpp main.cpp -o afl-test
 	${AFLFUZZ} -i afl_testdir -o afl_findings -- ./afl-test @@ 	
-
 
 
 

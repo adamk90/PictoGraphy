@@ -67,5 +67,4 @@ int main(int argc, char **argv)
 		printf("Usage: %s <caff-file.caff>\n", argv[0]);
 		return 1;
 	}
-	return 0;
 }
