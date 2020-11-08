@@ -31,7 +31,7 @@ private:
     Credits credits;
     vector<Animation> anims;
 
-    Caff(Credits c, const vector<Animation>& an):
+    Caff(const Credits& c, const vector<Animation>& an):
         credits(c), anims(an) {};
 
     static void parseBlock(istream&, ull&, ParsingStatus&, Credits&, vector<Animation>&);
@@ -53,6 +53,5 @@ public:
     inline string getCreator() const { return credits.creator; }
     inline const vector<Animation>& getAnimations() const { return anims; }
 
-    const Ciff& getCiff(ull) const;
     static Caff parse(istream&);
 };

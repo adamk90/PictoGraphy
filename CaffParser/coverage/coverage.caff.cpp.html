@@ -269,18 +269,18 @@
             <td class="headerValue">caff.cpp</td>
             <td></td>
             <td class="headerName">Lines:</td>
-            <td class="headerTableEntry">74</td>
-            <td class="headerTableEntry">101</td>
-            <td class="headerTableEntry" style="background-color:LightPink">73.3 %</td>
+            <td class="headerTableEntry">98</td>
+            <td class="headerTableEntry">100</td>
+            <td class="headerTableEntry" style="background-color:LightGreen">98.0 %</td>
           </tr>
           <tr>
             <td class="headerName">Date:</td>
-            <td class="headerValue">2020-11-05 13:12:41</td>
+            <td class="headerValue">2020-11-08 19:08:58</td>
             <td></td>
             <td class="headerName">Branches:</td>
-            <td class="headerTableEntry">75</td>
-            <td class="headerTableEntry">188</td>
-            <td class="headerTableEntry" style="background-color:LightPink">39.9 %</td>
+            <td class="headerTableEntry">128</td>
+            <td class="headerTableEntry">194</td>
+            <td class="headerTableEntry" style="background-color:LightPink">66.0 %</td>
           </tr>
         </table>
       </td>
@@ -316,1107 +316,1107 @@
     <tr>
     <td align="right" class="lineno"><pre>3</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>const Ciff&amp; Caff::getCiff(ull i) const {</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>4</pre></td>
-    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 1 not taken">&cross;</span><span class="takenBranch" title="Branch 2 taken 1 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    if (i >= anims.size()) {</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>5</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>        throw out_of_range("Index is out of bound");</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>6</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    }</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>7</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    return anims[i].img;</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>8</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>}</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>9</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>10</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>11</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>15</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>116</pre></td>
     <td align="left" class="src coveredLine"><pre>void Caff::parseBlock(istream&amp; in, ull&amp; currLength, ParsingStatus&amp; status, Credits&amp; credits, vector&lt;Animation>&amp; anims) {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>12</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    int id;</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>13</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    ull length;</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>14</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>15</pre></td>
+    <td align="right" class="lineno"><pre>4</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    char idByte[1];</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>16</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 15 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 4 taken 15 times">&check;</span><span class="notTakenBranch" title="Branch 5 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 6 taken 15 times">&check;</span><span class="notTakenBranch" title="Branch 7 not taken">&cross;</span><span class="takenBranch" title="Branch 9 taken 15 times">&check;</span><span class="notTakenBranch" title="Branch 10 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 11 taken 15 times">&check;</span><span class="notTakenBranch" title="Branch 12 not taken">&cross;</span><span class="takenBranch" title="Branch 13 taken 15 times">&check;</span><span class="notTakenBranch" title="Branch 14 not taken">&cross;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>15</pre></td>
+    <td align="right" class="lineno"><pre>5</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 116 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 4 taken 116 times">&check;</span><span class="notTakenBranch" title="Branch 5 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 6 taken 116 times">&check;</span><span class="notTakenBranch" title="Branch 7 not taken">&cross;</span><span class="takenBranch" title="Branch 9 taken 116 times">&check;</span><span class="notTakenBranch" title="Branch 10 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 11 taken 116 times">&check;</span><span class="notTakenBranch" title="Branch 12 not taken">&cross;</span><span class="takenBranch" title="Branch 13 taken 116 times">&check;</span><span class="notTakenBranch" title="Branch 14 not taken">&cross;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>116</pre></td>
     <td align="left" class="src coveredLine"><pre>    if (in.read(idByte, 1) &amp;&amp; in.gcount() == 1) {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>17</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 15 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>15</pre></td>
-    <td align="left" class="src coveredLine"><pre>        id = Utils::intFromBytes(idByte, 1);</pre></td>
+    <td align="right" class="lineno"><pre>6</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 116 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>116</pre></td>
+    <td align="left" class="src coveredLine"><pre>        int id = Utils::intFromBytes(idByte, 1);</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>18</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 4 times">&check;</span><span class="takenBranch" title="Branch 1 taken 11 times">&check;</span><span class="takenBranch" title="Branch 2 taken 1 times">&check;</span><span class="takenBranch" title="Branch 3 taken 3 times">&check;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>15</pre></td>
+    <td align="right" class="lineno"><pre>7</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 54 times">&check;</span><span class="takenBranch" title="Branch 1 taken 62 times">&check;</span><span class="takenBranch" title="Branch 2 taken 4 times">&check;</span><span class="takenBranch" title="Branch 3 taken 50 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>116</pre></td>
     <td align="left" class="src coveredLine"><pre>        if (id == 1 &amp;&amp; status.headerDone) {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>19</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 1 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
+    <td align="right" class="lineno"><pre>8</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 4 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
     <td align="left" class="src coveredLine"><pre>            throw domain_error("Invalid Caff: multiple headers found");</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>20</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 11 times">&check;</span><span class="takenBranch" title="Branch 1 taken 3 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 3 taken 11 times">&check;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>14</pre></td>
+    <td align="right" class="lineno"><pre>9</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 62 times">&check;</span><span class="takenBranch" title="Branch 1 taken 50 times">&check;</span><span class="takenBranch" title="Branch 2 taken 4 times">&check;</span><span class="takenBranch" title="Branch 3 taken 58 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>112</pre></td>
     <td align="left" class="src coveredLine"><pre>        } else if (id != 1 &amp;&amp; !status.headerDone) {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>21</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>            throw domain_error("Invalid Caff: the first block must be the header");</pre></td>
+    <td align="right" class="lineno"><pre>10</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 4 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>            throw domain_error("Invalid Caff: the first block must be the header");</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>22</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 3 times">&check;</span><span class="takenBranch" title="Branch 1 taken 11 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 3 taken 3 times">&check;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>14</pre></td>
+    <td align="right" class="lineno"><pre>11</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 28 times">&check;</span><span class="takenBranch" title="Branch 1 taken 80 times">&check;</span><span class="takenBranch" title="Branch 2 taken 2 times">&check;</span><span class="takenBranch" title="Branch 3 taken 26 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>108</pre></td>
     <td align="left" class="src coveredLine"><pre>        } else if (id == 2 &amp;&amp; status.creditsDone) {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>23</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>            throw domain_error("Invalid Caff: multiple credits found");</pre></td>
+    <td align="right" class="lineno"><pre>12</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>            throw domain_error("Invalid Caff: multiple credits found");</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>24</pre></td>
+    <td align="right" class="lineno"><pre>13</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>        }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>25</pre></td>
+    <td align="right" class="lineno"><pre>14</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>        char lengthBytes[8];</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>26</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 14 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 4 taken 14 times">&check;</span><span class="notTakenBranch" title="Branch 5 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 6 taken 14 times">&check;</span><span class="notTakenBranch" title="Branch 7 not taken">&cross;</span><span class="takenBranch" title="Branch 9 taken 14 times">&check;</span><span class="notTakenBranch" title="Branch 10 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 11 taken 14 times">&check;</span><span class="notTakenBranch" title="Branch 12 not taken">&cross;</span><span class="takenBranch" title="Branch 13 taken 14 times">&check;</span><span class="notTakenBranch" title="Branch 14 not taken">&cross;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>14</pre></td>
+    <td align="right" class="lineno"><pre>15</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 106 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 4 taken 106 times">&check;</span><span class="notTakenBranch" title="Branch 5 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 6 taken 104 times">&check;</span><span class="takenBranch" title="Branch 7 taken 2 times">&check;</span><span class="takenBranch" title="Branch 9 taken 104 times">&check;</span><span class="notTakenBranch" title="Branch 10 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 11 taken 104 times">&check;</span><span class="notTakenBranch" title="Branch 12 not taken">&cross;</span><span class="takenBranch" title="Branch 13 taken 104 times">&check;</span><span class="takenBranch" title="Branch 14 taken 2 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>106</pre></td>
     <td align="left" class="src coveredLine"><pre>        if (in.read(lengthBytes, 8) &amp;&amp; in.gcount() == 8) {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>27</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 14 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>14</pre></td>
-    <td align="left" class="src coveredLine"><pre>            length = Utils::intFromBytes(lengthBytes, 8);</pre></td>
+    <td align="right" class="lineno"><pre>16</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 104 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>104</pre></td>
+    <td align="left" class="src coveredLine"><pre>            ull length = Utils::intFromBytes(lengthBytes, 8);</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>28</pre></td>
+    <td align="right" class="lineno"><pre>17</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>14</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>104</pre></td>
     <td align="left" class="src coveredLine"><pre>            currLength += length;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>29</pre></td>
-    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 14 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>14</pre></td>
+    <td align="right" class="lineno"><pre>18</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2 times">&check;</span><span class="takenBranch" title="Branch 1 taken 102 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>104</pre></td>
     <td align="left" class="src coveredLine"><pre>            if (currLength &lt; length) {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>30</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>                throw overflow_error("Invalid Caff: length overflow");</pre></td>
+    <td align="right" class="lineno"><pre>19</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>                throw overflow_error("Invalid Caff: length overflow");</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>31</pre></td>
+    <td align="right" class="lineno"><pre>20</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2 times">&check;</span><span class="takenBranch" title="Branch 1 taken 100 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>102</pre></td>
+    <td align="left" class="src coveredLine"><pre>            } else if (currLength >= Caff::MAX_CAFF_SIZE) {</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>21</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>                throw domain_error("Invalid Caff: can't be more than 200 MB");</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>22</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>            }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>32</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 3 times">&check;</span><span class="takenBranch" title="Branch 1 taken 3 times">&check;</span><span class="takenBranch" title="Branch 2 taken 8 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>14</pre></td>
+    <td align="right" class="lineno"><pre>23</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 48 times">&check;</span><span class="takenBranch" title="Branch 1 taken 26 times">&check;</span><span class="takenBranch" title="Branch 2 taken 24 times">&check;</span><span class="takenBranch" title="Branch 3 taken 2 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>100</pre></td>
     <td align="left" class="src coveredLine"><pre>            switch (id) {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>33</pre></td>
+    <td align="right" class="lineno"><pre>24</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>48</pre></td>
     <td align="left" class="src coveredLine"><pre>                case 1:</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>34</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 3 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="right" class="lineno"><pre>25</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 40 times">&check;</span><span class="takenBranch" title="Branch 2 taken 8 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>48</pre></td>
     <td align="left" class="src coveredLine"><pre>                    status.numAnims = parseHeader(in, length);</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>35</pre></td>
-    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 3 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="right" class="lineno"><pre>26</pre></td>
+    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 40 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>40</pre></td>
     <td align="left" class="src coveredLine"><pre>                    if (status.numAnims &lt; status.processedAnims) {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>36</pre></td>
+    <td align="right" class="lineno"><pre>27</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>                        //unreachable code, header should be first, so numAnims cant be more than 0! only here for extra safety</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>28</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount uncoveredLine"><pre></pre></td>
     <td align="left" class="src uncoveredLine"><pre>                        throw domain_error("Invalid Caff: more animations present than provided in header");</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>37</pre></td>
+    <td align="right" class="lineno"><pre>29</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>                    }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>38</pre></td>
+    <td align="right" class="lineno"><pre>30</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>40</pre></td>
     <td align="left" class="src coveredLine"><pre>                    status.headerDone = true;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>39</pre></td>
+    <td align="right" class="lineno"><pre>31</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>40</pre></td>
     <td align="left" class="src coveredLine"><pre>                    break;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>40</pre></td>
+    <td align="right" class="lineno"><pre>32</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>26</pre></td>
     <td align="left" class="src coveredLine"><pre>                case 2:</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>41</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 3 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="right" class="lineno"><pre>33</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 16 times">&check;</span><span class="takenBranch" title="Branch 2 taken 10 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>26</pre></td>
     <td align="left" class="src coveredLine"><pre>                    parseCredits(in, length, credits);</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>34</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>16</pre></td>
+    <td align="left" class="src coveredLine"><pre>                    status.creditsDone = true;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>35</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>16</pre></td>
+    <td align="left" class="src coveredLine"><pre>                    break;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>36</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>24</pre></td>
+    <td align="left" class="src coveredLine"><pre>                case 3:</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>37</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 20 times">&check;</span><span class="takenBranch" title="Branch 2 taken 4 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>24</pre></td>
+    <td align="left" class="src coveredLine"><pre>                    parseAnimation(in, length, anims);</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>38</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
+    <td align="left" class="src coveredLine"><pre>                    status.processedAnims += 1;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>39</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2 times">&check;</span><span class="takenBranch" title="Branch 1 taken 18 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
+    <td align="left" class="src coveredLine"><pre>                    if (status.numAnims &lt; status.processedAnims) {</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>40</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>                        throw domain_error("Invalid Caff: more animations present than provided in header");</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>41</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>                    }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>42</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
-    <td align="left" class="src coveredLine"><pre>                    status.creditsDone = true;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>18</pre></td>
+    <td align="left" class="src coveredLine"><pre>                    break;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>43</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
-    <td align="left" class="src coveredLine"><pre>                    break;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>                default:</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>44</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
-    <td align="left" class="src coveredLine"><pre>                case 3:</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span><span class="takenBranch" title="Branch 5 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 6 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 8 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 9 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>                    throw domain_error("Invalid Caff block: no such ID: " + to_string(id));</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>45</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 8 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
-    <td align="left" class="src coveredLine"><pre>                    parseAnimation(in, length, anims);</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>            }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>46</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
-    <td align="left" class="src coveredLine"><pre>                    status.processedAnims += 1;</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>        } else {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>47</pre></td>
-    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 8 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
-    <td align="left" class="src coveredLine"><pre>                    if (status.numAnims &lt; status.processedAnims) {</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>            throw domain_error("Invalid Caff block: short length");</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>48</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>                        throw domain_error("Invalid Caff: more animations present than provided in header");</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>        }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>49</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>                    }</pre></td>
+    <td align="left" class="src "><pre>    } else {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>50</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
-    <td align="left" class="src coveredLine"><pre>                    break;</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>        //unreachable code, in parse it is checking for NOT eof, so 1 byte should be present! only here for extra safety</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>51</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>                default:</pre></td>
+    <td align="left" class="src uncoveredLine"><pre>        throw domain_error("Invalid Caff block: missing ID");</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>52</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>                    throw domain_error("Invalid Caff block: no such ID: " + id);</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>53</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>            }</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>74</pre></td>
+    <td align="left" class="src coveredLine"><pre>}</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>54</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>        } else {</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>55</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>            throw domain_error("Invalid Caff block: short length");</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>/*</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>56</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>        }</pre></td>
+    <td align="left" class="src "><pre> * Parsing the header.</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>57</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    } else {</pre></td>
+    <td align="left" class="src "><pre> *</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>58</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>        throw domain_error("Invalid Caff block: missing ID");</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre> * @throws domain_error Thrown if not enough bytes in the input stream</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>59</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    }</pre></td>
+    <td align="left" class="src "><pre> * @throws domain_error Thrown if header size declared in header does not match real size</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>60</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>14</pre></td>
-    <td align="left" class="src coveredLine"><pre>}</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre> *</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>61</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre> * @param in The input stream that contains the header content</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>62</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>/*</pre></td>
+    <td align="left" class="src "><pre> * @param remainingBytes Tells how many bytes to parse from the input stream</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>63</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * Parsing the header.</pre></td>
+    <td align="left" class="src "><pre> * @return Number of animations declared in the header</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>64</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> *</pre></td>
+    <td align="left" class="src "><pre> */</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>65</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * @throws domain_error Thrown if not enough bytes in the input stream</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>48</pre></td>
+    <td align="left" class="src coveredLine"><pre>ull Caff::parseHeader(istream&amp; in, const ull&amp; remainingBytes) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>66</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * @throws domain_error Thrown if header size declared in header does not match real size</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2 times">&check;</span><span class="takenBranch" title="Branch 1 taken 46 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>48</pre></td>
+    <td align="left" class="src coveredLine"><pre>    if (remainingBytes != Caff::HEADER_SIZE) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>67</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> *</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>        throw domain_error("Invalid Caff header: size should be 20");</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>68</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * @param in The input stream that contains the header content</pre></td>
+    <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>69</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * @param remainingBytes Tells how many bytes to parse from the input stream</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>46</pre></td>
+    <td align="left" class="src coveredLine"><pre>    char* content = new char[remainingBytes];</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>70</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> * @return Number of animations declared in the header</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 44 times">&check;</span><span class="takenBranch" title="Branch 3 taken 2 times">&check;</span><span class="takenBranch" title="Branch 5 taken 44 times">&check;</span><span class="notTakenBranch" title="Branch 6 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 8 taken 44 times">&check;</span><span class="notTakenBranch" title="Branch 9 not taken">&cross;</span><span class="takenBranch" title="Branch 10 taken 44 times">&check;</span><span class="takenBranch" title="Branch 11 taken 2 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>46</pre></td>
+    <td align="left" class="src coveredLine"><pre>    if (in.read(content, remainingBytes) &amp;&amp; in.gcount() > 0 &amp;&amp; (ull)in.gcount() == remainingBytes) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>71</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre> */</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 44 times">&check;</span><span class="notTakenBranch" title="Branch 1 not taken">&cross;</span><span class="takenBranch" title="Branch 2 taken 44 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 4 taken 44 times">&check;</span><span class="notTakenBranch" title="Branch 5 not taken">&cross;</span><span class="takenBranch" title="Branch 6 taken 42 times">&check;</span><span class="takenBranch" title="Branch 7 taken 2 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>44</pre></td>
+    <td align="left" class="src coveredLine"><pre>        if (content[0] == 'C' &amp;&amp; content[1] == 'A' &amp;&amp; content[2] == 'F' &amp;&amp; content[3] == 'F') {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>72</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
-    <td align="left" class="src coveredLine"><pre>ull Caff::parseHeader(istream&amp; in, const ull&amp; remainingBytes) {</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>73</pre></td>
-    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 3 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
-    <td align="left" class="src coveredLine"><pre>    if (remainingBytes != Caff::HEADER_SIZE) {</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>74</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>        throw domain_error("Invalid Caff header: size should be 20");</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>75</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    }</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>76</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
-    <td align="left" class="src coveredLine"><pre>    char* content = new char[remainingBytes];</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>77</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 3 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span><span class="takenBranch" title="Branch 5 taken 3 times">&check;</span><span class="notTakenBranch" title="Branch 6 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 8 taken 3 times">&check;</span><span class="notTakenBranch" title="Branch 9 not taken">&cross;</span><span class="takenBranch" title="Branch 10 taken 3 times">&check;</span><span class="notTakenBranch" title="Branch 11 not taken">&cross;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
-    <td align="left" class="src coveredLine"><pre>    if (in.read(content, remainingBytes) &amp;&amp; in.gcount() > 0 &amp;&amp; (ull)in.gcount() == remainingBytes) {</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>78</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 3 times">&check;</span><span class="notTakenBranch" title="Branch 1 not taken">&cross;</span><span class="takenBranch" title="Branch 2 taken 3 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 4 taken 3 times">&check;</span><span class="notTakenBranch" title="Branch 5 not taken">&cross;</span><span class="takenBranch" title="Branch 6 taken 3 times">&check;</span><span class="notTakenBranch" title="Branch 7 not taken">&cross;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
-    <td align="left" class="src coveredLine"><pre>        if (content[0] == 'C' &amp;&amp; content[1] == 'A' &amp;&amp; content[2] == 'F' &amp;&amp; content[3] == 'F') {</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>79</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>42</pre></td>
     <td align="left" class="src coveredLine"><pre>            ull headerSize = Utils::intFromBytes(&amp;content[4], 8);</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>80</pre></td>
-    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 3 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="right" class="lineno"><pre>73</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2 times">&check;</span><span class="takenBranch" title="Branch 1 taken 40 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>42</pre></td>
     <td align="left" class="src coveredLine"><pre>            if (headerSize != Caff::HEADER_SIZE) {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>81</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>                delete[] content;</pre></td>
+    <td align="right" class="lineno"><pre>74</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 1 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>                delete[] content;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>82</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>                throw domain_error("Invalid Caff header: size should be 20");</pre></td>
+    <td align="right" class="lineno"><pre>75</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>                throw domain_error("Invalid Caff header: size should be 20");</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>83</pre></td>
+    <td align="right" class="lineno"><pre>76</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>            }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>84</pre></td>
+    <td align="right" class="lineno"><pre>77</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>40</pre></td>
     <td align="left" class="src coveredLine"><pre>            ull numAnims = Utils::intFromBytes(&amp;content[12], 8);</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>85</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 3 times">&check;</span><span class="notTakenBranch" title="Branch 1 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="right" class="lineno"><pre>78</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 40 times">&check;</span><span class="notTakenBranch" title="Branch 1 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>40</pre></td>
     <td align="left" class="src coveredLine"><pre>            delete[] content;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>86</pre></td>
+    <td align="right" class="lineno"><pre>79</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>40</pre></td>
     <td align="left" class="src coveredLine"><pre>            return numAnims;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>87</pre></td>
+    <td align="right" class="lineno"><pre>80</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>        } else {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>88</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>            delete[] content;</pre></td>
+    <td align="right" class="lineno"><pre>81</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 1 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>            delete[] content;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>89</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>            throw domain_error("Invalid Caff header: wrong magic");</pre></td>
+    <td align="right" class="lineno"><pre>82</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>            throw domain_error("Invalid Caff header: wrong magic");</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>90</pre></td>
+    <td align="right" class="lineno"><pre>83</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>        }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>91</pre></td>
+    <td align="right" class="lineno"><pre>84</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    } else {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>92</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>        delete[] content;</pre></td>
+    <td align="right" class="lineno"><pre>85</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 1 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>        delete[] content;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>93</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>        throw domain_error("Invalid Caff header: actual size is smaller than declared");</pre></td>
+    <td align="right" class="lineno"><pre>86</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>        throw domain_error("Invalid Caff header: actual size is smaller than declared");</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>94</pre></td>
+    <td align="right" class="lineno"><pre>87</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>95</pre></td>
+    <td align="right" class="lineno"><pre>88</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    return 0;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>96</pre></td>
+    <td align="right" class="lineno"><pre>89</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>}</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>97</pre></td>
+    <td align="right" class="lineno"><pre>90</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>98</pre></td>
+    <td align="right" class="lineno"><pre>91</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>/*</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>99</pre></td>
+    <td align="right" class="lineno"><pre>92</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre> * Parsing the credits and storing the fields.</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>100</pre></td>
+    <td align="right" class="lineno"><pre>93</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre> *</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>101</pre></td>
+    <td align="right" class="lineno"><pre>94</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre> * @throws domain_error Thrown if not enough bytes in the input stream</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>102</pre></td>
+    <td align="right" class="lineno"><pre>95</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre> * @throws domain_error Thrown if creator_len declared in header does not match real length of creator</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>103</pre></td>
+    <td align="right" class="lineno"><pre>96</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre> * @throws domain_error Thrown if any fields not found or incomplete</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>104</pre></td>
+    <td align="right" class="lineno"><pre>97</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre> *</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>105</pre></td>
+    <td align="right" class="lineno"><pre>98</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre> * @param in The input stream that contains the header content</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>106</pre></td>
+    <td align="right" class="lineno"><pre>99</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre> * @param remainingBytes Tells how many bytes to parse from the input stream</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>107</pre></td>
+    <td align="right" class="lineno"><pre>100</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre> * @param credits The Credits structure where the parsed fields should be stored.</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>108</pre></td>
+    <td align="right" class="lineno"><pre>101</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre> */</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>109</pre></td>
+    <td align="right" class="lineno"><pre>102</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>26</pre></td>
     <td align="left" class="src coveredLine"><pre>void Caff::parseCredits(istream&amp; in, const ull&amp; remainingBytes, Credits&amp; credits) {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>110</pre></td>
-    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 3 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="right" class="lineno"><pre>103</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2 times">&check;</span><span class="takenBranch" title="Branch 1 taken 24 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>26</pre></td>
     <td align="left" class="src coveredLine"><pre>    if (remainingBytes &lt; Caff::MIN_CREDITS_SIZE) {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>111</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>        throw domain_error("Invalid Caff credits: size should be at least 14");</pre></td>
+    <td align="right" class="lineno"><pre>104</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>        throw domain_error("Invalid Caff credits: size should be at least 14");</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>112</pre></td>
+    <td align="right" class="lineno"><pre>105</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>113</pre></td>
+    <td align="right" class="lineno"><pre>106</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>24</pre></td>
     <td align="left" class="src coveredLine"><pre>    char* content = new char[remainingBytes];</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>114</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 3 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span><span class="takenBranch" title="Branch 5 taken 3 times">&check;</span><span class="notTakenBranch" title="Branch 6 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 8 taken 3 times">&check;</span><span class="notTakenBranch" title="Branch 9 not taken">&cross;</span><span class="takenBranch" title="Branch 10 taken 3 times">&check;</span><span class="notTakenBranch" title="Branch 11 not taken">&cross;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="right" class="lineno"><pre>107</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 22 times">&check;</span><span class="takenBranch" title="Branch 3 taken 2 times">&check;</span><span class="takenBranch" title="Branch 5 taken 22 times">&check;</span><span class="notTakenBranch" title="Branch 6 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 8 taken 22 times">&check;</span><span class="notTakenBranch" title="Branch 9 not taken">&cross;</span><span class="takenBranch" title="Branch 10 taken 22 times">&check;</span><span class="takenBranch" title="Branch 11 taken 2 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>24</pre></td>
     <td align="left" class="src coveredLine"><pre>    if (in.read(content, remainingBytes) &amp;&amp; in.gcount() > 0 &amp;&amp; (ull)in.gcount() == remainingBytes) {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>115</pre></td>
+    <td align="right" class="lineno"><pre>108</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>22</pre></td>
     <td align="left" class="src coveredLine"><pre>        credits.year = Utils::intFromBytes(content, 2);</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>116</pre></td>
+    <td align="right" class="lineno"><pre>109</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>22</pre></td>
     <td align="left" class="src coveredLine"><pre>        credits.month = Utils::intFromBytes(&amp;content[2], 1);</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>117</pre></td>
+    <td align="right" class="lineno"><pre>110</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>22</pre></td>
     <td align="left" class="src coveredLine"><pre>        credits.day = Utils::intFromBytes(&amp;content[3], 1);</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>111</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>22</pre></td>
+    <td align="left" class="src coveredLine"><pre>        credits.hour = Utils::intFromBytes(&amp;content[4], 1);</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>112</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>22</pre></td>
+    <td align="left" class="src coveredLine"><pre>        credits.minute = Utils::intFromBytes(&amp;content[5], 1);</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>113</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>22</pre></td>
+    <td align="left" class="src coveredLine"><pre>        ull creatorLen = Utils::intFromBytes(&amp;content[6], 8);</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>114</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>22</pre></td>
+    <td align="left" class="src coveredLine"><pre>        ull fullLength = Caff::MIN_CREDITS_SIZE + creatorLen;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>115</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2 times">&check;</span><span class="takenBranch" title="Branch 1 taken 20 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>22</pre></td>
+    <td align="left" class="src coveredLine"><pre>        if (fullLength &lt; creatorLen) {</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>116</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 1 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>            delete[] content;</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>117</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>            throw domain_error("Invalid Caff credits: creatorLen too big");</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>118</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
-    <td align="left" class="src coveredLine"><pre>        credits.hour = Utils::intFromBytes(&amp;content[4], 1);</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>        }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>119</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
-    <td align="left" class="src coveredLine"><pre>        credits.minute = Utils::intFromBytes(&amp;content[5], 1);</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 4 times">&check;</span><span class="takenBranch" title="Branch 1 taken 16 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
+    <td align="left" class="src coveredLine"><pre>        if (fullLength != remainingBytes) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>120</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
-    <td align="left" class="src coveredLine"><pre>        ull creatorLen = Utils::intFromBytes(&amp;content[6], 8);</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 4 times">&check;</span><span class="notTakenBranch" title="Branch 1 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>            delete[] content;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>121</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
-    <td align="left" class="src coveredLine"><pre>        ull fullLength = Caff::MIN_CREDITS_SIZE + creatorLen;</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 4 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="left" class="src coveredLine"><pre>            throw domain_error("Invalid Caff credits: actual size does not match declared size");</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>122</pre></td>
-    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 3 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
-    <td align="left" class="src coveredLine"><pre>        if (fullLength &lt; creatorLen) {</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>        }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>123</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>            delete[] content;</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 16 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>16</pre></td>
+    <td align="left" class="src coveredLine"><pre>        credits.creator = string{&amp;content[14], creatorLen};</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>124</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>            throw domain_error("Invalid Caff credits: creatorLen too big");</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 16 times">&check;</span><span class="notTakenBranch" title="Branch 1 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>16</pre></td>
+    <td align="left" class="src coveredLine"><pre>        delete[] content;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>125</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>        }</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>126</pre></td>
-    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 3 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
-    <td align="left" class="src coveredLine"><pre>        if (fullLength != remainingBytes) {</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>127</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>            delete[] content;</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>128</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>            throw domain_error("Invalid Caff credits: actual size does not match declared size");</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>129</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>        }</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>130</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 3 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
-    <td align="left" class="src coveredLine"><pre>        credits.creator = string{&amp;content[14], creatorLen};</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>131</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 3 times">&check;</span><span class="notTakenBranch" title="Branch 1 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
-    <td align="left" class="src coveredLine"><pre>        delete[] content;</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>132</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    } else {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>133</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>        throw domain_error("Invalid Caff credits: actual size is smaller than declared");</pre></td>
+    <td align="right" class="lineno"><pre>126</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 1 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>        delete[] content;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>134</pre></td>
+    <td align="right" class="lineno"><pre>127</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>        throw domain_error("Invalid Caff credits: actual size is smaller than declared");</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>128</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>135</pre></td>
+    <td align="right" class="lineno"><pre>129</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>16</pre></td>
     <td align="left" class="src coveredLine"><pre>}</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>136</pre></td>
+    <td align="right" class="lineno"><pre>130</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>137</pre></td>
+    <td align="right" class="lineno"><pre>131</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>/*</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>138</pre></td>
+    <td align="right" class="lineno"><pre>132</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre> * Parsing the credits and storing the fields.</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>139</pre></td>
+    <td align="right" class="lineno"><pre>133</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre> *</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>140</pre></td>
+    <td align="right" class="lineno"><pre>134</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre> * @throws domain_error Thrown if not enough bytes in the input stream</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>141</pre></td>
+    <td align="right" class="lineno"><pre>135</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre> * @throws domain_error Thrown if any fields not found or incomplete</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>142</pre></td>
+    <td align="right" class="lineno"><pre>136</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre> *</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>143</pre></td>
+    <td align="right" class="lineno"><pre>137</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre> * @param in The input stream that contains the header content</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>144</pre></td>
+    <td align="right" class="lineno"><pre>138</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre> * @param remainingBytes Tells how many bytes to parse from the input stream</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>145</pre></td>
+    <td align="right" class="lineno"><pre>139</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre> * @param anims The vector where the parsed Animation should be stored.</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>146</pre></td>
+    <td align="right" class="lineno"><pre>140</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre> */</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>147</pre></td>
+    <td align="right" class="lineno"><pre>141</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>24</pre></td>
     <td align="left" class="src coveredLine"><pre>void Caff::parseAnimation(istream&amp; in, const ull&amp; remainingBytes, vector&lt;Animation>&amp; anims) {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>148</pre></td>
-    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 8 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
+    <td align="right" class="lineno"><pre>142</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2 times">&check;</span><span class="takenBranch" title="Branch 1 taken 22 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>24</pre></td>
     <td align="left" class="src coveredLine"><pre>    if (remainingBytes &lt; Caff::MIN_ANIMATION_SIZE) {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>149</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>        throw domain_error("Invalid Caff animation: size invalid");</pre></td>
+    <td align="right" class="lineno"><pre>143</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>        throw domain_error("Invalid Caff animation: size invalid");</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>150</pre></td>
+    <td align="right" class="lineno"><pre>144</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>151</pre></td>
+    <td align="right" class="lineno"><pre>145</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    char content[8];</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>152</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 8 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 4 taken 8 times">&check;</span><span class="notTakenBranch" title="Branch 5 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 6 taken 8 times">&check;</span><span class="notTakenBranch" title="Branch 7 not taken">&cross;</span><span class="takenBranch" title="Branch 9 taken 8 times">&check;</span><span class="notTakenBranch" title="Branch 10 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 11 taken 8 times">&check;</span><span class="notTakenBranch" title="Branch 12 not taken">&cross;</span><span class="takenBranch" title="Branch 13 taken 8 times">&check;</span><span class="notTakenBranch" title="Branch 14 not taken">&cross;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
+    <td align="right" class="lineno"><pre>146</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 22 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 4 taken 22 times">&check;</span><span class="notTakenBranch" title="Branch 5 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 6 taken 20 times">&check;</span><span class="takenBranch" title="Branch 7 taken 2 times">&check;</span><span class="takenBranch" title="Branch 9 taken 20 times">&check;</span><span class="notTakenBranch" title="Branch 10 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 11 taken 20 times">&check;</span><span class="notTakenBranch" title="Branch 12 not taken">&cross;</span><span class="takenBranch" title="Branch 13 taken 20 times">&check;</span><span class="takenBranch" title="Branch 14 taken 2 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>22</pre></td>
     <td align="left" class="src coveredLine"><pre>    if (in.read(content, 8) &amp;&amp; in.gcount() == 8) {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>153</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 8 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>16</pre></td>
+    <td align="right" class="lineno"><pre>147</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 20 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>40</pre></td>
     <td align="left" class="src coveredLine"><pre>        Animation anim{};</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>154</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 8 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
+    <td align="right" class="lineno"><pre>148</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 20 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
     <td align="left" class="src coveredLine"><pre>        anim.duration = Utils::intFromBytes(content, 8);</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>155</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 8 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
+    <td align="right" class="lineno"><pre>149</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 20 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
     <td align="left" class="src coveredLine"><pre>        anim.img = Ciff::parse(in);</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>156</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 8 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
+    <td align="right" class="lineno"><pre>150</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 20 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
     <td align="left" class="src coveredLine"><pre>        anims.push_back(anim);</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>157</pre></td>
+    <td align="right" class="lineno"><pre>151</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    } else {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>158</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>        throw domain_error("Invalid Caff animation: actual size is smaller than declared");</pre></td>
+    <td align="right" class="lineno"><pre>152</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>        throw domain_error("Invalid Caff animation: actual size is smaller than declared");</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>159</pre></td>
+    <td align="right" class="lineno"><pre>153</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
+    <td align="right" class="lineno"><pre>154</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
+    <td align="left" class="src coveredLine"><pre>}</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>155</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>156</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>56</pre></td>
+    <td align="left" class="src coveredLine"><pre>Caff Caff::parse(istream&amp; in){</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>157</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>56</pre></td>
+    <td align="left" class="src coveredLine"><pre>    ParsingStatus status{};</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>158</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>112</pre></td>
+    <td align="left" class="src coveredLine"><pre>    Credits credits{};</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>159</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>112</pre></td>
+    <td align="left" class="src coveredLine"><pre>    vector&lt;Animation> anims{};</pre></td>
+    </tr>
+
+    <tr>
     <td align="right" class="lineno"><pre>160</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>8</pre></td>
-    <td align="left" class="src coveredLine"><pre>}</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>56</pre></td>
+    <td align="left" class="src coveredLine"><pre>    ull currLength = 0;</pre></td>
     </tr>
 
     <tr>
@@ -1428,125 +1428,97 @@
 
     <tr>
     <td align="right" class="lineno"><pre>162</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
-    <td align="left" class="src coveredLine"><pre>Caff Caff::parse(istream&amp; in){</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 56 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 4 taken 2 times">&check;</span><span class="takenBranch" title="Branch 5 taken 54 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>56</pre></td>
+    <td align="left" class="src coveredLine"><pre>    if (in.peek() == ifstream::traits_type::eof()) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>163</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
-    <td align="left" class="src coveredLine"><pre>    ParsingStatus status{};</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
+    <td align="left" class="src coveredLine"><pre>        throw domain_error("Invalid Caff: empty");</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>164</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
-    <td align="left" class="src coveredLine"><pre>    Credits credits{};</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>165</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
-    <td align="left" class="src coveredLine"><pre>    vector&lt;Animation> anims{};</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>166</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
-    <td align="left" class="src coveredLine"><pre>    ull currLength = 0;</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>167</pre></td>
-    <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>168</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 17 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 4 taken 15 times">&check;</span><span class="takenBranch" title="Branch 5 taken 2 times">&check;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>17</pre></td>
+    <td align="right" class="lineno"><pre>166</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 128 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 4 taken 116 times">&check;</span><span class="takenBranch" title="Branch 5 taken 12 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>128</pre></td>
     <td align="left" class="src coveredLine"><pre>    while (in.peek() != ifstream::traits_type::eof()) {</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>169</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 14 times">&check;</span><span class="takenBranch" title="Branch 2 taken 1 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>15</pre></td>
+    <td align="right" class="lineno"><pre>167</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 74 times">&check;</span><span class="takenBranch" title="Branch 2 taken 42 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>116</pre></td>
     <td align="left" class="src coveredLine"><pre>        parseBlock(in, currLength, status, credits, anims);</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>170</pre></td>
+    <td align="right" class="lineno"><pre>168</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>171</pre></td>
+    <td align="right" class="lineno"><pre>169</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>172</pre></td>
-    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 2 times">&check;</span></td>
+    <td align="right" class="lineno"><pre>170</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2 times">&check;</span><span class="takenBranch" title="Branch 1 taken 10 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
+    <td align="left" class="src coveredLine"><pre>    if (!status.creditsDone) {</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>171</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
     <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    if (status.numAnims != status.processedAnims) {</pre></td>
+    <td align="left" class="src coveredLine"><pre>        throw domain_error("Invalid Caff: no credits block found");</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>172</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>173</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>        throw domain_error("Invalid Caff: number of anims declared in header not matching actual");</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>174</pre></td>
-    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 2 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>2</pre></td>
-    <td align="left" class="src coveredLine"><pre>    } else if (!status.creditsDone) {</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>175</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>        throw domain_error("Invalid Caff: no credits block found");</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>176</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    }</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>177</pre></td>
-    <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>178</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 4 taken 2 times">&check;</span><span class="notTakenBranch" title="Branch 5 not taken">&cross;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
+    <td align="right" class="lineno"><pre>174</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 10 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
     <td align="left" class="src coveredLine"><pre>    return Caff{credits, anims};</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>179</pre></td>
+    <td align="right" class="lineno"><pre>175</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>}</pre></td>
