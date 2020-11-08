@@ -30,18 +30,18 @@ Also there are uncovered lines in **test.cpp** but it's not in the SUT, so it do
 ## Using valgrind
 
 By default, makefile compiles the project with debug options, so **valgrind** can be used without any modifications by for example running `valgrind ./test`. Our run of **valgrind**:
-IMAGE
+![valgrind output](https://github.com/adamk90/PictoGraphy/blob/ciff_caff_parser_alapok/images/valgrind_test_result.png)
 
 ## Using cppcheck
 
 For creating the cppcheck report, run `make cppcheck`. The report will be named as **CaffParser/cppcheck_report.xml**.
 
 Our initial run of cppcheck:
-IMAGE1
+![cppcheck before](https://github.com/adamk90/PictoGraphy/blob/ciff_caff_parser_alapok/images/cppcheck_before.png)
 
 
 After we have fixed the foundings:
-IMAGE2
+![cppcheck after](https://github.com/adamk90/PictoGraphy/blob/ciff_caff_parser_alapok/images/cppcheck_after.png)
 
 Only warning is we did not use --config-check flag, but then it writes that standard includes are not necessary for correct run, so we found it a suppressable warning.
 
@@ -53,4 +53,5 @@ To run the AFL fuzzer, AFL needs to be installed and AFLCXX, AFLFUZZ env variabl
 `AFLCXX="path/to/afl/afl-g++" AFLFUZZ="path/to/afl/afl-fuzz" make afl`
 
 We have run the fuzzer for almost 6 hours, but no crashes occured. There were 20 unique timeouts, but those are not considered bad (not hangs, just didnt complete under a limit), only slow. As AFL have not created any inputs for the timeouts, we could not examine them further. The result can be seen here:
-IMAGE
+
+![afl output](https://github.com/adamk90/PictoGraphy/blob/ciff_caff_parser_alapok/images/afl_output.png)
