@@ -39,7 +39,7 @@ cppcheck:
 	cppcheck -v --enable=all --language=c++ --std=c++11 --xml *.cpp *.h 2> cppcheck_report.xml
 
 clean:
-	rm *.o *.gcda *.gcno test coverage/* test_previews/* previews/* cppcheck_report.xml
+	rm *.o *.gcda *.gcno test parser afl-test coverage/* test_previews/* previews/* cppcheck_report.xml
 
 check-afl-env:
 ifndef AFLCXX
