@@ -13,11 +13,28 @@ void injectCiffToFile(byte* ciff, ull ciffSize, ifstream& ifile) {
     ifile.open("test.ciff", ifstream::in);
 }
 
-void outputBmpToFile(shared_ptr<byte> bmp, ull bmpSize) {
+void outputBmpToFile(const string& filePath, shared_ptr<byte> bmp, ull bmpSize) {
     ofstream ofile;
-    ofile.open("test.bmp", ofstream::out | ofstream::trunc | ofstream::binary);
+    ofile.open(filePath, ofstream::out | ofstream::trunc | ofstream::binary);
     ofile.write(reinterpret_cast<const char *>(bmp.get()), bmpSize);
     ofile.close();
+}
+
+void dumpCaff(const Caff& c1, const string& previewName) {
+    cout << "Creator: " << c1.getCreator() << endl;
+    cout << "Year: " << c1.getYear();
+    cout << " Month: " << c1.getMonth();
+    cout << " Day: " << c1.getDay();
+    cout << " Hour: " << c1.getHour();
+    cout << " Minute: " << c1.getMinute();
+    vector<Animation> anims = c1.getAnimations();
+    for (ull i = 0; i < anims.size(); ++i) {
+        cout << "Animation " << i + 1 << " duration: " << anims[i].duration << endl;
+        ull bmpSize = 0;
+        auto bmpBytes = anims[i].img.getBMP(bmpSize);
+        string name = "test_previews/" + previewName + "_" + to_string(i) + ".bmp";
+        outputBmpToFile(name, bmpBytes, bmpSize);
+    }
 }
 
 bool testCiffWithBadMagic() {
@@ -416,6 +433,45 @@ bool testCiffHalfContentSize() {
     return result;
 }
 
+bool testCiffNoWidth() {
+    byte testCiff[] = {'C', 'I', 'F', 'F', //magic
+                       0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00,  //headerSize=4294967295
+                       0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00,  //contentSize=4294967295
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCiff, 20, ifile);
+    bool result = false;
+    try {
+        Ciff c = Ciff::parse(ifile, 4, false);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid CIFF format: short width") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCiffNoHeight() {
+    byte testCiff[] = {'C', 'I', 'F', 'F', //magic
+                       0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00,  //headerSize=4294967295
+                       0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00,  //contentSize=4294967295
+                       0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,  //width=unsigned long long max
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCiff, 28, ifile);
+    bool result = false;
+    try {
+        Ciff c = Ciff::parse(ifile, 5, false);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid CIFF format: short height") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
 bool testCiffGoodWidthWithoutLimit() {
     byte testCiff[] = {'C', 'I', 'F', 'F', //magic
                        0xff, 0xff, 0xff, 0xff, 0x00, 0x00, 0x00, 0x00,  //headerSize=4294967295
@@ -473,6 +529,28 @@ bool testGoodWidthHeightWithMaxCiffSize() {
             result = true;
         }
     } catch (domain_error& e) {
+    }
+    ifile.close();
+    return result;
+}
+
+bool testInvalidHeaderContentSize() {
+    byte testCiff[] = {'C', 'I', 'F', 'F', //magic
+                       0x27, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //headerSize=39
+                       0xd8, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,  //contentSize=max - 39
+                       0x48, 0x55, 0x55, 0x55, 0x55, 0x55, 0x55, 0x55,  //width=(max - 39) / 3
+                       0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //height=1
+                       0x00
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCiff, 37, ifile);
+    bool result = false;
+    try {
+        Ciff c = Ciff::parse(ifile, 6, false);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid CIFF format: invalid headerSize") == 0) {
+            result = true;
+        }
     }
     ifile.close();
     return result;
@@ -755,6 +833,726 @@ bool testCiffPixels() {
     return result;
 }
 
+bool testCiffGettingWrongPixel() {
+    byte testCiff[] = {'C', 'I', 'F', 'F', //magic
+                       0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //headerSize=63
+                       0x09, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //contentSize=9
+                       0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //width=3
+                       0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //height=1
+                       'v', 'a', 'l', 'a', 'm', 'i', '\n', //caption
+                       't', 'a', 'g', '1', '\0',
+                       't', 'a', 'g', '2', '\0',
+                       't', 'a', 'g', '3', '\0',
+                       't', 'a', 'g', '4', '\0',
+                       0x01, 0x02, 0x03,
+                       0xff, 0xff, 0xff,
+                       0x09, 0x0a, 0x0b,
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCiff, 72, ifile);
+    bool result = false;
+    try {
+        Ciff c = Ciff::parse(ifile, 8, true);
+        c.getPixel(9);
+    } catch (domain_error& e) {
+    } catch (out_of_range& e) {
+        if (string{e.what()}.compare("Index is out of bound") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCaffShortLength() {
+    byte testCaff[] = {0x01, // CAFF block id
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //short
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 8, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid Caff block: short length") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCaffEmptyCaff() {
+    byte testCaff[] = {};
+    ifstream ifile;
+    injectCiffToFile(testCaff, 0, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid Caff: empty") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCaffShortHeaderSize() {
+    byte testCaff[] = {0x01, // CAFF block id
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length = 20
+                       'C', 'A', 'F', 'f', //wrong magic
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 13, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid Caff header: actual size is smaller than declared") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCaffBadMagic() {
+    byte testCaff[] = {0x01, // CAFF block id
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length = 20
+                       'C', 'A', 'F', 'f', //wrong magic
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF header size = 20
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF animation num = 0
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 29, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid Caff header: wrong magic") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCaffInvalidHeaderSize1() {
+    byte testCaff[] = {0x01, // CAFF block id
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length = 20
+                       'C', 'A', 'F', 'F', //good magic
+                       0x13, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF header size = 19
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF animation num = 0
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 29, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid Caff header: size should be 20") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCaffInvalidHeaderSize2() {
+    byte testCaff[] = {0x01, // CAFF block id
+                       0x13, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length = 19
+                       'C', 'A', 'F', 'F', //good magic
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 13, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid Caff header: size should be 20") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCaffHeaderShouldBeFirst1() {
+    byte testCaff[] = {0x02, // CAFF block id
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 1, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid Caff: the first block must be the header") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCaffHeaderShouldBeFirst2() {
+    byte testCaff[] = {0x03, // CAFF block id
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 1, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid Caff: the first block must be the header") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCaffNoSuchBlockID() {
+    byte testCaff[] = {0x01, // CAFF HEADER
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length = 20
+                       'C', 'A', 'F', 'F', //good magic
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF header size = 20
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF animation num = 0
+                       0x00, // CAFF block id -> no such block id
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length = 20
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 38, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid Caff block: no such ID: 0") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCaffMultipleHeaders() {
+    byte testCaff[] = {0x01, // CAFF HEADER
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length = 20
+                       'C', 'A', 'F', 'F', //good magic
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF header size = 20
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF animation num = 0
+                       0x01, // CAFF HEADER
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length = 20
+                       'C', 'A', 'F', 'F', //good magic
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF header size = 20
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF animation num = 0
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 58, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid Caff: multiple headers found") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCaffShortAnimationSize() {
+    byte testCaff[] = {0x01, // CAFF HEADER
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length = 20
+                       'C', 'A', 'F', 'F', //good magic
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF header size = 20
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF animation num = 0
+                       0x03, // CAFF block id -> animation
+                       0x2e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length 46
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 38, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid Caff animation: actual size is smaller than declared") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCaffInvalidAnimationSize() {
+    byte testCaff[] = {0x01, // CAFF HEADER
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length = 20
+                       'C', 'A', 'F', 'F', //good magic
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF header size = 20
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF animation num = 0
+                       0x03, // CAFF block id -> animation
+                       0x2d, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //fewer bytes than 8 + 38 (min ciff header)
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 38, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid Caff animation: size invalid") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCaffTooBigFile1() {
+    byte testCaff[] = {0x01, // CAFF HEADER
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length = 20
+                       'C', 'A', 'F', 'F', //good magic
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF header size = 20
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF animation num = 0
+                       0x03, // CAFF block id -> animation
+                       0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, //length too big
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 38, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+    } catch (overflow_error& e) {
+        if (string{e.what()}.compare("Invalid Caff: length overflow") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCaffTooBigFile2() {
+    byte testCaff[] = {0x01, // CAFF HEADER
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length = 20
+                       'C', 'A', 'F', 'F', //good magic
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF header size = 20
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF animation num = 0
+                       0x03, // CAFF block id -> animation
+                       0x00, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, //length too big
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 38, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid Caff: can't be more than 200 MB") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCaffNoCreditsBlock() {
+    byte testCaff[] = {0x01, // CAFF HEADER
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length = 20
+                       'C', 'A', 'F', 'F', //good magic
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF header size = 20
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF animation num = 0
+                       //MISSING ID
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 29, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid Caff: no credits block found") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCaffInvalidCredits() {
+    byte testCaff[] = {0x01, // CAFF HEADER
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length = 20
+                       'C', 'A', 'F', 'F', //good magic
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF header size = 20
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF animation num = 0
+                       0x02, // CREDITS
+                       0x0d, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //smaller than min credits length
+                       0xd7, 0x07, //2007
+                       0x07, //july
+                       0x14, //20
+                       0x0c, //12
+                       0x00, //0 ->> 2000.07.20 12:00
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 44, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid Caff credits: size should be at least 14") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCaffShortCredits() {
+    byte testCaff[] = {0x01, // CAFF HEADER
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length = 20
+                       'C', 'A', 'F', 'F', //good magic
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF header size = 20
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF animation num = 0
+                       0x02, // CREDITS
+                       0x0e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //min credits length
+                       0xd7, 0x07, //2007
+                       0x07, //july
+                       0x14, //20
+                       0x0c, //12
+                       0x00, //0 ->> 2000.07.20 12:00
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 44, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid Caff credits: actual size is smaller than declared") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCaffGoodCredits() {
+    byte testCaff[] = {0x01, // CAFF HEADER
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length = 20
+                       'C', 'A', 'F', 'F', //good magic
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF header size = 20
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF animation num = 0
+                       0x02, // CREDITS
+                       0x0e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //min credits length
+                       0xd7, 0x07, //2007
+                       0x07, //july
+                       0x14, //20
+                       0x0c, //12
+                       0x00, //0 ->> 2000.07.20 12:00
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 52, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+        if (c.getYear() == 2007 && c.getMonth() == 7 && c.getDay() == 20 && c.getHour() == 12 && c.getMinute() == 0 && c.getCreator().compare(string{""}) == 0) {
+            result = true;
+        }
+    } catch (domain_error& e) {
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCaffMultipleCredits() {
+    byte testCaff[] = {0x01, // CAFF HEADER
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length = 20
+                       'C', 'A', 'F', 'F', //good magic
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF header size = 20
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF animation num = 0
+                       0x02, // CREDITS
+                       0x0e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //min credits length
+                       0xd7, 0x07, //2007
+                       0x07, //july
+                       0x14, //20
+                       0x0c, //12
+                       0x00, //0 ->> 2000.07.20 12:00
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                       0x02, // CREDITS
+                       0x0e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //min credits length
+                       0xd7, 0x07, //2007
+                       0x07, //july
+                       0x14, //20
+                       0x0c, //12
+                       0x00, //0 ->> 2000.07.20 12:00
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 75, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid Caff: multiple credits found") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCaffInvalidCreatorLength1() {
+    byte testCaff[] = {0x01, // CAFF HEADER
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length = 20
+                       'C', 'A', 'F', 'F', //good magic
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF header size = 20
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF animation num = 0
+                       0x02, // CREDITS
+                       0x0e, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //min credits length
+                       0xd7, 0x07, //2007
+                       0x07, //july
+                       0x14, //20
+                       0x0c, //12
+                       0x00, //0 ->> 2000.07.20 12:00
+                       0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 //creator length = 1
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 52, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid Caff credits: actual size does not match declared size") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCaffInvalidCreatorLength2() {
+    byte testCaff[] = {0x01, // CAFF HEADER
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length = 20
+                       'C', 'A', 'F', 'F', //good magic
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF header size = 20
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF animation num = 0
+                       0x02, // CREDITS
+                       0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //min credits length + 3
+                       0xd7, 0x07, //2007
+                       0x07, //july
+                       0x14, //20
+                       0x0c, //12
+                       0x00, //0 ->> 2000.07.20 12:00
+                       0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //creator length = 1
+                       0x00, 0x00,
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 54, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid Caff credits: actual size does not match declared size") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCaffCreatorLengthTooBig() {
+    byte testCaff[] = {0x01, // CAFF HEADER
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length = 20
+                       'C', 'A', 'F', 'F', //good magic
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF header size = 20
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF animation num = 0
+                       0x02, // CREDITS
+                       0x10, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //min credits length + 3
+                       0xd7, 0x07, //2007
+                       0x07, //july
+                       0x14, //20
+                       0x0c, //12
+                       0x00, //0 ->> 2000.07.20 12:00
+                       0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, //creator length too big
+                       0x00, 0x00,
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 54, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid Caff credits: creatorLen too big") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testCaffGoodCreator() {
+    byte testCaff[] = {0x01, // CAFF HEADER
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length = 20
+                       'C', 'A', 'F', 'F', //good magic
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF header size = 20
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF animation num = 0
+                       0x02, // CREDITS
+                       0x11, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //min credits length + 3
+                       0xd7, 0x07, //2007
+                       0x07, //july
+                       0x14, //20
+                       0x0c, //12
+                       0x00, //0 ->> 2000.07.20 12:00
+                       0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //creator length = 3
+                       'I', 'D', 'A',
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 55, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+        if (c.getCreator().compare(string{"IDA"}) == 0) {
+            result = true;
+        }
+    } catch (domain_error& e) {
+    }
+    ifile.close();
+    return result;
+}
+
+bool testGoodAnimation() {
+    byte testCaff[] = {0x01, // CAFF HEADER
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length = 20
+                       'C', 'A', 'F', 'F', //good magic
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF header size = 20
+                       0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF animation num = 1
+                       0x02, // CREDITS
+                       0x11, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //min credits length + 3
+                       0xd7, 0x07, //2007
+                       0x07, //july
+                       0x14, //20
+                       0x0c, //12
+                       0x00, //0 ->> 2000.07.20 12:00
+                       0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //creator length = 3
+                       'I', 'D', 'A',
+                       0x03, //ANIMATION
+                       0x50, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //block size = 80
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //anim duration
+                       'C', 'I', 'F', 'F', //magic
+                       0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //headerSize=63
+                       0x09, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //contentSize=9
+                       0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //width=3
+                       0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //height=1
+                       'v', 'a', 'l', 'a', 'm', 'i', '\n', //caption
+                       't', 'a', 'g', '1', '\0',
+                       't', 'a', 'g', '2', '\0',
+                       't', 'a', 'g', '3', '\0',
+                       't', 'a', 'g', '4', '\0',
+                       0x01, 0x02, 0x03,
+                       0xff, 0xff, 0xff,
+                       0x09, 0x0a, 0x0b,
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 144, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+        vector<Animation> anims = c.getAnimations();
+        if (c.getCreator().compare(string{"IDA"}) == 0 && anims.size() == 1) {
+            result = true;
+        }
+    } catch (domain_error& e) {
+    }
+    ifile.close();
+    return result;
+}
+
+bool testProcessedMoreAnimations() {
+    byte testCaff[] = {0x01, // CAFF HEADER
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //CAFF block length = 20
+                       'C', 'A', 'F', 'F', //good magic
+                       0x14, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF header size = 20
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //CAFF animation num = 0 !!!
+                       0x02, // CREDITS
+                       0x11, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //min credits length + 3
+                       0xd7, 0x07, //2007
+                       0x07, //july
+                       0x14, //20
+                       0x0c, //12
+                       0x00, //0 ->> 2000.07.20 12:00
+                       0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //creator length = 3
+                       'I', 'D', 'A',
+                       0x03, //ANIMATION
+                       0x50, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //block size = 80
+                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //anim duration
+                       'C', 'I', 'F', 'F', //magic
+                       0x3f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, //headerSize=63
+                       0x09, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //contentSize=9
+                       0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //width=3
+                       0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,  //height=1
+                       'v', 'a', 'l', 'a', 'm', 'i', '\n', //caption
+                       't', 'a', 'g', '1', '\0',
+                       't', 'a', 'g', '2', '\0',
+                       't', 'a', 'g', '3', '\0',
+                       't', 'a', 'g', '4', '\0',
+                       0x01, 0x02, 0x03,
+                       0xff, 0xff, 0xff,
+                       0x09, 0x0a, 0x0b,
+                      };
+    ifstream ifile;
+    injectCiffToFile(testCaff, 144, ifile);
+    bool result = false;
+    try {
+        Caff c = Caff::parse(ifile);
+    } catch (domain_error& e) {
+        if (string{e.what()}.compare("Invalid Caff: more animations present than provided in header") == 0) {
+            result = true;
+        }
+    }
+    ifile.close();
+    return result;
+}
+
+bool testFullCaff1() {
+    bool result = true;
+    ifstream in;
+    in.open("testfiles/1.caff", ifstream::in);
+    try {
+        cout << "Testing 1.caff - should be valid!" << endl;
+        Caff c1 = Caff::parse(in);
+        dumpCaff(c1, "preview1");
+    } catch (exception& e) {
+        result = false;
+    }
+    in.close();
+    return result;
+}
+
+bool testFullCaff2() {
+    bool result = true;
+    ifstream in;
+    in.open("testfiles/2.caff", ifstream::in);
+    try {
+        cout << "Testing 2.caff - should be valid!" << endl;
+        Caff c1 = Caff::parse(in);
+        dumpCaff(c1, "preview2");
+    } catch (exception& e) {
+        result = false;
+    }
+    in.close();
+    return result;
+}
+
+bool testFullCaff3() {
+    bool result = false;
+    ifstream in;
+    in.open("testfiles/3.caff", ifstream::in);
+    try {
+        cout << "Testing 3.caff - should be invalid!" << endl;
+        Caff c1 = Caff::parse(in);
+    } catch (exception& e) {
+        result = true;
+    }
+    in.close();
+    return result;
+}
+
 int main()
 {
     vector<pair<function<bool()>, string>> tests{
@@ -780,6 +1578,8 @@ int main()
         {&testCiffBadContentSizeWithLimit1, "testCiffBadContentSizeWithLimit1"},
         {&testCiffBadContentSizeWithLimit2, "testCiffBadContentSizeWithLimit2"},
         {&testCiffNoContentSize, "testCiffNoContentSize"},
+        {&testCiffNoWidth, "testCiffNoWidth"},
+        {&testCiffNoHeight, "testCiffNoHeight"},
         {&testCiffHalfContentSize, "testCiffHalfContentSize"},
         {&testCiffGoodWidthWithoutLimit, "testCiffGoodWidthWithoutLimit"},
         {&testCiffGoodHeightCorrectContent, "testCiffGoodHeightCorrectContent"},
@@ -794,8 +1594,39 @@ int main()
         {&testCiffMultilineTag, "testCiffMultilineTag"},
         {&testCiffGoodTags, "testCiffGoodTags"},
         {&testCiffWrongPixelNumber, "testCiffWrongPixelNumber"},
+        {&testInvalidHeaderContentSize, "testInvalidHeaderContentSize"},
+        {&testCiffGettingWrongPixel, "testCiffGettingWrongPixel"},
         {&testCiffPixels, "testCiffPixels"},
-        //TODO: write tests to test CAFF!
+        //CAFF tests
+        {&testCaffShortLength, "testCaffShortLength"},
+        {&testCaffShortHeaderSize, "testCaffShortHeaderSize"},
+        {&testCaffEmptyCaff, "testCaffEmptyCaff"},
+        {&testCaffBadMagic, "testCaffBadMagic"},
+        {&testCaffInvalidHeaderSize1, "testCaffInvalidHeaderSize1"},
+        {&testCaffInvalidHeaderSize2, "testCaffInvalidHeaderSize2"},
+        {&testCaffHeaderShouldBeFirst1, "testCaffHeaderShouldBeFirst1"},
+        {&testCaffHeaderShouldBeFirst2, "testCaffHeaderShouldBeFirst2"},
+        {&testCaffNoSuchBlockID, "testCaffNoSuchBlockID"},
+        {&testCaffInvalidAnimationSize, "testCaffInvalidAnimationSize"},
+        {&testCaffShortAnimationSize, "testCaffShortAnimationSize"}, 
+        {&testCaffTooBigFile1, "testCaffTooBigFile1"},
+        {&testCaffTooBigFile2, "testCaffTooBigFile2"},
+        {&testCaffNoCreditsBlock, "testCaffNoCreditsBlock"},
+        {&testCaffInvalidCredits, "testCaffInvalidCredits"},
+        {&testCaffShortCredits, "testCaffShortCredits"},
+        {&testCaffGoodCredits, "testCaffGoodCredits"},
+        {&testCaffMultipleCredits, "testCaffMultipleCredits"},
+        {&testCaffMultipleHeaders, "testCaffMultipleHeaders"},
+        {&testCaffInvalidCreatorLength1, "testCaffInvalidCreatorLength1"},
+        {&testCaffInvalidCreatorLength2, "testCaffInvalidCreatorLength2"},
+        {&testCaffCreatorLengthTooBig, "testCaffCreatorLengthTooBig"},
+        {&testCaffGoodCreator, "testCaffGoodCreator"},
+        {&testGoodAnimation, "testGoodAnimation"},
+        {&testProcessedMoreAnimations, "testProcessedMoreAnimations"},
+        //Full CAFFs
+        {&testFullCaff1, "testFullCaff1"},
+        {&testFullCaff2, "testFullCaff2"},
+        {&testFullCaff3, "testFullCaff3"},
     };
 
     int successes = 0;
@@ -808,33 +1639,4 @@ int main()
         }
     }
     cout << "SUCCEEDED TESTS: " << successes << " FAILED TESTS: " << tests.size() - successes << endl;
-
-    ifstream in;
-    in.open("testfiles/1.caff", ifstream::in);
-    try {
-        Caff c1 = Caff::parse(in);
-        cout << c1.getCreator() << endl;
-    } catch (domain_error& e) {
-        cout << e.what() << endl;
-    }
-    in.close();
-    in.open("testfiles/2.caff", ifstream::in);
-    try {
-        Caff c2 = Caff::parse(in);
-        cout << c2.getCreator() << endl;
-        Ciff cc2 = c2.getCiff(0);
-        ull bmpSize;
-        auto bmp = cc2.getBMP(bmpSize);
-        outputBmpToFile(bmp, bmpSize);
-    } catch (exception& e) {
-        cout << e.what() << endl;
-    }
-    in.close();
-    in.open("testfiles/3.caff", ifstream::in);
-    try {
-        Caff c3 = Caff::parse(in);
-    } catch (exception& e) {
-        cout << e.what() << endl;
-    }
-    in.close();
 }

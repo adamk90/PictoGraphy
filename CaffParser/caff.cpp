@@ -1,13 +1,5 @@
 #include "caff.h"
 
-const Ciff& Caff::getCiff(ull i) const {
-    if (i >= anims.size()) {
-        throw out_of_range("Index is out of bound");
-    }
-    return anims[i].img;
-}
-
-
 void Caff::parseBlock(istream& in, ull& currLength, ParsingStatus& status, Credits& credits, vector<Animation>& anims) {
     int id;
     ull length;
@@ -28,11 +20,14 @@ void Caff::parseBlock(istream& in, ull& currLength, ParsingStatus& status, Credi
             currLength += length;
             if (currLength < length) {
                 throw overflow_error("Invalid Caff: length overflow");
+            } else if (currLength >= Caff::MAX_CAFF_SIZE) {
+                throw domain_error("Invalid Caff: can't be more than 200 MB");
             }
             switch (id) {
                 case 1:
                     status.numAnims = parseHeader(in, length);
                     if (status.numAnims < status.processedAnims) {
+                        //unreachable code, header should be first, so numAnims cant be more than 0! only here for extra safety
                         throw domain_error("Invalid Caff: more animations present than provided in header");
                     }
                     status.headerDone = true;
@@ -49,12 +44,13 @@ void Caff::parseBlock(istream& in, ull& currLength, ParsingStatus& status, Credi
                     }
                     break;
                 default:
-                    throw domain_error("Invalid Caff block: no such ID: " + id);
+                    throw domain_error("Invalid Caff block: no such ID: " + to_string(id));
             }
         } else {
             throw domain_error("Invalid Caff block: short length");
         }
     } else {
+        //unreachable code, in parse it is checking for NOT eof, so 1 byte should be present! only here for extra safety
         throw domain_error("Invalid Caff block: missing ID");
     } 
 }
@@ -130,6 +126,7 @@ void Caff::parseCredits(istream& in, const ull& remainingBytes, Credits& credits
         credits.creator = string{&content[14], creatorLen};
         delete[] content;
     } else {
+        delete[] content;
         throw domain_error("Invalid Caff credits: actual size is smaller than declared");
     }
 }
@@ -165,13 +162,15 @@ Caff Caff::parse(istream& in){
     vector<Animation> anims{};
     ull currLength = 0;
 
+    if (in.peek() == ifstream::traits_type::eof()) {
+        throw domain_error("Invalid Caff: empty");
+    }
+
     while (in.peek() != ifstream::traits_type::eof()) {
         parseBlock(in, currLength, status, credits, anims);
     }
 
-    if (status.numAnims != status.processedAnims) {
-        throw domain_error("Invalid Caff: number of anims declared in header not matching actual");
-    } else if (!status.creditsDone) {
+    if (!status.creditsDone) {
         throw domain_error("Invalid Caff: no credits block found");
     }
 

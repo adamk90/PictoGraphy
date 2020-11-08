@@ -269,18 +269,18 @@
             <td class="headerValue">ciff.cpp</td>
             <td></td>
             <td class="headerName">Lines:</td>
-            <td class="headerTableEntry">116</td>
+            <td class="headerTableEntry">120</td>
             <td class="headerTableEntry">122</td>
-            <td class="headerTableEntry" style="background-color:LightGreen">95.1 %</td>
+            <td class="headerTableEntry" style="background-color:LightGreen">98.4 %</td>
           </tr>
           <tr>
             <td class="headerName">Date:</td>
-            <td class="headerValue">2020-11-05 13:12:41</td>
+            <td class="headerValue">2020-11-08 03:40:30</td>
             <td></td>
             <td class="headerName">Branches:</td>
-            <td class="headerTableEntry">148</td>
+            <td class="headerTableEntry">159</td>
             <td class="headerTableEntry">224</td>
-            <td class="headerTableEntry" style="background-color:LightPink">66.1 %</td>
+            <td class="headerTableEntry" style="background-color:LightPink">71.0 %</td>
           </tr>
         </table>
       </td>
@@ -323,22 +323,22 @@
     <tr>
     <td align="right" class="lineno"><pre>4</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
     <td align="left" class="src coveredLine"><pre>Pixel Ciff::getPixel(ull i) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>5</pre></td>
-    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 1 not taken">&cross;</span><span class="takenBranch" title="Branch 2 taken 3 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>3</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 1 times">&check;</span><span class="takenBranch" title="Branch 2 taken 3 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>4</pre></td>
     <td align="left" class="src coveredLine"><pre>    if (i >= pixels.size()) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>6</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>        throw out_of_range("Index is out of bound");</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 1 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
+    <td align="left" class="src coveredLine"><pre>        throw out_of_range("Index is out of bound");</pre></td>
     </tr>
 
     <tr>
@@ -372,7 +372,7 @@
     <tr>
     <td align="right" class="lineno"><pre>11</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>44</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>50</pre></td>
     <td align="left" class="src coveredLine"><pre>Ciff Ciff::parse(istream&amp; in, int stage, bool checkSoftLimits) {</pre></td>
     </tr>
 
@@ -407,21 +407,21 @@
     <tr>
     <td align="right" class="lineno"><pre>16</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>88</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>100</pre></td>
     <td align="left" class="src coveredLine"><pre>    string caption;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>17</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>88</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>100</pre></td>
     <td align="left" class="src coveredLine"><pre>    vector&lt;string> tags;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>18</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>88</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>100</pre></td>
     <td align="left" class="src coveredLine"><pre>    vector&lt;Pixel> pixels;</pre></td>
     </tr>
 
@@ -441,8 +441,8 @@
 
     <tr>
     <td align="right" class="lineno"><pre>21</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 44 times">&check;</span><span class="notTakenBranch" title="Branch 1 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>44</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 50 times">&check;</span><span class="notTakenBranch" title="Branch 1 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>50</pre></td>
     <td align="left" class="src coveredLine"><pre>    if (stage >= 1) {</pre></td>
     </tr>
 
@@ -455,15 +455,15 @@
 
     <tr>
     <td align="right" class="lineno"><pre>23</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 44 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 4 taken 44 times">&check;</span><span class="notTakenBranch" title="Branch 5 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 6 taken 43 times">&check;</span><span class="takenBranch" title="Branch 7 taken 1 times">&check;</span><span class="takenBranch" title="Branch 9 taken 43 times">&check;</span><span class="notTakenBranch" title="Branch 10 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 11 taken 42 times">&check;</span><span class="takenBranch" title="Branch 12 taken 1 times">&check;</span><span class="takenBranch" title="Branch 13 taken 42 times">&check;</span><span class="takenBranch" title="Branch 14 taken 2 times">&check;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>44</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 50 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 4 taken 50 times">&check;</span><span class="notTakenBranch" title="Branch 5 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 6 taken 49 times">&check;</span><span class="takenBranch" title="Branch 7 taken 1 times">&check;</span><span class="takenBranch" title="Branch 9 taken 49 times">&check;</span><span class="notTakenBranch" title="Branch 10 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 11 taken 48 times">&check;</span><span class="takenBranch" title="Branch 12 taken 1 times">&check;</span><span class="takenBranch" title="Branch 13 taken 48 times">&check;</span><span class="takenBranch" title="Branch 14 taken 2 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>50</pre></td>
     <td align="left" class="src coveredLine"><pre>        if (in.get(magic, 5) &amp;&amp; in.gcount() == 4) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>24</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 42 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span><span class="takenBranch" title="Branch 6 taken 42 times">&check;</span><span class="notTakenBranch" title="Branch 7 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 13 taken 1 times">&check;</span><span class="takenBranch" title="Branch 14 taken 41 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>42</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 48 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span><span class="takenBranch" title="Branch 6 taken 48 times">&check;</span><span class="notTakenBranch" title="Branch 7 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 13 taken 1 times">&check;</span><span class="takenBranch" title="Branch 14 taken 47 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>48</pre></td>
     <td align="left" class="src coveredLine"><pre>            if (string{magic} != string("CIFF")) {</pre></td>
     </tr>
 
@@ -525,8 +525,8 @@
 
     <tr>
     <td align="right" class="lineno"><pre>33</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 40 times">&check;</span><span class="takenBranch" title="Branch 1 taken 1 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>41</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 46 times">&check;</span><span class="takenBranch" title="Branch 1 taken 1 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>47</pre></td>
     <td align="left" class="src coveredLine"><pre>    if (stage >= 2) {</pre></td>
     </tr>
 
@@ -539,22 +539,22 @@
 
     <tr>
     <td align="right" class="lineno"><pre>35</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 40 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 4 taken 40 times">&check;</span><span class="notTakenBranch" title="Branch 5 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 6 taken 39 times">&check;</span><span class="takenBranch" title="Branch 7 taken 1 times">&check;</span><span class="takenBranch" title="Branch 9 taken 39 times">&check;</span><span class="notTakenBranch" title="Branch 10 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 11 taken 38 times">&check;</span><span class="takenBranch" title="Branch 12 taken 1 times">&check;</span><span class="takenBranch" title="Branch 13 taken 38 times">&check;</span><span class="takenBranch" title="Branch 14 taken 2 times">&check;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>40</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 46 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 4 taken 46 times">&check;</span><span class="notTakenBranch" title="Branch 5 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 6 taken 45 times">&check;</span><span class="takenBranch" title="Branch 7 taken 1 times">&check;</span><span class="takenBranch" title="Branch 9 taken 45 times">&check;</span><span class="notTakenBranch" title="Branch 10 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 11 taken 44 times">&check;</span><span class="takenBranch" title="Branch 12 taken 1 times">&check;</span><span class="takenBranch" title="Branch 13 taken 44 times">&check;</span><span class="takenBranch" title="Branch 14 taken 2 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>46</pre></td>
     <td align="left" class="src coveredLine"><pre>        if (in.get(headerS, 9) &amp;&amp; in.gcount() == 8) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>36</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 38 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>38</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 44 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>44</pre></td>
     <td align="left" class="src coveredLine"><pre>            headerSize = Utils::intFromBytes(headerS, 8);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>37</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 1 times">&check;</span><span class="takenBranch" title="Branch 1 taken 37 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>38</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 1 times">&check;</span><span class="takenBranch" title="Branch 1 taken 43 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>44</pre></td>
     <td align="left" class="src coveredLine"><pre>            if (headerSize &lt; Ciff::MIN_HEADER_SIZE) {</pre></td>
     </tr>
 
@@ -595,8 +595,8 @@
 
     <tr>
     <td align="right" class="lineno"><pre>43</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 27 times">&check;</span><span class="takenBranch" title="Branch 1 taken 10 times">&check;</span><span class="takenBranch" title="Branch 2 taken 2 times">&check;</span><span class="takenBranch" title="Branch 3 taken 25 times">&check;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>37</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 30 times">&check;</span><span class="takenBranch" title="Branch 1 taken 13 times">&check;</span><span class="takenBranch" title="Branch 2 taken 2 times">&check;</span><span class="takenBranch" title="Branch 3 taken 28 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>43</pre></td>
     <td align="left" class="src coveredLine"><pre>        if (checkSoftLimits &amp;&amp; headerSize > Ciff::MAX_CIFF_SIZE) {</pre></td>
     </tr>
 
@@ -637,8 +637,8 @@
 
     <tr>
     <td align="right" class="lineno"><pre>49</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 32 times">&check;</span><span class="takenBranch" title="Branch 1 taken 4 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>36</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 38 times">&check;</span><span class="takenBranch" title="Branch 1 taken 4 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>42</pre></td>
     <td align="left" class="src coveredLine"><pre>    if (stage >= 3) {</pre></td>
     </tr>
 
@@ -651,15 +651,15 @@
 
     <tr>
     <td align="right" class="lineno"><pre>51</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 32 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 4 taken 32 times">&check;</span><span class="notTakenBranch" title="Branch 5 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 6 taken 31 times">&check;</span><span class="takenBranch" title="Branch 7 taken 1 times">&check;</span><span class="takenBranch" title="Branch 9 taken 31 times">&check;</span><span class="notTakenBranch" title="Branch 10 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 11 taken 30 times">&check;</span><span class="takenBranch" title="Branch 12 taken 1 times">&check;</span><span class="takenBranch" title="Branch 13 taken 30 times">&check;</span><span class="takenBranch" title="Branch 14 taken 2 times">&check;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>32</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 38 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 4 taken 38 times">&check;</span><span class="notTakenBranch" title="Branch 5 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 6 taken 37 times">&check;</span><span class="takenBranch" title="Branch 7 taken 1 times">&check;</span><span class="takenBranch" title="Branch 9 taken 37 times">&check;</span><span class="notTakenBranch" title="Branch 10 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 11 taken 36 times">&check;</span><span class="takenBranch" title="Branch 12 taken 1 times">&check;</span><span class="takenBranch" title="Branch 13 taken 36 times">&check;</span><span class="takenBranch" title="Branch 14 taken 2 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>38</pre></td>
     <td align="left" class="src coveredLine"><pre>        if (in.get(contentS, 9) &amp;&amp; in.gcount() == 8) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>52</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 30 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>30</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 36 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>36</pre></td>
     <td align="left" class="src coveredLine"><pre>            contentSize = Utils::intFromBytes(contentS, 8);</pre></td>
     </tr>
 
@@ -694,14 +694,14 @@
     <tr>
     <td align="right" class="lineno"><pre>57</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>30</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>36</pre></td>
     <td align="left" class="src coveredLine"><pre>        ull ciffSize = contentSize + headerSize;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>58</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2 times">&check;</span><span class="takenBranch" title="Branch 1 taken 28 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>30</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 2 times">&check;</span><span class="takenBranch" title="Branch 1 taken 34 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>36</pre></td>
     <td align="left" class="src coveredLine"><pre>        if (ciffSize &lt; contentSize) {</pre></td>
     </tr>
 
@@ -721,8 +721,8 @@
 
     <tr>
     <td align="right" class="lineno"><pre>61</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 20 times">&check;</span><span class="takenBranch" title="Branch 1 taken 8 times">&check;</span><span class="takenBranch" title="Branch 2 taken 2 times">&check;</span><span class="takenBranch" title="Branch 3 taken 18 times">&check;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>28</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 23 times">&check;</span><span class="takenBranch" title="Branch 1 taken 11 times">&check;</span><span class="takenBranch" title="Branch 2 taken 2 times">&check;</span><span class="takenBranch" title="Branch 3 taken 21 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>34</pre></td>
     <td align="left" class="src coveredLine"><pre>        if (checkSoftLimits &amp;&amp; ciffSize > Ciff::MAX_CIFF_SIZE) {</pre></td>
     </tr>
 
@@ -763,8 +763,8 @@
 
     <tr>
     <td align="right" class="lineno"><pre>67</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 22 times">&check;</span><span class="takenBranch" title="Branch 1 taken 8 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>30</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 28 times">&check;</span><span class="takenBranch" title="Branch 1 taken 8 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>36</pre></td>
     <td align="left" class="src coveredLine"><pre>    if (stage >= 4) {</pre></td>
     </tr>
 
@@ -777,15 +777,15 @@
 
     <tr>
     <td align="right" class="lineno"><pre>69</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 22 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 4 taken 22 times">&check;</span><span class="notTakenBranch" title="Branch 5 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 6 taken 22 times">&check;</span><span class="notTakenBranch" title="Branch 7 not taken">&cross;</span><span class="takenBranch" title="Branch 9 taken 22 times">&check;</span><span class="notTakenBranch" title="Branch 10 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 11 taken 22 times">&check;</span><span class="notTakenBranch" title="Branch 12 not taken">&cross;</span><span class="takenBranch" title="Branch 13 taken 22 times">&check;</span><span class="notTakenBranch" title="Branch 14 not taken">&cross;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>22</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 28 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 4 taken 28 times">&check;</span><span class="notTakenBranch" title="Branch 5 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 6 taken 27 times">&check;</span><span class="takenBranch" title="Branch 7 taken 1 times">&check;</span><span class="takenBranch" title="Branch 9 taken 27 times">&check;</span><span class="notTakenBranch" title="Branch 10 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 11 taken 27 times">&check;</span><span class="notTakenBranch" title="Branch 12 not taken">&cross;</span><span class="takenBranch" title="Branch 13 taken 27 times">&check;</span><span class="takenBranch" title="Branch 14 taken 1 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>28</pre></td>
     <td align="left" class="src coveredLine"><pre>        if (in.get(w, 9) &amp;&amp; in.gcount() == 8) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>70</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 22 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>22</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 27 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>27</pre></td>
     <td align="left" class="src coveredLine"><pre>            width = Utils::intFromBytes(w, 8);</pre></td>
     </tr>
 
@@ -798,9 +798,9 @@
 
     <tr>
     <td align="right" class="lineno"><pre>72</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>            throw domain_error("Invalid CIFF format: short width");</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 1 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
+    <td align="left" class="src coveredLine"><pre>            throw domain_error("Invalid CIFF format: short width");</pre></td>
     </tr>
 
     <tr>
@@ -833,8 +833,8 @@
 
     <tr>
     <td align="right" class="lineno"><pre>77</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 21 times">&check;</span><span class="takenBranch" title="Branch 1 taken 9 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>30</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 26 times">&check;</span><span class="takenBranch" title="Branch 1 taken 9 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>35</pre></td>
     <td align="left" class="src coveredLine"><pre>    if (stage >= 5) {</pre></td>
     </tr>
 
@@ -847,15 +847,15 @@
 
     <tr>
     <td align="right" class="lineno"><pre>79</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 21 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 4 taken 21 times">&check;</span><span class="notTakenBranch" title="Branch 5 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 6 taken 21 times">&check;</span><span class="notTakenBranch" title="Branch 7 not taken">&cross;</span><span class="takenBranch" title="Branch 9 taken 21 times">&check;</span><span class="notTakenBranch" title="Branch 10 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 11 taken 21 times">&check;</span><span class="notTakenBranch" title="Branch 12 not taken">&cross;</span><span class="takenBranch" title="Branch 13 taken 21 times">&check;</span><span class="notTakenBranch" title="Branch 14 not taken">&cross;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>21</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 26 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 4 taken 26 times">&check;</span><span class="notTakenBranch" title="Branch 5 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 6 taken 25 times">&check;</span><span class="takenBranch" title="Branch 7 taken 1 times">&check;</span><span class="takenBranch" title="Branch 9 taken 25 times">&check;</span><span class="notTakenBranch" title="Branch 10 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 11 taken 25 times">&check;</span><span class="notTakenBranch" title="Branch 12 not taken">&cross;</span><span class="takenBranch" title="Branch 13 taken 25 times">&check;</span><span class="takenBranch" title="Branch 14 taken 1 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>26</pre></td>
     <td align="left" class="src coveredLine"><pre>        if (in.get(h, 9) &amp;&amp; in.gcount() == 8) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>80</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 21 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>21</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 25 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>25</pre></td>
     <td align="left" class="src coveredLine"><pre>            height = Utils::intFromBytes(h, 8);</pre></td>
     </tr>
 
@@ -868,9 +868,9 @@
 
     <tr>
     <td align="right" class="lineno"><pre>82</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>            throw domain_error("Invalid CIFF format: short height");</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 1 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
+    <td align="left" class="src coveredLine"><pre>            throw domain_error("Invalid CIFF format: short height");</pre></td>
     </tr>
 
     <tr>
@@ -897,14 +897,14 @@
     <tr>
     <td align="right" class="lineno"><pre>86</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>21</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>25</pre></td>
     <td align="left" class="src coveredLine"><pre>        ull resolution = width * height;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>87</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 15 times">&check;</span><span class="takenBranch" title="Branch 1 taken 6 times">&check;</span><span class="takenBranch" title="Branch 2 taken 1 times">&check;</span><span class="takenBranch" title="Branch 3 taken 14 times">&check;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>21</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 19 times">&check;</span><span class="takenBranch" title="Branch 1 taken 6 times">&check;</span><span class="takenBranch" title="Branch 2 taken 1 times">&check;</span><span class="takenBranch" title="Branch 3 taken 18 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>25</pre></td>
     <td align="left" class="src coveredLine"><pre>        if (width != 0 &amp;&amp; resolution / width != height) {</pre></td>
     </tr>
 
@@ -925,14 +925,14 @@
     <tr>
     <td align="right" class="lineno"><pre>90</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>24</pre></td>
     <td align="left" class="src coveredLine"><pre>        ull pixelNumber = resolution * 3;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>91</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 14 times">&check;</span><span class="takenBranch" title="Branch 1 taken 6 times">&check;</span><span class="takenBranch" title="Branch 2 taken 1 times">&check;</span><span class="takenBranch" title="Branch 3 taken 13 times">&check;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 18 times">&check;</span><span class="takenBranch" title="Branch 1 taken 6 times">&check;</span><span class="takenBranch" title="Branch 2 taken 1 times">&check;</span><span class="takenBranch" title="Branch 3 taken 17 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>24</pre></td>
     <td align="left" class="src coveredLine"><pre>        if (resolution != 0 &amp;&amp; pixelNumber / resolution != 3) {</pre></td>
     </tr>
 
@@ -952,8 +952,8 @@
 
     <tr>
     <td align="right" class="lineno"><pre>94</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 1 times">&check;</span><span class="takenBranch" title="Branch 1 taken 18 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>19</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 1 times">&check;</span><span class="takenBranch" title="Branch 1 taken 22 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>23</pre></td>
     <td align="left" class="src coveredLine"><pre>        if (pixelNumber != contentSize) {</pre></td>
     </tr>
 
@@ -994,8 +994,8 @@
 
     <tr>
     <td align="right" class="lineno"><pre>100</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 16 times">&check;</span><span class="takenBranch" title="Branch 1 taken 11 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>27</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 20 times">&check;</span><span class="takenBranch" title="Branch 1 taken 11 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>31</pre></td>
     <td align="left" class="src coveredLine"><pre>    if (stage >= 6) {</pre></td>
     </tr>
 
@@ -1009,56 +1009,56 @@
     <tr>
     <td align="right" class="lineno"><pre>102</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>16</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
     <td align="left" class="src coveredLine"><pre>        ull headerContentSize = headerSize - 36;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>103</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 16 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>32</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 20 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>40</pre></td>
     <td align="left" class="src coveredLine"><pre>        unique_ptr&lt;char[]> headerContent{new char[headerContentSize + 1]};</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>104</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>16</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
     <td align="left" class="src coveredLine"><pre>        ull tagsStart = 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>105</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 16 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span><span class="takenBranch" title="Branch 5 taken 16 times">&check;</span><span class="notTakenBranch" title="Branch 6 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 7 taken 16 times">&check;</span><span class="notTakenBranch" title="Branch 8 not taken">&cross;</span><span class="takenBranch" title="Branch 10 taken 16 times">&check;</span><span class="notTakenBranch" title="Branch 11 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 12 taken 16 times">&check;</span><span class="notTakenBranch" title="Branch 13 not taken">&cross;</span><span class="takenBranch" title="Branch 15 taken 16 times">&check;</span><span class="notTakenBranch" title="Branch 16 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 17 taken 16 times">&check;</span><span class="notTakenBranch" title="Branch 18 not taken">&cross;</span><span class="takenBranch" title="Branch 19 taken 16 times">&check;</span><span class="notTakenBranch" title="Branch 20 not taken">&cross;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>16</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 20 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span><span class="takenBranch" title="Branch 5 taken 20 times">&check;</span><span class="notTakenBranch" title="Branch 6 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 7 taken 19 times">&check;</span><span class="takenBranch" title="Branch 8 taken 1 times">&check;</span><span class="takenBranch" title="Branch 10 taken 19 times">&check;</span><span class="notTakenBranch" title="Branch 11 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 12 taken 19 times">&check;</span><span class="notTakenBranch" title="Branch 13 not taken">&cross;</span><span class="takenBranch" title="Branch 15 taken 19 times">&check;</span><span class="notTakenBranch" title="Branch 16 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 17 taken 19 times">&check;</span><span class="notTakenBranch" title="Branch 18 not taken">&cross;</span><span class="takenBranch" title="Branch 19 taken 19 times">&check;</span><span class="takenBranch" title="Branch 20 taken 1 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>20</pre></td>
     <td align="left" class="src coveredLine"><pre>        if (in.read(headerContent.get(), headerContentSize) &amp;&amp; in.gcount() > 0 &amp;&amp; (ull)in.gcount() == headerContentSize) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>106</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>16</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>19</pre></td>
     <td align="left" class="src coveredLine"><pre>            ull i = 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>107</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 194 times">&check;</span><span class="takenBranch" title="Branch 1 taken 1 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>195</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 215 times">&check;</span><span class="takenBranch" title="Branch 1 taken 1 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>216</pre></td>
     <td align="left" class="src coveredLine"><pre>            for (; i &lt; headerContentSize; ++i) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>108</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 15 times">&check;</span><span class="takenBranch" title="Branch 2 taken 179 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>194</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 18 times">&check;</span><span class="takenBranch" title="Branch 2 taken 197 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>215</pre></td>
     <td align="left" class="src coveredLine"><pre>                if (headerContent.get()[i] == '\n') {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>109</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>15</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>18</pre></td>
     <td align="left" class="src coveredLine"><pre>                    break;</pre></td>
     </tr>
 
@@ -1078,8 +1078,8 @@
 
     <tr>
     <td align="right" class="lineno"><pre>112</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 1 times">&check;</span><span class="takenBranch" title="Branch 1 taken 15 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>16</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 1 times">&check;</span><span class="takenBranch" title="Branch 1 taken 18 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>19</pre></td>
     <td align="left" class="src coveredLine"><pre>            if (i == headerContentSize) {</pre></td>
     </tr>
 
@@ -1099,15 +1099,15 @@
 
     <tr>
     <td align="right" class="lineno"><pre>115</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 3 taken 15 times">&check;</span><span class="notTakenBranch" title="Branch 4 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>15</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 3 taken 18 times">&check;</span><span class="notTakenBranch" title="Branch 4 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>18</pre></td>
     <td align="left" class="src coveredLine"><pre>            caption = string{headerContent.get(), i};</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>116</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>15</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>18</pre></td>
     <td align="left" class="src coveredLine"><pre>            tagsStart = i + 1;</pre></td>
     </tr>
 
@@ -1120,9 +1120,9 @@
 
     <tr>
     <td align="right" class="lineno"><pre>118</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>            throw domain_error("Invalid CIFF format: invalid headerSize");</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 1 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
+    <td align="left" class="src coveredLine"><pre>            throw domain_error("Invalid CIFF format: invalid headerSize");</pre></td>
     </tr>
 
     <tr>
@@ -1148,15 +1148,15 @@
 
     <tr>
     <td align="right" class="lineno"><pre>122</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 13 times">&check;</span><span class="takenBranch" title="Branch 1 taken 2 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>15</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 16 times">&check;</span><span class="takenBranch" title="Branch 1 taken 2 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>18</pre></td>
     <td align="left" class="src coveredLine"><pre>        if (stage >= 7) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>123</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 1 times">&check;</span><span class="takenBranch" title="Branch 2 taken 12 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>13</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 1 times">&check;</span><span class="takenBranch" title="Branch 2 taken 15 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>16</pre></td>
     <td align="left" class="src coveredLine"><pre>            if (headerContent.get()[headerContentSize - 1] != '\0') {</pre></td>
     </tr>
 
@@ -1177,21 +1177,21 @@
     <tr>
     <td align="right" class="lineno"><pre>126</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>12</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>15</pre></td>
     <td align="left" class="src coveredLine"><pre>            ull currentTagStart = tagsStart;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>127</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 295 times">&check;</span><span class="takenBranch" title="Branch 1 taken 11 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>306</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 355 times">&check;</span><span class="takenBranch" title="Branch 1 taken 14 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>369</pre></td>
     <td align="left" class="src coveredLine"><pre>            for (ull i = tagsStart; i &lt; headerContentSize; ++i) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>128</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 1 times">&check;</span><span class="takenBranch" title="Branch 2 taken 294 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>295</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 1 times">&check;</span><span class="takenBranch" title="Branch 2 taken 354 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>355</pre></td>
     <td align="left" class="src coveredLine"><pre>                if (headerContent.get()[i] == '\n') {</pre></td>
     </tr>
 
@@ -1211,22 +1211,22 @@
 
     <tr>
     <td align="right" class="lineno"><pre>131</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 39 times">&check;</span><span class="takenBranch" title="Branch 2 taken 255 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>294</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 51 times">&check;</span><span class="takenBranch" title="Branch 2 taken 303 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>354</pre></td>
     <td align="left" class="src coveredLine"><pre>                if (headerContent.get()[i] == '\0') {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>132</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 3 taken 39 times">&check;</span><span class="notTakenBranch" title="Branch 4 not taken">&cross;</span><span class="takenBranch" title="Branch 6 taken 39 times">&check;</span><span class="notTakenBranch" title="Branch 7 not taken">&cross;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>39</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 3 taken 51 times">&check;</span><span class="notTakenBranch" title="Branch 4 not taken">&cross;</span><span class="takenBranch" title="Branch 6 taken 51 times">&check;</span><span class="notTakenBranch" title="Branch 7 not taken">&cross;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>51</pre></td>
     <td align="left" class="src coveredLine"><pre>                    tags.push_back(string{&amp;headerContent.get()[currentTagStart], i - currentTagStart});</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>133</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>39</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>51</pre></td>
     <td align="left" class="src coveredLine"><pre>                    currentTagStart = i + 1;</pre></td>
     </tr>
 
@@ -1267,22 +1267,22 @@
 
     <tr>
     <td align="right" class="lineno"><pre>139</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 10 times">&check;</span><span class="takenBranch" title="Branch 1 taken 3 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>13</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 13 times">&check;</span><span class="takenBranch" title="Branch 1 taken 3 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>16</pre></td>
     <td align="left" class="src coveredLine"><pre>        if (stage >= 8) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>140</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 10 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>10</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 13 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>13</pre></td>
     <td align="left" class="src coveredLine"><pre>            pixels.reserve(contentSize / 3);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>141</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 5336004 times">&check;</span><span class="takenBranch" title="Branch 1 taken 9 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>5336013</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 5336013 times">&check;</span><span class="takenBranch" title="Branch 1 taken 12 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>5336025</pre></td>
     <td align="left" class="src coveredLine"><pre>            for (size_t p = 0; p &lt; contentSize / 3; ++p) {</pre></td>
     </tr>
 
@@ -1295,36 +1295,36 @@
 
     <tr>
     <td align="right" class="lineno"><pre>143</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 5336004 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 4 taken 5336004 times">&check;</span><span class="notTakenBranch" title="Branch 5 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 6 taken 5336003 times">&check;</span><span class="takenBranch" title="Branch 7 taken 1 times">&check;</span><span class="takenBranch" title="Branch 9 taken 5336003 times">&check;</span><span class="notTakenBranch" title="Branch 10 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 11 taken 5336003 times">&check;</span><span class="notTakenBranch" title="Branch 12 not taken">&cross;</span><span class="takenBranch" title="Branch 13 taken 5336003 times">&check;</span><span class="takenBranch" title="Branch 14 taken 1 times">&check;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>5336004</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 5336013 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 4 taken 5336013 times">&check;</span><span class="notTakenBranch" title="Branch 5 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 6 taken 5336012 times">&check;</span><span class="takenBranch" title="Branch 7 taken 1 times">&check;</span><span class="takenBranch" title="Branch 9 taken 5336012 times">&check;</span><span class="notTakenBranch" title="Branch 10 not taken">&cross;</span><br/><span class="takenBranch" title="Branch 11 taken 5336012 times">&check;</span><span class="notTakenBranch" title="Branch 12 not taken">&cross;</span><span class="takenBranch" title="Branch 13 taken 5336012 times">&check;</span><span class="takenBranch" title="Branch 14 taken 1 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>5336013</pre></td>
     <td align="left" class="src coveredLine"><pre>                if (in.read(pixelContent, 3) &amp;&amp; in.gcount() == 3) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>144</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>5336003</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>5336012</pre></td>
     <td align="left" class="src coveredLine"><pre>                    ull red = (ull) pixelContent[0];</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>145</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>5336003</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>5336012</pre></td>
     <td align="left" class="src coveredLine"><pre>                    ull green = (ull) pixelContent[1];</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>146</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>5336003</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>5336012</pre></td>
     <td align="left" class="src coveredLine"><pre>                    ull blue = (ull) pixelContent[2];</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>147</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 5336003 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>5336003</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 2 taken 5336012 times">&check;</span><span class="notTakenBranch" title="Branch 3 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>5336012</pre></td>
     <td align="left" class="src coveredLine"><pre>                    pixels.push_back(Pixel(red, green, blue));</pre></td>
     </tr>
 
@@ -1372,8 +1372,8 @@
 
     <tr>
     <td align="right" class="lineno"><pre>154</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 23 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>46</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 1 taken 26 times">&check;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>52</pre></td>
     <td align="left" class="src coveredLine"><pre>    return Ciff{headerSize, contentSize, width, height, caption, tags, pixels};</pre></td>
     </tr>
 
@@ -1394,7 +1394,7 @@
     <tr>
     <td align="right" class="lineno"><pre>157</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
     <td align="left" class="src coveredLine"><pre>shared_ptr&lt;byte> Ciff::getBMP(ull&amp; bmpSize) {</pre></td>
     </tr>
 
@@ -1421,377 +1421,384 @@
 
     <tr>
     <td align="right" class="lineno"><pre>161</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 1 times">&check;</span><span class="notTakenBranch" title="Branch 1 not taken">&cross;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 3 taken 1 times">&check;</span><br/></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 6 times">&check;</span><span class="notTakenBranch" title="Branch 1 not taken">&cross;</span><span class="notTakenBranch" title="Branch 2 not taken">&cross;</span><span class="takenBranch" title="Branch 3 taken 6 times">&check;</span><br/></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
     <td align="left" class="src coveredLine"><pre>    if (width > 4294967295 || height > 4294967295) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>162</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
-    <td align="left" class="src uncoveredLine"><pre>        throw domain_error("Height and width can be max 4 bytes big each");</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>        //unreachable code, Ciff max size is much smaller than this, just here for extra safety or in case of modifications in soft limit</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>163</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    }</pre></td>
+    <td align="right" class="linecount uncoveredLine"><pre></pre></td>
+    <td align="left" class="src uncoveredLine"><pre>        throw domain_error("Height and width can be max 4 bytes big each");</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>164</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>165</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    //lines should be padded to nearest 4-byte</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>166</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    int widthPad = (4 - (width * 3) % 4) % 4;</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    //lines should be padded to nearest 4-byte</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>167</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    int widthPad = (4 - (width * 3) % 4) % 4;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>168</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    bmpSize = 54 + ((width * 3 + widthPad) * height);</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>169</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    byte* bmp = new byte[bmpSize];</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    bmpSize = 54 + ((width * 3 + widthPad) * height);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>170</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    byte* bmp = new byte[bmpSize];</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>171</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    //bmp header</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>172</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    bmp[0] = 0x42; // B</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    //bmp header</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>173</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    bmp[1] = 0x4D; // M</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    bmp[0] = 0x42; // B</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>174</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    Utils::fillWithIntToBytes(bmp, bmpSize, 2, 4);</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    bmp[1] = 0x4D; // M</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>175</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    bmp[6] = bmp[7] = bmp[8] = bmp[9] = 0x00;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    Utils::fillWithIntToBytes(bmp, bmpSize, 2, 4);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>176</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    bmp[11] = bmp[12] = bmp[13] = 0x00;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    bmp[6] = bmp[7] = bmp[8] = bmp[9] = 0x00;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>177</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    bmp[10] = 0x36; // No color palette</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    bmp[11] = bmp[12] = bmp[13] = 0x00;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>178</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    bmp[15] = bmp[16] = bmp[17] = 0x00;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    bmp[10] = 0x36; // No color palette</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>179</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    bmp[14] = 0x28; //length of this subheader</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    bmp[15] = bmp[16] = bmp[17] = 0x00;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>180</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    Utils::fillWithIntToBytes(bmp, width, 18, 4);</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    bmp[14] = 0x28; //length of this subheader</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>181</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    Utils::fillWithIntToBytes(bmp, height, 22, 4);</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    Utils::fillWithIntToBytes(bmp, width, 18, 4);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>182</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    bmp[26] = 0x01; //num of color planes</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    Utils::fillWithIntToBytes(bmp, height, 22, 4);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>183</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    bmp[27] = 0x00; //num of color planes</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    bmp[26] = 0x01; //num of color planes</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>184</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    bmp[28] = 0x18; //24 bits per pixel</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    bmp[27] = 0x00; //num of color planes</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>185</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    bmp[29] = 0x00;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    bmp[28] = 0x18; //24 bits per pixel</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>186</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    bmp[30] = bmp[31] = bmp[32] = bmp[33] = 0x00; //No compression</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    bmp[29] = 0x00;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>187</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    bmp[34] = bmp[35] = bmp[36] = bmp[37] = 0x00; //No compression</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    bmp[30] = bmp[31] = bmp[32] = bmp[33] = 0x00; //No compression</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>188</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    bmp[38] = bmp[39] = bmp[40] = bmp[41] = 0x00;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    bmp[34] = bmp[35] = bmp[36] = bmp[37] = 0x00; //No compression</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>189</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    bmp[42] = bmp[43] = bmp[44] = bmp[45] = 0x00;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    bmp[38] = bmp[39] = bmp[40] = bmp[41] = 0x00;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>190</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    bmp[46] = bmp[47] = bmp[48] = bmp[49] = 0x00;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    bmp[42] = bmp[43] = bmp[44] = bmp[45] = 0x00;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>191</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    bmp[50] = bmp[51] = bmp[52] = bmp[53] = 0x00;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    bmp[46] = bmp[47] = bmp[48] = bmp[49] = 0x00;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>192</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre></pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    bmp[50] = bmp[51] = bmp[52] = bmp[53] = 0x00;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>193</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    //pixels</pre></td>
+    <td align="left" class="src "><pre></pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>194</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    ull currLineStart = bmpSize - 1;</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    //pixels</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>195</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    ull currByte = 0;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    ull currLineStart = bmpSize - 1;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>196</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    ull index = 0;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    ull currByte = 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>197</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 3 taken 667000 times">&check;</span><span class="takenBranch" title="Branch 4 taken 1 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>667001</pre></td>
-    <td align="left" class="src coveredLine"><pre>    for (const Pixel&amp; p : pixels) {</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    ull index = 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>198</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 667 times">&check;</span><span class="takenBranch" title="Branch 1 taken 666333 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>667000</pre></td>
-    <td align="left" class="src coveredLine"><pre>        if (currByte == 0) {</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 3 taken 4002000 times">&check;</span><span class="takenBranch" title="Branch 4 taken 6 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>4002006</pre></td>
+    <td align="left" class="src coveredLine"><pre>    for (const Pixel&amp; p : pixels) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>199</pre></td>
-    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 667 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>667</pre></td>
-    <td align="left" class="src coveredLine"><pre>            for (int i = 0; i &lt; widthPad; ++i) {</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 4002 times">&check;</span><span class="takenBranch" title="Branch 1 taken 3997998 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>4002000</pre></td>
+    <td align="left" class="src coveredLine"><pre>        if (currByte == 0) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>200</pre></td>
+    <td align="right" class="linebranch"><span class="notTakenBranch" title="Branch 0 not taken">&cross;</span><span class="takenBranch" title="Branch 1 taken 4002 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>4002</pre></td>
+    <td align="left" class="src coveredLine"><pre>            for (int i = 0; i &lt; widthPad; ++i) {</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>201</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount uncoveredLine"><pre></pre></td>
     <td align="left" class="src uncoveredLine"><pre>                bmp[currLineStart - index++] = 0x00;</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>201</pre></td>
+    <td align="right" class="lineno"><pre>202</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>            }</pre></td>
     </tr>
 
     <tr>
-    <td align="right" class="lineno"><pre>202</pre></td>
+    <td align="right" class="lineno"><pre>203</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>        }</pre></td>
-    </tr>
-
-    <tr>
-    <td align="right" class="lineno"><pre>203</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>667000</pre></td>
-    <td align="left" class="src coveredLine"><pre>        bmp[currLineStart - index++] = p.red;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>204</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>667000</pre></td>
-    <td align="left" class="src coveredLine"><pre>        bmp[currLineStart - index++] = p.green;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4002000</pre></td>
+    <td align="left" class="src coveredLine"><pre>        bmp[currLineStart - index++] = p.red;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>205</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>667000</pre></td>
-    <td align="left" class="src coveredLine"><pre>        bmp[currLineStart - index++] = p.blue;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4002000</pre></td>
+    <td align="left" class="src coveredLine"><pre>        bmp[currLineStart - index++] = p.green;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>206</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>667000</pre></td>
-    <td align="left" class="src coveredLine"><pre>        ++currByte;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4002000</pre></td>
+    <td align="left" class="src coveredLine"><pre>        bmp[currLineStart - index++] = p.blue;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>207</pre></td>
-    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 667 times">&check;</span><span class="takenBranch" title="Branch 1 taken 666333 times">&check;</span></td>
-    <td align="right" class="linecount coveredLine"><pre>667000</pre></td>
-    <td align="left" class="src coveredLine"><pre>        if (currByte == width) {</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>4002000</pre></td>
+    <td align="left" class="src coveredLine"><pre>        ++currByte;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>208</pre></td>
-    <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>667</pre></td>
-    <td align="left" class="src coveredLine"><pre>            currLineStart -= (width * 3 + widthPad);</pre></td>
+    <td align="right" class="linebranch"><span class="takenBranch" title="Branch 0 taken 4002 times">&check;</span><span class="takenBranch" title="Branch 1 taken 3997998 times">&check;</span></td>
+    <td align="right" class="linecount coveredLine"><pre>4002000</pre></td>
+    <td align="left" class="src coveredLine"><pre>        if (currByte == width) {</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>209</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>667</pre></td>
-    <td align="left" class="src coveredLine"><pre>            index = 0;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4002</pre></td>
+    <td align="left" class="src coveredLine"><pre>            currLineStart -= (width * 3 + widthPad);</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>210</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>667</pre></td>
-    <td align="left" class="src coveredLine"><pre>            currByte = 0;</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4002</pre></td>
+    <td align="left" class="src coveredLine"><pre>            index = 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>211</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>        }</pre></td>
+    <td align="right" class="linecount coveredLine"><pre>4002</pre></td>
+    <td align="left" class="src coveredLine"><pre>            currByte = 0;</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>212</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
-    <td align="left" class="src "><pre>    }</pre></td>
+    <td align="left" class="src "><pre>        }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>213</pre></td>
     <td align="right" class="linebranch"></td>
-    <td align="right" class="linecount coveredLine"><pre>1</pre></td>
-    <td align="left" class="src coveredLine"><pre>    return shared_ptr&lt;byte>(bmp, default_delete&lt;byte[]>{});</pre></td>
+    <td align="right" class="linecount "><pre></pre></td>
+    <td align="left" class="src "><pre>    }</pre></td>
     </tr>
 
     <tr>
     <td align="right" class="lineno"><pre>214</pre></td>
+    <td align="right" class="linebranch"></td>
+    <td align="right" class="linecount coveredLine"><pre>6</pre></td>
+    <td align="left" class="src coveredLine"><pre>    return shared_ptr&lt;byte>(bmp, default_delete&lt;byte[]>{});</pre></td>
+    </tr>
+
+    <tr>
+    <td align="right" class="lineno"><pre>215</pre></td>
     <td align="right" class="linebranch"></td>
     <td align="right" class="linecount "><pre></pre></td>
     <td align="left" class="src "><pre>}</pre></td>

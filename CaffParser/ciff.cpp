@@ -159,6 +159,7 @@ shared_ptr<byte> Ciff::getBMP(ull& bmpSize) {
     //Note that BMP width and height can only be 4 bytes, but CIFF defines 8 byte long width and height
     //First check for compatibility
     if (width > 4294967295 || height > 4294967295) {
+        //unreachable code, Ciff max size is much smaller than this, just here for extra safety or in case of modifications in soft limit
         throw domain_error("Height and width can be max 4 bytes big each");
     }
 

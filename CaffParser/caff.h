@@ -52,7 +52,6 @@ public:
     inline int getMinute() const { return credits.minute; }
     inline string getCreator() const { return credits.creator; }
     inline const vector<Animation>& getAnimations() const { return anims; }
-
-    const Ciff& getCiff(ull) const;
+    
     static Caff parse(istream&);
 };
