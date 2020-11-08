@@ -37,10 +37,12 @@ By default, makefile compiles the project with debug options, so **valgrind** ca
 For creating the cppcheck report, run `make cppcheck`. The report will be named as **CaffParser/cppcheck_report.xml**.
 
 Our initial run of cppcheck:
+
 ![cppcheck before](https://github.com/adamk90/PictoGraphy/blob/ciff_caff_parser_alapok/images/cppcheck_before.png)
 
 
 After we have fixed the foundings:
+
 ![cppcheck after](https://github.com/adamk90/PictoGraphy/blob/ciff_caff_parser_alapok/images/cppcheck_after.png)
 
 Only warning is we did not use --config-check flag, but then it writes that standard includes are not necessary for correct run, so we found it a suppressable warning.
