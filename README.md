@@ -30,6 +30,7 @@ Also there are uncovered lines in **test.cpp** but it's not in the SUT, so it do
 ## Using valgrind
 
 By default, makefile compiles the project with debug options, so **valgrind** can be used without any modifications by for example running `valgrind ./test`. Our run of **valgrind**:
+
 ![valgrind output](https://github.com/adamk90/PictoGraphy/blob/ciff_caff_parser_alapok/images/valgrind_test_result.png)
 
 ## Using cppcheck
