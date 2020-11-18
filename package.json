@@ -1,0 +1,28 @@
+{
+  "name": "pictography",
+  "version": "1.0.0",
+  "description": "Homefork for Computer Security",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adamk90/PictoGraphy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adamk90/PictoGraphy/issues"
+  },
+  "homepage": "https://github.com/adamk90/PictoGraphy#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "mongo-sanitize": "^1.1.0",
+    "mongodb": "^3.6.3",
+    "serve-favicon": "^2.5.0"
+  }
+}
