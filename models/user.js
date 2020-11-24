@@ -3,7 +3,8 @@ const db = require('../config/db');
 
 const User = db.model('User', {
 	userName: String,
-	password: String
+	password: String,
+	admin: Boolean
 });
 
 module.export = User;
