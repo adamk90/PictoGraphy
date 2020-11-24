@@ -1,0 +1,12 @@
+@import '_variables.scss';
+
+// BOOTSTRAP
+@import 'bootstrap/scss/bootstrap.scss';
+@import 'bootstrap-vue/src/index.scss';
+
+.btn {
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
