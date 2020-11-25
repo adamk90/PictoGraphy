@@ -87,6 +87,7 @@ module.exports = function(app) {
 	/*
 	 * Successful response:
 	 * { 'caff': {
+	 *		'id': id,
 	 *		'previewBmp': '...', <- bytes
 	 *		'uploader': '...', < string USERID
 	 *      'capture': '...', <- string
@@ -99,6 +100,7 @@ module.exports = function(app) {
 	 *		],
 	 *      'comments': [
 	 *			{
+	 *				'id': id,
 	 *  			'comment': comment,
 	 *				'user': user,
 	 *				'date': Date,
@@ -156,6 +158,7 @@ module.exports = function(app) {
 	 * Successful response:
 	 * { 'caffs': [
 	 *		{
+	 *			'id': id,
 	 *			'previewBmp': '...', <- bytes
 	 *			'uploader': '...', < string USERID
 	 *      	'capture': '...', <- string
@@ -168,6 +171,7 @@ module.exports = function(app) {
 	 *			],
 	 *      	'comments': [
 	 *				{
+	 *					'id': id,
 	 *  				'comment': comment,
 	 *					'user': user,
 	 *					'date': Date,
@@ -194,6 +198,7 @@ module.exports = function(app) {
 	 * }
 	 * Successful response:
 	 * { 'caff': {
+	 *		'id': id,
 	 *		'previewBmp': '...', <- bytes
 	 *		'uploader': '...', < string USERID
 	 *      'capture': '...', <- string
