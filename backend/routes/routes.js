@@ -3,6 +3,24 @@ const Comment = require('../models/comment');
 const Log = require('../models/log');
 const Transaction = require('../models/transaction');
 const Caff = require('../models/caff');
+
+const authenticateJWT = require('../middlewares/authenticateJWT');
+const getUser = require('../middlewares/getUser');
+const getTransaction = require('../middlewares/getTransaction');
+const checkPermissions = require('../middlewares/checkPermissions');
+const getCaff = require('../middlewares/getCaff');
+const sendResponse = require('../middlewares/sendResponse');
+const deleteCaff = require('../middlewares/deleteCaff');
+const saveComment = require('../middlewares/saveComment');
+const saveTransaction = require('../middlewares/saveTransaction');
+const deleteComment = require('../middlewares/deleteComment');
+const checkUserData = require('../middlewares/checkUserData');
+const saveUserData = require('../middlewares/saveUserData');
+const checkPassword = require('../middlewares/checkPassword');
+const generateJWT = require('../middlewares/generateJWT');
+const searchCaffs = require('../middlewares/searchCaffs');
+const saveCaff = require('../middlewares/saveCaff');
+const parseCaff = require('../middlewares/parseCaff');
  
 module.exports = function(app) {
 	let objectRepository = {
@@ -24,7 +42,8 @@ module.exports = function(app) {
 		getUser(objectRepository),
 		getTransaction(objectRepository),
 		checkPermissions('transaction'),
-		getCaff(objectRepository)
+		getCaff(objectRepository),
+		sendResponse()
 	);
 
 	/*
@@ -35,7 +54,8 @@ module.exports = function(app) {
 		authenticateJWT(),
 		getUser(objectRepository),
 		checkPermissions('user'),
-		deleteCaff(objectRepository)
+		deleteCaff(objectRepository),
+		sendResponse()
 	);
 
 	/*
@@ -53,7 +73,8 @@ module.exports = function(app) {
 		getUser(objectRepository),
 		checkPermissions('user'),
 		getCaff(objectRepository),
-		saveComment(objectRepository)
+		saveComment(objectRepository),
+		sendResponse()
 	);
 
 
@@ -68,7 +89,8 @@ module.exports = function(app) {
 		getUser(objectRepository),
 		checkPermissions('user'),
 		getCaff(objectRepository),
-		saveTransaction(objectRepository)
+		saveTransaction(objectRepository),
+		sendResponse()
 	);
 
 	/*
@@ -80,7 +102,8 @@ module.exports = function(app) {
 		getUser(objectRepository),
 		checkPermissions('user'),
 		getCaff(objectRepository),
-		saveComment(objectRepository)
+		deleteComment(objectRepository),
+		sendResponse()
 	);
 
 
@@ -114,7 +137,8 @@ module.exports = function(app) {
 		authenticateJWT(),
 		getUser(objectRepository),
 		checkPermissions('user'),
-		getCaff(objectRepository)
+		getCaff(objectRepository),
+		sendResponse()
 	);
 
 	/*
@@ -148,6 +172,7 @@ module.exports = function(app) {
 		getUser(objectRepository),
 		checkPassword(objectRepository),
 		generateJWT(),
+		sendResponse()
 	);
 
 	/*
@@ -188,6 +213,7 @@ module.exports = function(app) {
 		getUser(objectRepository),
 		checkPermissions('user'),
 		searchCaffs(objectRepository),
+		sendResponse()
 	);
 
 
@@ -218,7 +244,7 @@ module.exports = function(app) {
 		checkPermissions('user'),
 		parseCaff(),
 		saveCaff(objectRepository),
-		sendCaffResponse()
+		sendResponse()
 	);
 
 };

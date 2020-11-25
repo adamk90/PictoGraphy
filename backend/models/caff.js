@@ -1,8 +1,8 @@
 const Schema = require('mongoose').Schema;
 const db = require('../config/db');
 
-const CAFF = db.model('CAFF', {
-	content: Binary,
+const Caff = db.model('CAFF',  {
+	content: Schema.Types.Buffer,
 	_comments: [{
 		type: Schema.Types.ObjectId,
 		ref: 'Comment'
@@ -13,4 +13,4 @@ const CAFF = db.model('CAFF', {
 	}
 });
 
-module.export = CAFF;
+module.export = Caff;

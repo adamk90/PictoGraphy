@@ -1,5 +1,4 @@
-const caffParser = require('./build/Release/caffparser');
-const formidable = require('formidable');
+const caffParser = require('../build/Release/caffparser');
 
 /*
  * Gets uploaded file and tries to parse it.
@@ -9,10 +8,8 @@ const formidable = require('formidable');
  * If parsing failed, then it puts error message into res.locals.error
  */
 
-module.exports = function (objectrepository) {
+module.exports = function () {
 	return async function(req, res, next) {
-		if (req.body)
-			console.log(vmi);
 		return next();
 	};
 };
