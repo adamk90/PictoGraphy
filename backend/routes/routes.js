@@ -96,6 +96,14 @@ module.exports = function(app) {
 	 *			'tag1',
 	 *			'tag2',
 	 *			...
+	 *		],
+	 *      'comments': [
+	 *			{
+	 *  			'comment': comment,
+	 *				'user': user,
+	 *				'date': Date,
+	 *			},
+	 *			...
 	 *		]
 	 *	 }
 	 * }
@@ -147,7 +155,7 @@ module.exports = function(app) {
 	 * ?searchBy=creator&q=creatorName -> all caffs with creator 'creatorName'
 	 * Successful response:
 	 * { 'caffs': [
-	 *		'caff': {
+	 *		{
 	 *			'previewBmp': '...', <- bytes
 	 *			'uploader': '...', < string USERID
 	 *      	'capture': '...', <- string
@@ -156,6 +164,14 @@ module.exports = function(app) {
 	 *      	'tags': [
 	 *				'tag1',
 	 *				'tag2',
+	 *				...
+	 *			],
+	 *      	'comments': [
+	 *				{
+	 *  				'comment': comment,
+	 *					'user': user,
+	 *					'date': Date,
+	 *				},
 	 *				...
 	 *			]
 	 *		},
