@@ -13,4 +13,4 @@ const Caff = db.model('CAFF',  {
 	}
 });
 
-module.export = Caff;
+module.exports = Caff;

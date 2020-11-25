@@ -12,4 +12,4 @@ const Transaction = db.model('Transaction', {
     } ]
 });
 
-module.export = Transaction;
+module.exports = Transaction;

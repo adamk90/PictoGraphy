@@ -13,4 +13,4 @@ const Log = db.model('Log', {
     }
 });
 
-module.export = Log;
+module.exports = Log;

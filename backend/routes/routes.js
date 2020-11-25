@@ -152,6 +152,7 @@ module.exports = function(app) {
 	 * Error: 400
 	 */
 	app.post('/register',
+		getUser(objectRepository),
 		checkUserData(),
 		saveUserData(objectRepository),
 	);
@@ -170,7 +171,7 @@ module.exports = function(app) {
 	 */
 	app.post('/login',
 		getUser(objectRepository),
-		checkPassword(objectRepository),
+		checkPassword(),
 		generateJWT(),
 		sendResponse()
 	);

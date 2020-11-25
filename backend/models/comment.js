@@ -9,4 +9,4 @@ const Comment = db.model('Comment', {
 	}
 });
 
-module.export = Comment;
+module.exports = Comment;
