@@ -9,6 +9,7 @@ const getUser = require('../middlewares/getUser');
 const getTransaction = require('../middlewares/getTransaction');
 const checkPermissions = require('../middlewares/checkPermissions');
 const getCaff = require('../middlewares/getCaff');
+const getCaffs = require('../middlewares/getCaffs');
 const sendResponse = require('../middlewares/sendResponse');
 const deleteCaff = require('../middlewares/deleteCaff');
 const saveComment = require('../middlewares/saveComment');
@@ -113,7 +114,6 @@ module.exports = function(app) {
 	 *		'id': id,
 	 *		'previewBmp': '...', <- bytes
 	 *		'uploader': '...', < string USERID
-	 *      'capture': '...', <- string
 	 *      'creator': '...', <- string
 	 *      'creationDate': ..., <- Date 
 	 *      'tags': [
@@ -162,7 +162,6 @@ module.exports = function(app) {
 	 * { 
 	 *   'username': username,
 	 *   'password': password,
-	 *   'email': email
 	 * }
 	 * Successful response:
 	 * {
@@ -180,14 +179,12 @@ module.exports = function(app) {
 	 * Request params:
 	 * no params -> all caffs
 	 * ?searchBy=tag&q=tagName -> all caffs containing tag 'tagName'
-	 * ?searchBy=creator&q=creatorName -> all caffs with creator 'creatorName'
 	 * Successful response:
 	 * { 'caffs': [
 	 *		{
 	 *			'id': id,
 	 *			'previewBmp': '...', <- bytes
 	 *			'uploader': '...', < string USERID
-	 *      	'capture': '...', <- string
 	 *      	'creator': '...', <- string
 	 *      	'creationDate': ..., <- Date 
 	 *      	'tags': [
@@ -217,6 +214,14 @@ module.exports = function(app) {
 		sendResponse()
 	);
 
+	app.get('/my-caffs',
+		authenticateJWT(),
+		getUser(objectRepository),
+		checkPermissions('user'),
+		getCaffs(objectRepository),
+		sendResponse()
+	);
+
 
 	/*
 	 * Request payload:
@@ -228,7 +233,6 @@ module.exports = function(app) {
 	 *		'id': id,
 	 *		'previewBmp': '...', <- bytes
 	 *		'uploader': '...', < string USERID
-	 *      'capture': '...', <- string
 	 *      'creator': '...', <- string
 	 *      'creationDate': ..., <- Date 
 	 *      'tags': [

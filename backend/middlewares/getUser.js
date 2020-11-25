@@ -2,7 +2,7 @@ module.exports = function (objectRepository) {
 	return async function(req, res, next) {
 		let username;
 		if (req.body && req.body.username) {
-			username = req.body.userName
+			username = req.body.username;
 		} else if (res.locals.authUser && res.locals.authUser.username) {
 			username = res.locals.authUser.username;
 		}

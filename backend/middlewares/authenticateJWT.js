@@ -7,7 +7,7 @@ module.exports = function () {
 			if (token) {
 				try {
 					const decoded = jwt.verify(token, process.env.JWT_SECRET);
-					if (decoded.username && decoded.isAdmin !== undefined) {
+					if (decoded && decoded.username && decoded.isAdmin !== undefined) {
 						res.locals.authUser = decoded;
 						console.log("JWT Authenticated: ", decoded);
 						return next();
