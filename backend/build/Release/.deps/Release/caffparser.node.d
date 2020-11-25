@@ -1,0 +1,1 @@
+cmd_Release/caffparser.node := ln -f "Release/obj.target/caffparser.node" "Release/caffparser.node" 2>/dev/null || (rm -rf "Release/caffparser.node" && cp -af "Release/obj.target/caffparser.node" "Release/caffparser.node")

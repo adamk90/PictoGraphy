@@ -9,10 +9,10 @@ Pixel Ciff::getPixel(ull i) {
 }
 
 Ciff Ciff::parse(istream& in, int stage, bool checkSoftLimits) {
-    ull headerSize;
-    ull contentSize;
-    ull width;
-    ull height;
+    ull headerSize = 0;
+    ull contentSize = 0;
+    ull width = 0;
+    ull height = 0;
     string caption;
     vector<string> tags;
     vector<Pixel> pixels;

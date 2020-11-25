@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Homefork for Computer Security",
   "main": "index.js",
+  "gypfile": true,
   "scripts": {
     "test": "echo \"Error: no test specified\""
   },
@@ -18,12 +19,12 @@
   "homepage": "https://github.com/adamk90/PictoGraphy#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
-    "ejs": "^3.1.5",
     "express": "^4.17.1",
-    "express-session": "^1.17.1",
+    "formidable": "^1.2.2",
+    "jsonwebtoken": "^8.5.1",
     "mongo-sanitize": "^1.1.0",
     "mongodb": "^3.6.3",
-    "serve-favicon": "^2.5.0",
-    "mongoose": "^5.10.15"
+    "mongoose": "^5.10.15",
+    "node-addon-api": "^3.0.2"
   }
 }
