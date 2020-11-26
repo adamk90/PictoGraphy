@@ -27,7 +27,7 @@ function checkUserName(user) {
 }
 
 function checkEmail(email) {
-	return email.indexOf('@') >= 0;
+	return email.indexOf('@') >= 1 && email.indexOf('@') < email.length - 1 && email.indexOf('@', email.indexOf('@')) === -1;
 }
 
 

@@ -31,7 +31,7 @@ module.exports = function () {
 				res.locals.caff = {
 					'caffBytes': caffBytes.data,
 					'previewBmp': previewBytes,
-					'uploader': res.locals.user.username,
+					'uploader': res.locals.user.userName,
 					'creator': creator,
 					'creationDate': creationDate,
 					'tags': tags

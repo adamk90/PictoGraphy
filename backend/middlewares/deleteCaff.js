@@ -11,7 +11,7 @@ module.exports = function (objectRepository) {
 				let caff = await objectRepository.Caff.findOne({'_id': itemid}).exec();
 				objectRepository.Comment.deleteMany({'_id:':{$in:caff._comments}});
 				objectRepository.Caff.deleteOne({_id:itemid});
-				fs.unlinkSync(caff.preview);
+				fs.unlinkSync("./static" + caff.preview);
 				fs.unlinkSync(caff.content);
 				res.status(200).end();
 			} catch (err) {

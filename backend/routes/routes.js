@@ -45,7 +45,6 @@ module.exports = function(app) {
 		//getTransaction(objectRepository),
 		getCaff(objectRepository),
 		getCaffBytes(),
-		sendResponse()
 	);
 
 	/*

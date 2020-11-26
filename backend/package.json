@@ -25,6 +25,7 @@
     "mongo-sanitize": "^1.1.0",
     "mongodb": "^3.6.3",
     "mongoose": "^5.10.15",
-    "node-addon-api": "^3.0.2"
+    "node-addon-api": "^3.0.2",
+    "stream-buffers": "^3.0.2"
   }
 }

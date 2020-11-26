@@ -24,7 +24,7 @@ module.exports = function (objectRepository) {
 				let savedCaff = await caff.save();
 				res.locals.caff.id = savedCaff._id;
 				console.log("Caff saved: ", res.locals.caff);
-				const previewFileName = "./previews/" + res.locals.caff.id + "_preview.bmp";
+				const previewFileName = "./static/images/previews/" + res.locals.caff.id + "_preview.bmp";
 				const caffFileName = "./caffs/" + res.locals.caff.id + "_encrypted.caff";
 				fs.writeFile(previewFileName, res.locals.caff.previewBmp, "binary", (err) => {
 					if (err) {
@@ -42,11 +42,12 @@ module.exports = function (objectRepository) {
 						res.status(400).end();
 					}
 				});
-				savedCaff.preview = previewFileName;
+				savedCaff.preview = previewFileName.substring("./static".length);
 				savedCaff.content = caffFileName;
 				await savedCaff.save();
+				delete res.locals.caff.caffBytes;
+				res.locals.caff.previewBmp = savedCaff.preview;
 				res.data = res.locals.caff;
-
 			} catch (err) {
 				console.log(err);
 				res.status(400).end();

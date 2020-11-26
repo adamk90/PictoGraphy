@@ -8,6 +8,7 @@ dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({'extended': true}));
 app.use(fileUpload());
+app.use(express.static('static'));
 
 require('./routes/routes')(app);
 

@@ -1,6 +1,7 @@
 const fs = require('fs');
 const crypto = require('crypto');
 const caffParser = require('../build/Release/caffparser');
+const streamBuffers = require('stream-buffers');
 
 function decryptCaff(encoded) {
 	let combined = Buffer.from(encoded, 'hex');
@@ -17,17 +18,31 @@ module.exports = function () {
 	return async function(req, res, next) {
 		if (res.locals.caff) {
 			let caffFileName = './caffs/' + res.locals.caff._id + "_encrypted.caff";
-			fs.readFile(caffFileName, 'binary', (err, encryptedData) => {
+			fs.readFile(caffFileName, 'utf8', (err, encryptedData) => {
 				if (err) {
 					console.log(err);
 					res.status(400).end();
 				}
 				const caff = Buffer.from(decryptCaff(encryptedData), 'binary');
-				res.data = {
-					'caffBytes': caff
-				};
-				return next();
-			})
+				const caffTempFileName = res.locals.user._id + "_" + res.locals.caff.id + "_tmp.caff";
+				fs.writeFile(caffTempFileName, caff, "utf8", (err) => {
+					if (err) {
+						console.log(err);
+						res.status(400),end();
+					}
+					readStream = fs.createReadStream(caffTempFileName);
+					readStream.on('open', () => {
+						readStream.pipe(res);
+					});
+					readStream.on('error', (err) => {
+						console.log(err);
+						res.status(400).end();
+					});
+					readStream.on('end', () => {
+						fs.unlinkSync(caffTempFileName);
+					});
+				});
+			});
 		} else {
 			res.status(400).end();
 		}
