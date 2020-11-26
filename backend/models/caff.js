@@ -2,8 +2,8 @@ const Schema = require('mongoose').Schema;
 const db = require('../config/db');
 
 const Caff = db.model('CAFF',  {
-	content: Schema.Types.Buffer,
-	preview: Schema.Types.Buffer,
+	content: String,
+	preview: String,
 	creator: String,
 	creationDate: Date,
 	tags: [String],

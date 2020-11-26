@@ -22,6 +22,7 @@ const generateJWT = require('../middlewares/generateJWT');
 const searchCaffs = require('../middlewares/searchCaffs');
 const saveCaff = require('../middlewares/saveCaff');
 const parseCaff = require('../middlewares/parseCaff');
+const getCaffBytes = require('../middlewares/getCaffBytes');
  
 module.exports = function(app) {
 	let objectRepository = {
@@ -41,9 +42,9 @@ module.exports = function(app) {
 	app.get('/caff/:itemid/download',
 		authenticateJWT(),
 		getUser(objectRepository),
-		getTransaction(objectRepository),
-		checkPermissions('transaction'),
+		//getTransaction(objectRepository),
 		getCaff(objectRepository),
+		getCaffBytes(),
 		sendResponse()
 	);
 
@@ -103,8 +104,7 @@ module.exports = function(app) {
 		getUser(objectRepository),
 		checkPermissions('user'),
 		getCaff(objectRepository),
-		deleteComment(objectRepository),
-		sendResponse()
+		deleteComment(objectRepository)
 	);
 
 
@@ -224,10 +224,7 @@ module.exports = function(app) {
 
 
 	/*
-	 * Request payload:
-	 * { 
-	 *   'fileBytes': ... 
-	 * }
+	 * Request payload: multiform data
 	 * Successful response:
 	 * { 'caff': {
 	 *		'id': id,
@@ -246,7 +243,6 @@ module.exports = function(app) {
 	app.post('/upload',
 		authenticateJWT(),
 		getUser(objectRepository),
-		checkPermissions('user'),
 		parseCaff(),
 		saveCaff(objectRepository),
 		sendResponse()

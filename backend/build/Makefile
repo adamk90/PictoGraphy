@@ -314,7 +314,7 @@ endif
 
 quiet_cmd_regen_makefile = ACTION Regenerating $@
 cmd_regen_makefile = cd $(srcdir); /usr/lib64/node_modules/npm/node_modules/node-gyp/gyp/gyp_main.py -fmake --ignore-environment "-Dlibrary=shared_library" "-Dvisibility=default" "-Dnode_root_dir=/home/adamk/.cache/node-gyp/15.2.1" "-Dnode_gyp_dir=/usr/lib64/node_modules/npm/node_modules/node-gyp" "-Dnode_lib_file=/home/adamk/.cache/node-gyp/15.2.1/<(target_arch)/node.lib" "-Dmodule_root_dir=/home/adamk/GitProjects/PictoGraphy/backend" "-Dnode_engine=v8" "--depth=." "-Goutput_dir=." "--generator-output=build" -I/home/adamk/GitProjects/PictoGraphy/backend/build/config.gypi -I/usr/lib64/node_modules/npm/node_modules/node-gyp/addon.gypi -I/home/adamk/.cache/node-gyp/15.2.1/include/node/common.gypi "--toplevel-dir=." binding.gyp
-Makefile: $(srcdir)/../../../.cache/node-gyp/15.2.1/include/node/common.gypi $(srcdir)/binding.gyp $(srcdir)/build/config.gypi $(srcdir)/../../../../../usr/lib64/node_modules/npm/node_modules/node-gyp/addon.gypi $(srcdir)/node_modules/node-addon-api/node_api.gyp
+Makefile: $(srcdir)/node_modules/node-addon-api/node_api.gyp $(srcdir)/binding.gyp $(srcdir)/build/config.gypi $(srcdir)/../../../.cache/node-gyp/15.2.1/include/node/common.gypi $(srcdir)/../../../../../usr/lib64/node_modules/npm/node_modules/node-gyp/addon.gypi
 	$(call do_cmd,regen_makefile)
 
 # "all" is a concatenation of the "all" targets from all the included

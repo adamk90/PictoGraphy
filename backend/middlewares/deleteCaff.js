@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 module.exports = function (objectRepository) {
 	return async function(req, res, next) {
 		let itemid;
@@ -9,6 +11,8 @@ module.exports = function (objectRepository) {
 				let caff = await objectRepository.Caff.findOne({'_id': itemid}).exec();
 				objectRepository.Comment.deleteMany({'_id:':{$in:caff._comments}});
 				objectRepository.Caff.deleteOne({_id:itemid});
+				fs.unlinkSync(caff.preview);
+				fs.unlinkSync(caff.content);
 				res.status(200).end();
 			} catch (err) {
 				console.log(err);
