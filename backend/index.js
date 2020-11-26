@@ -2,6 +2,8 @@ const express = require('express');
 const app = express();
 const dotenv = require("dotenv");
 const fileUpload = require("express-fileupload");
+const fs = require('fs');
+const https = require('https');
 
 dotenv.config();
 
@@ -17,6 +19,11 @@ app.use((err, req, res, next) => {
     console.log(err);
 });
 
-const server = app.listen(3000, function() {
+const httpsOptions = {
+	key: fs.readFileSync('./ssl/key.pem'),
+	cert: fs.readFileSync('./ssl/cert.pem')
+};
+
+const server = https.createServer(httpsOptions, app).listen(3000, function() {
 	console.log("Server listening at :3000");
 });

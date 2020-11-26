@@ -42,6 +42,7 @@ module.exports = function(app) {
 	app.get('/caff/:itemid/download',
 		authenticateJWT(),
 		getUser(objectRepository),
+		checkPermissions('user'),
 		//getTransaction(objectRepository),
 		getCaff(objectRepository),
 		getCaffBytes(),
@@ -103,6 +104,7 @@ module.exports = function(app) {
 		getUser(objectRepository),
 		checkPermissions('user'),
 		getCaff(objectRepository),
+		checkPermissions('comment'),
 		deleteComment(objectRepository)
 	);
 
@@ -242,6 +244,7 @@ module.exports = function(app) {
 	app.post('/upload',
 		authenticateJWT(),
 		getUser(objectRepository),
+		checkPermissions('user'),
 		parseCaff(),
 		saveCaff(objectRepository),
 		sendResponse()
