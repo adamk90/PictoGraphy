@@ -34,10 +34,7 @@ module.exports = function(app) {
 	};
 
 	/*
-	 * Successful response:
-	 * {
-	 *	'caffBytes': ...
-	 * }
+	 * Successful response: streaming the download as octet stream
 	 */
 	app.get('/caff/:itemid/download',
 		authenticateJWT(),
@@ -45,7 +42,7 @@ module.exports = function(app) {
 		checkPermissions('user'),
 		//getTransaction(objectRepository),
 		getCaff(objectRepository),
-		getCaffBytes(),
+		getCaffBytes()
 	);
 
 	/*
@@ -56,8 +53,7 @@ module.exports = function(app) {
 		authenticateJWT(),
 		getUser(objectRepository),
 		checkPermissions('user'),
-		deleteCaff(objectRepository),
-		sendResponse()
+		deleteCaff(objectRepository)
 	);
 
 	/*
@@ -75,8 +71,7 @@ module.exports = function(app) {
 		getUser(objectRepository),
 		checkPermissions('user'),
 		getCaff(objectRepository),
-		saveComment(objectRepository),
-		sendResponse()
+		saveComment(objectRepository)
 	);
 
 
@@ -91,8 +86,7 @@ module.exports = function(app) {
 		getUser(objectRepository),
 		checkPermissions('user'),
 		getCaff(objectRepository),
-		saveTransaction(objectRepository),
-		sendResponse()
+		saveTransaction(objectRepository)
 	);
 
 	/*
@@ -103,7 +97,6 @@ module.exports = function(app) {
 		authenticateJWT(),
 		getUser(objectRepository),
 		checkPermissions('user'),
-		getCaff(objectRepository),
 		checkPermissions('comment'),
 		deleteComment(objectRepository)
 	);
@@ -138,8 +131,7 @@ module.exports = function(app) {
 		authenticateJWT(),
 		getUser(objectRepository),
 		checkPermissions('user'),
-		getCaff(objectRepository),
-		sendResponse()
+		getCaff(objectRepository)
 	);
 
 	/*
@@ -155,7 +147,7 @@ module.exports = function(app) {
 	app.post('/register',
 		getUser(objectRepository),
 		checkUserData(),
-		saveUserData(objectRepository),
+		saveUserData(objectRepository)
 	);
 
 	/*
@@ -172,8 +164,7 @@ module.exports = function(app) {
 	app.post('/login',
 		getUser(objectRepository),
 		checkPassword(),
-		generateJWT(),
-		sendResponse()
+		generateJWT()
 	);
 
 	/*
@@ -212,7 +203,6 @@ module.exports = function(app) {
 		getUser(objectRepository),
 		checkPermissions('user'),
 		searchCaffs(objectRepository),
-		sendResponse()
 	);
 
 	app.get('/my-caffs',
@@ -220,7 +210,6 @@ module.exports = function(app) {
 		getUser(objectRepository),
 		checkPermissions('user'),
 		getCaffs(objectRepository),
-		sendResponse()
 	);
 
 
@@ -247,7 +236,6 @@ module.exports = function(app) {
 		checkPermissions('user'),
 		parseCaff(),
 		saveCaff(objectRepository),
-		sendResponse()
 	);
 
 };

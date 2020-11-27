@@ -24,7 +24,7 @@ module.exports = function () {
 					res.status(400).end();
 				}
 				const caff = Buffer.from(decryptCaff(encryptedData), 'binary');
-				const caffTempFileName = res.locals.user._id + "_" + res.locals.caff.id + "_tmp.caff";
+				const caffTempFileName = './tmp/' + (new Date()).getMilliseconds() + res.locals.user._id + "_" + res.locals.caff.id + "_tmp.caff";
 				fs.writeFile(caffTempFileName, caff, "utf8", (err) => {
 					if (err) {
 						console.log(err);

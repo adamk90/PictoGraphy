@@ -4,8 +4,31 @@ const dotenv = require("dotenv");
 const fileUpload = require("express-fileupload");
 const fs = require('fs');
 const https = require('https');
+const crypto = require('crypto');
+const User = require('./models/user');
 
 dotenv.config();
+
+(async () => {
+	try {
+		let admin = await User.findOne({'userName': 'admin'}).exec();
+		if (admin === null) {
+			let salt = crypto.randomBytes(16).toString('hex').slice(0, 16);
+			let hash = crypto.createHmac('sha512', salt);
+			hash.update(process.env.ADMIN_PASSWORD);
+			let hashedPw = hash.digest('hex');
+			admin = new User({
+				userName: 'admin',
+				email: 'admin@pictography.hu',
+				password: hashedPw + salt
+			});
+			admin = await admin.save();
+		}
+		console.log("Admin user: ", admin);
+	} catch (err) {
+		console.log("Admin user could not found or created: ", err);
+	}
+})();
 
 app.use(express.json());
 app.use(express.urlencoded({'extended': true}));
