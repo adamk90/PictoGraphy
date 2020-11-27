@@ -9,7 +9,8 @@ module.exports = function () {
 			};
 			const token = jwt.sign(jwtPayload, process.env.JWT_SECRET, { expiresIn: '2400s' });
 			res.data = {
-				'token': token
+				'token': token,
+				'isAdmin': res.locals.user.admin
 			};
 			console.log("JWT Token generated: ", res.data);
 			return next();

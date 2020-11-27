@@ -4,6 +4,9 @@ module.exports = function (objectRepository) {
 			try {
 				let caff = await objectRepository.Caff.findOne({_id: req.params.itemid}).exec();
 				res.locals.caff = caff;
+				res.data = {
+					'caff': caff
+				};
 			} catch (err) {
 				console.log(err);
 				res.status(400).end();

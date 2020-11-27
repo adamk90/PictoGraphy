@@ -131,7 +131,8 @@ module.exports = function(app) {
 		authenticateJWT(),
 		getUser(objectRepository),
 		checkPermissions('user'),
-		getCaff(objectRepository)
+		getCaff(objectRepository),
+		sendResponse()
 	);
 
 	/*
