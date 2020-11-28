@@ -6,7 +6,12 @@ const Comment = db.model('Comment', {
 	_owner: {
 		type: Schema.Types.ObjectId,
 		ref: 'User'
-	}
+	},
+	date: {
+		type: Date,
+		default: new Date()
+	},
+	username: String
 });
 
 module.exports = Comment;

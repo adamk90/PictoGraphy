@@ -20,7 +20,8 @@ dotenv.config();
 			admin = new User({
 				userName: 'admin',
 				email: 'admin@pictography.hu',
-				password: hashedPw + salt
+				password: hashedPw + salt,
+				admin: true
 			});
 			admin = await admin.save();
 		}

@@ -6,8 +6,7 @@ const Caff = require('../models/caff');
 
 const authenticateJWT = require('../middlewares/authenticateJWT');
 const getUser = require('../middlewares/getUser');
-const getTransaction = require('../middlewares/getTransaction');
-const checkPermissions = require('../middlewares/checkPermissions');
+const checkTransaction = require('../middlewares/checkTransaction');
 const getCaff = require('../middlewares/getCaff');
 const getCaffs = require('../middlewares/getCaffs');
 const sendResponse = require('../middlewares/sendResponse');
@@ -23,6 +22,7 @@ const searchCaffs = require('../middlewares/searchCaffs');
 const saveCaff = require('../middlewares/saveCaff');
 const parseCaff = require('../middlewares/parseCaff');
 const getCaffBytes = require('../middlewares/getCaffBytes');
+const sanitizeMW = require('../middlewares/sanitizeMW');
  
 module.exports = function(app) {
 	let objectRepository = {
@@ -38,10 +38,10 @@ module.exports = function(app) {
 	 */
 	app.get('/caff/:itemid/download',
 		authenticateJWT(),
+		sanitizeMW(),
 		getUser(objectRepository),
-		checkPermissions('user'),
-		//getTransaction(objectRepository),
-		getCaff(objectRepository),
+		getCaff(objectRepository, false),
+		checkTransaction(objectRepository, true),
 		getCaffBytes()
 	);
 
@@ -51,8 +51,8 @@ module.exports = function(app) {
 	 */
 	app.get('/caff/:itemid/delete',
 		authenticateJWT(),
+		sanitizeMW(),
 		getUser(objectRepository),
-		checkPermissions('user'),
 		deleteCaff(objectRepository)
 	);
 
@@ -68,10 +68,11 @@ module.exports = function(app) {
 	 */
 	app.post('/caff/:itemid/comment',
 		authenticateJWT(),
+		sanitizeMW(),
 		getUser(objectRepository),
-		checkPermissions('user'),
-		getCaff(objectRepository),
-		saveComment(objectRepository)
+		getCaff(objectRepository, false),
+		saveComment(objectRepository),
+		sendResponse()
 	);
 
 
@@ -83,10 +84,12 @@ module.exports = function(app) {
 	 */
 	app.get('/caff/:itemid/buy',
 		authenticateJWT(),
+		sanitizeMW(),
 		getUser(objectRepository),
-		checkPermissions('user'),
-		getCaff(objectRepository),
-		saveTransaction(objectRepository)
+		getCaff(objectRepository, false),
+		checkTransaction(objectRepository, false),
+		saveTransaction(objectRepository),
+		sendResponse()
 	);
 
 	/*
@@ -95,9 +98,9 @@ module.exports = function(app) {
 	 */
 	app.get('/caff/:itemid/:commentid/delete',
 		authenticateJWT(),
+		sanitizeMW(),
 		getUser(objectRepository),
-		checkPermissions('user'),
-		checkPermissions('comment'),
+		getCaff(objectRepository, false),
 		deleteComment(objectRepository)
 	);
 
@@ -106,12 +109,12 @@ module.exports = function(app) {
 	 * Successful response:
 	 * { 'caff': {
 	 *		'id': id,
-	 *		'previewBmp': '...', <- bytes
+	 *		'previewBmp': '...', <- string path to server static image
 	 *		'uploader': '...', < string USERID
 	 *      'creator': '...', <- string
 	 *      'creationDate': ..., <- Date 
 	 *      'tags': [
-	 *			'tag1',
+	 *			'tag1', <- string
 	 *			'tag2',
 	 *			...
 	 *		],
@@ -129,9 +132,9 @@ module.exports = function(app) {
 	 */
 	app.get('/caff/:itemid',
 		authenticateJWT(),
+		sanitizeMW(),
 		getUser(objectRepository),
-		checkPermissions('user'),
-		getCaff(objectRepository),
+		getCaff(objectRepository, true),
 		sendResponse()
 	);
 
@@ -146,9 +149,9 @@ module.exports = function(app) {
 	 * Error: 400
 	 */
 	app.post('/register',
-		getUser(objectRepository),
+		sanitizeMW(),
 		checkUserData(),
-		saveUserData(objectRepository)
+		saveUserData(objectRepository),
 	);
 
 	/*
@@ -159,13 +162,16 @@ module.exports = function(app) {
 	 * }
 	 * Successful response:
 	 * {
-	 *	'token': ...
+	 *	'token': ..., <- hex string
+	 *  'isAdmin': ... <- bool
 	 * }
 	 */
 	app.post('/login',
+		sanitizeMW(),
 		getUser(objectRepository),
 		checkPassword(),
-		generateJWT()
+		generateJWT(),
+		sendResponse()
 	);
 
 	/*
@@ -176,7 +182,7 @@ module.exports = function(app) {
 	 * { 'caffs': [
 	 *		{
 	 *			'id': id,
-	 *			'previewBmp': '...', <- bytes
+	 *			'previewBmp': '...', <- string path to server static image
 	 *			'uploader': '...', < string USERID
 	 *      	'creator': '...', <- string
 	 *      	'creationDate': ..., <- Date 
@@ -185,15 +191,6 @@ module.exports = function(app) {
 	 *				'tag2',
 	 *				...
 	 *			],
-	 *      	'comments': [
-	 *				{
-	 *					'id': id,
-	 *  				'comment': comment,
-	 *					'user': user,
-	 *					'date': Date,
-	 *				},
-	 *				...
-	 *			]
 	 *		},
 	 *		...
 	 *	 ]
@@ -201,16 +198,38 @@ module.exports = function(app) {
 	 */
 	app.get('/search',
 		authenticateJWT(),
+		sanitizeMW(),
 		getUser(objectRepository),
-		checkPermissions('user'),
 		searchCaffs(objectRepository),
+		sendResponse()
 	);
 
+
+	/*
+	 * Successful response:
+	 * { 'caffs': [
+	 *		{
+	 *			'id': id,
+	 *			'previewBmp': '...', <- string path to server static image
+	 *			'uploader': '...', < string USERID
+	 *      	'creator': '...', <- string
+	 *      	'creationDate': ..., <- Date 
+	 *      	'tags': [
+	 *				'tag1',
+	 *				'tag2',
+	 *				...
+	 *			]
+	 *		},
+	 *		...
+	 *	 ]
+	 * }
+	 */
 	app.get('/my-caffs',
 		authenticateJWT(),
+		sanitizeMW(),
 		getUser(objectRepository),
-		checkPermissions('user'),
 		getCaffs(objectRepository),
+		sendResponse()
 	);
 
 
@@ -219,7 +238,7 @@ module.exports = function(app) {
 	 * Successful response:
 	 * { 'caff': {
 	 *		'id': id,
-	 *		'previewBmp': '...', <- bytes
+	 *		'previewBmp': '...', <- string path to server static image
 	 *		'uploader': '...', < string USERID
 	 *      'creator': '...', <- string
 	 *      'creationDate': ..., <- Date 
@@ -233,10 +252,11 @@ module.exports = function(app) {
 	 */
 	app.post('/upload',
 		authenticateJWT(),
+		sanitizeMW(),
 		getUser(objectRepository),
-		checkPermissions('user'),
 		parseCaff(),
 		saveCaff(objectRepository),
+		sendResponse()
 	);
 
 };

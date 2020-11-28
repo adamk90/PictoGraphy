@@ -9,6 +9,8 @@ module.exports = function () {
 			let hashedPassword = hash.digest('hex');
 			if ((hashedPassword + salt) === res.locals.user.password) {
 				return next();
+			} else {
+				console.log("Trying wrong password for user: ", res.locals.user.userName);
 			}
 		}
 		return res.status(400).end();

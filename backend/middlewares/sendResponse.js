@@ -3,6 +3,6 @@ module.exports = function () {
 		if (res.data) {
 			res.json(res.data);
 		}
-		res.status(400).end();
+		return res.status(400).end();
 	};
 };

@@ -11,7 +11,7 @@ const Caff = db.model('CAFF',  {
 		type: Schema.Types.ObjectId,
 		ref: 'Comment'
 	}],
-	_caffOwner: {
+	_owner: {
 		type: Schema.Types.ObjectId,
 		ref: 'User'
 	}

@@ -21,14 +21,14 @@ module.exports = function () {
 			fs.readFile(caffFileName, 'utf8', (err, encryptedData) => {
 				if (err) {
 					console.log(err);
-					res.status(400).end();
+					return res.status(400).end();
 				}
 				const caff = Buffer.from(decryptCaff(encryptedData), 'binary');
 				const caffTempFileName = './tmp/' + (new Date()).getMilliseconds() + res.locals.user._id + "_" + res.locals.caff.id + "_tmp.caff";
 				fs.writeFile(caffTempFileName, caff, "utf8", (err) => {
 					if (err) {
 						console.log(err);
-						res.status(400),end();
+						return res.status(400),end();
 					}
 					readStream = fs.createReadStream(caffTempFileName);
 					readStream.on('open', () => {
@@ -36,7 +36,8 @@ module.exports = function () {
 					});
 					readStream.on('error', (err) => {
 						console.log(err);
-						res.status(400).end();
+						fs.unlinkSync(caffTempFileName);
+						return res.status(400).end();
 					});
 					readStream.on('end', () => {
 						fs.unlinkSync(caffTempFileName);
@@ -44,7 +45,7 @@ module.exports = function () {
 				});
 			});
 		} else {
-			res.status(400).end();
+			return res.status(400).end();
 		}
 	};
 };

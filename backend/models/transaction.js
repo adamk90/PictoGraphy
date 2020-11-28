@@ -6,10 +6,10 @@ const Transaction = db.model('Transaction', {
 		type: Schema.Types.ObjectId,
         ref: 'User'
     },
-    _product: [{
+    _product: {
 		type: Schema.Types.ObjectId,
         ref: 'CAFF'
-    } ]
+    }
 });
 
 module.exports = Transaction;

@@ -22,8 +22,8 @@ function checkPassword(pw) {
 	return containsSpecial && containsNumber && containsUpperCase && containsLowerCase;
 }
 
-function checkUserName(user) {
-	return user === null;
+function checkUserName(username) {
+	return username.length > 2;
 }
 
 function checkEmail(email) {
@@ -34,10 +34,10 @@ function checkEmail(email) {
 module.exports = function (objectRepository) {
 	return async function(req, res, next) {
 		if (req.body && req.body.username && req.body.email && req.body.password) {
-			if (checkEmail(req.body.email) && checkUserName(res.locals.user) && checkPassword(req.body.password)) {
+			if (checkEmail(req.body.email) && checkUserName(req.body.username) && checkPassword(req.body.password)) {
 				return next();
 			}
 		}
-		res.status(400).end();
+		return res.status(400).end();
 	};
 };

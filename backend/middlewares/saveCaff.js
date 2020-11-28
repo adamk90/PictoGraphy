@@ -18,7 +18,7 @@ module.exports = function (objectRepository) {
 				'creator': res.locals.caff.creator,
 				'creationDate': res.locals.caff.creationDate,
 				'tags': res.locals.caff.tags,
-				'_caffOwner': res.locals.user._id
+				'_owner': res.locals.user._id
 			});
 			try {
 				let savedCaff = await caff.save();
@@ -29,28 +29,37 @@ module.exports = function (objectRepository) {
 				fs.writeFile(previewFileName, res.locals.caff.previewBmp, "binary", (err) => {
 					if (err) {
 						console.log("Error while saving preview to: ", previewFileName);
+						delete res.locals.caff.previewBmp;
 					} else {
 						console.log("Successfully saved preview to: ", previewFileName);
-						res.status(400).end();
+						return res.status(400).end();
 					}
 				});
 				fs.writeFile(caffFileName, encryptCaff(res.locals.caff.caffBytes), "binary", (err) => {
 					if (err) {
 						console.log("Error while saving caff to: ", caffFileName);
+						delete res.locals.caff.caffBytes;
 					} else {
 						console.log("Successfully saved caff to: ", caffFileName);
-						res.status(400).end();
+						return res.status(400).end();
 					}
 				});
 				savedCaff.preview = previewFileName.substring("./static".length);
 				savedCaff.content = caffFileName;
 				await savedCaff.save();
-				delete res.locals.caff.caffBytes;
-				res.locals.caff.previewBmp = savedCaff.preview;
-				res.data = res.locals.caff;
+				res.data = {
+					'caff': {
+						'id': savedCaff._id,
+						'previewBmp': savedCaff.preview,
+						'uploader': res.locals.user.userName,
+						'creator': savedCaff.creator,
+						'creationDate': savedCaff.creationDate,
+						'tags': savedCaff.tags,
+					}
+				};
 			} catch (err) {
 				console.log(err);
-				res.status(400).end();
+				return res.status(400).end();
 			}
 		}
 		return next();

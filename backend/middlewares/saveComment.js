@@ -1,5 +1,24 @@
 module.exports = function (objectRepository) {
 	return async function(req, res, next) {
-		return next();
+		if (res.locals.user && res.locals.caff && req.body.comment) {
+			let comment = new objectRepository.Comment({
+				'text': req.body.comment,
+				'_owner': res.locals.user._id,
+				'username': res.locals.user.userName,
+				'date': new Date()
+			});
+			try {
+				let savedComment = await comment.save();
+				res.locals.caff._comments.push(savedComment._id);
+				await res.locals.caff.save();
+				res.data = {
+					'commentId': savedComment._id
+				};
+				return next();
+			} catch (err) {
+				console.log(err);
+			}
+		}
+		return res.status(400).end();
 	};
 };
