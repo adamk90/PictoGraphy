@@ -12,8 +12,9 @@ module.exports = function (objectRepository, shouldFind) {
                 } else if (transaction !== null && !shouldFind) {
                     console.log('User (' + res.locals.user.userName + ') have already bought this caff: ', res.locals.caff._id);
                     return res.status(200).json({'transactionId': transaction._id});
+                } else {
+                    return next();
                 }
-                return next();
             } catch (err) {
                 console.log(err);
             }

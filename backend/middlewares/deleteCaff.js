@@ -4,8 +4,8 @@ const validObjectId = require('mongoose').Types.ObjectId.isValid;
 module.exports = function (objectRepository) {
     return async function(req, res, next) {
         let itemid;
-        if (res.params && res.params.itemid) {
-            itemid = res.params.itemid;
+        if (req.params && req.params.itemid) {
+            itemid = req.params.itemid;
         }
         if (itemid && res.locals.user) {
             try {
@@ -20,8 +20,8 @@ module.exports = function (objectRepository) {
                     caff = await objectRepository.Caff.findOne({'_id': itemid, '_owner': res.locals.user._id}).exec();
                 }
                 if (caff !== null) {
-                    objectRepository.Comment.deleteMany({'_id:':{$in:caff._comments}});
-                    objectRepository.Caff.deleteOne({_id:itemid});
+                    await objectRepository.Comment.deleteMany({'_id:':{$in:caff._comments}});
+                    await objectRepository.Caff.deleteOne({'_id':itemid});
                     fs.unlinkSync("./static" + caff.preview);
                     fs.unlinkSync(caff.content);
                     return res.status(200).end();
