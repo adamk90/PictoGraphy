@@ -36,7 +36,7 @@ module.exports = function(app) {
     /*
      * Successful response: streaming the download as octet stream
      */
-    app.get('/caff/:itemid/download',
+    app.get('/api/caff/:itemid/download',
         authenticateJWT(),
         sanitizeMW(),
         getUser(objectRepository),
@@ -49,7 +49,7 @@ module.exports = function(app) {
      * Success: 200
      * Error: 400
      */
-    app.get('/caff/:itemid/delete',
+    app.get('/api/caff/:itemid/delete',
         authenticateJWT(),
         sanitizeMW(),
         getUser(objectRepository),
@@ -66,7 +66,7 @@ module.exports = function(app) {
      *  'commentId': id
      * }
      */
-    app.post('/caff/:itemid/comment',
+    app.post('/api/caff/:itemid/comment',
         authenticateJWT(),
         sanitizeMW(),
         getUser(objectRepository),
@@ -82,7 +82,7 @@ module.exports = function(app) {
      *  'transactionId': id
      * }
      */
-    app.get('/caff/:itemid/buy',
+    app.get('/api/caff/:itemid/buy',
         authenticateJWT(),
         sanitizeMW(),
         getUser(objectRepository),
@@ -96,7 +96,7 @@ module.exports = function(app) {
      * Success: 200
      * Error: 400
      */
-    app.get('/caff/:itemid/:commentid/delete',
+    app.get('/api/caff/:itemid/:commentid/delete',
         authenticateJWT(),
         sanitizeMW(),
         getUser(objectRepository),
@@ -130,7 +130,7 @@ module.exports = function(app) {
      *   }
      * }
      */
-    app.get('/caff/:itemid',
+    app.get('/api/caff/:itemid',
         authenticateJWT(),
         sanitizeMW(),
         getUser(objectRepository),
@@ -148,7 +148,7 @@ module.exports = function(app) {
      * Success: 200
      * Error: 400
      */
-    app.post('/register',
+    app.post('/api/register',
         sanitizeMW(),
         checkUserData(),
         saveUserData(objectRepository),
@@ -166,7 +166,7 @@ module.exports = function(app) {
      *  'isAdmin': ... <- bool
      * }
      */
-    app.post('/login',
+    app.post('/api/login',
         sanitizeMW(),
         getUser(objectRepository),
         checkPassword(),
@@ -196,7 +196,7 @@ module.exports = function(app) {
      *   ]
      * }
      */
-    app.get('/search',
+    app.get('/api/search',
         authenticateJWT(),
         sanitizeMW(),
         getUser(objectRepository),
@@ -224,7 +224,7 @@ module.exports = function(app) {
      *   ]
      * }
      */
-    app.get('/my-caffs',
+    app.get('/api/my-caffs',
         authenticateJWT(),
         sanitizeMW(),
         getUser(objectRepository),
@@ -250,7 +250,7 @@ module.exports = function(app) {
      *   }
      * }
      */
-    app.post('/upload',
+    app.post('/api/upload',
         authenticateJWT(),
         sanitizeMW(),
         getUser(objectRepository),
