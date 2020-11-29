@@ -31,44 +31,52 @@ module.exports = function (objectRepository) {
                         console.log(err)
                         console.log("Error while saving preview to: ", previewFileName);
                         delete res.locals.caff.previewBmp;
+                        return res.status(400).end();
                     } else {
                         console.log("Successfully saved preview to: ", previewFileName);
-                        return res.status(400).end();
                     }
                 });
                 fs.writeFile(caffFileName, encryptCaff(res.locals.caff.caffBytes), "binary", (err) => {
                     if (err) {
                         console.log("Error while saving caff to: ", caffFileName);
                         delete res.locals.caff.caffBytes;
+                        return res.status(400).end();
                     } else {
                         console.log("Successfully saved caff to: ", caffFileName);
-                        return res.status(400).end();
+                        try {
+                            savedCaff.preview = previewFileName.substring("./static".length);
+                            savedCaff.content = caffFileName;
+                            await savedCaff.save();
+                            let log = new objectRepository.Log({
+                                'text': "Caff " + savedCaff._id + " uploaded",
+                                '_timeStamp': new Date(),
+                                '_user': res.locals.user._id
+                            });
+                            await log.save();
+                            res.data = {
+                                'caff': {
+                                    'id': savedCaff._id,
+                                    'previewBmp': savedCaff.preview,
+                                    'uploader': res.locals.user.userName,
+                                    'creator': savedCaff.creator,
+                                    'creationDate': savedCaff.creationDate,
+                                    'tags': savedCaff.tags,
+                                }
+                            };
+                            return next();
+                        } catch (err) {
+                            console.log(err);
+                            return res.status(400).end();
+                        }
                     }
                 });
-                savedCaff.preview = previewFileName.substring("./static".length);
-                savedCaff.content = caffFileName;
-                await savedCaff.save();
-                let log = new objectRepository.Log({
-                    'text': "Caff " + savedCaff._id + " uploaded",
-                    '_timeStamp': new Date(),
-                    '_user': res.locals.user._id
-                });
-                await log.save();
-                res.data = {
-                    'caff': {
-                        'id': savedCaff._id,
-                        'previewBmp': savedCaff.preview,
-                        'uploader': res.locals.user.userName,
-                        'creator': savedCaff.creator,
-                        'creationDate': savedCaff.creationDate,
-                        'tags': savedCaff.tags,
-                    }
-                };
             } catch (err) {
                 console.log(err);
                 return res.status(400).end();
             }
+        } else {
+            console.log("Error: no caff on request!");
+            return res.status(400).end();
         }
-        return next();
     };
 };
