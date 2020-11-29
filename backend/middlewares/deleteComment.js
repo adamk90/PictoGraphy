@@ -20,9 +20,21 @@ module.exports = function (objectRepository) {
                 }
                 if (comment === null) {
                     console.log("User (" + res.locals.user._id + ") tried to delete non-existing or not owned comment: ", commentid);
+                    let log = new objectRepository.Log({
+                        'text': "There was a try to delete a non-existing or not owned comment by:",
+                        '_timeStamp': new Date(),
+                        '_user': res.locals.user._id
+                    });
+                    await log.save();
                 } else {
                     res.locals.caff._comments = res.locals.caff._comments.filter((id) => id != comment._id);
                     await res.locals.caff.save();
+                    let log = new objectRepository.Log({
+                        'text': "Comment " + commentid + " deleted",
+                        '_timeStamp': new Date(),
+                        '_user': res.locals.user._id
+                    });
+                    await log.save();
                 }
                 return res.status(200).end();
             } catch (err) {

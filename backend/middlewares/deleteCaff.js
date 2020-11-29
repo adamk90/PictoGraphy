@@ -24,9 +24,21 @@ module.exports = function (objectRepository) {
                     await objectRepository.Caff.deleteOne({'_id':itemid});
                     fs.unlinkSync("./static" + caff.preview);
                     fs.unlinkSync(caff.content);
+                    let log = new objectRepository.Log({
+                        'text': "Caff " + itemid + " deleted",
+                        '_timeStamp': new Date(),
+                        '_user': res.locals.user._id
+                    });
+                    await log.save();
                     return res.status(200).end();
                 } else {
                     console.log("User (" + res.locals.user._id + ") tried to delete non-existing or not owned caff: ", itemid);
+                    let log = new objectRepository.Log({
+                        'text': "There was a try to delete a non-existing or not owned caff by",
+                        '_timeStamp': new Date(),
+                        '_user': res.locals.user._id
+                    });
+                    await log.save();
                 }
             } catch (err) {
                 console.log(err);

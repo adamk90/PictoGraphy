@@ -10,6 +10,12 @@ module.exports = function (objectRepository) {
                 res.data = {
                     'transactionId': savedTransaction._id
                 };
+                let log = new objectRepository.Log({
+                    'text': "User just buyed caff: " + res.locals.caff._id,
+                    '_timeStamp': new Date(),
+                    '_user': res.locals.user._id
+                });
+                await log.save();
                 return next();
             } catch (err) {
                 console.log(err);

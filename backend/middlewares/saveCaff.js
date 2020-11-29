@@ -48,6 +48,12 @@ module.exports = function (objectRepository) {
                 savedCaff.preview = previewFileName.substring("./static".length);
                 savedCaff.content = caffFileName;
                 await savedCaff.save();
+                let log = new objectRepository.Log({
+                    'text': "Caff " + savedCaff._id + " uploaded",
+                    '_timeStamp': new Date(),
+                    '_user': res.locals.user._id
+                });
+                await log.save();
                 res.data = {
                     'caff': {
                         'id': savedCaff._id,

@@ -17,6 +17,12 @@ module.exports = function (objectRepository) {
                     'user': savedComment.username,
                     'date': savedComment.date
                 };
+                let log = new objectRepository.Log({
+                    'text': "Comment " + savedComment._id + " added",
+                    '_timeStamp': new Date(),
+                    '_user': res.locals.user._id
+                });
+                await log.save();
                 return next();
             } catch (err) {
                 console.log(err);
