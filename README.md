@@ -20,6 +20,8 @@ npm install
 npm run dev
 ```
 
+If it complains that *nuxt* cannot be found, try `node_modules/nuxt/bin/nuxt.js` from frontend.
+
 If you have your 3000 and 3001 ports open, then backend will by default run on localhost:3000 and frontend on localhost:3001 (but see starting messages for exact information).
 
 SSL certification is self-signed, so you have to add it to chrome before you can see the pictures. We have created one certification for both server and backend (using this [guide](https://letsencrypt.org/docs/certificates-for-localhost/)), note that on production environment you should use separate certificates signed by CA authority for your domain.
