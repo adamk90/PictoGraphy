@@ -44,26 +44,28 @@ module.exports = function (objectRepository) {
                     } else {
                         console.log("Successfully saved caff to: ", caffFileName);
                         try {
-                            savedCaff.preview = previewFileName.substring("./static".length);
-                            savedCaff.content = caffFileName;
-                            await savedCaff.save();
-                            let log = new objectRepository.Log({
-                                'text': "Caff " + savedCaff._id + " uploaded",
-                                '_timeStamp': new Date(),
-                                '_user': res.locals.user._id
-                            });
-                            await log.save();
-                            res.data = {
-                                'caff': {
-                                    'id': savedCaff._id,
-                                    'previewBmp': savedCaff.preview,
-                                    'uploader': res.locals.user.userName,
-                                    'creator': savedCaff.creator,
-                                    'creationDate': savedCaff.creationDate,
-                                    'tags': savedCaff.tags,
-                                }
-                            };
-                            return next();
+                            (async () => {
+                                savedCaff.preview = previewFileName.substring("./static".length);
+                                savedCaff.content = caffFileName;
+                                await savedCaff.save();
+                                let log = new objectRepository.Log({
+                                    'text': "Caff " + savedCaff._id + " uploaded",
+                                    '_timeStamp': new Date(),
+                                    '_user': res.locals.user._id
+                                });
+                                await log.save();
+                                res.data = {
+                                    'caff': {
+                                        'id': savedCaff._id,
+                                        'previewBmp': savedCaff.preview,
+                                        'uploader': res.locals.user.userName,
+                                        'creator': savedCaff.creator,
+                                        'creationDate': savedCaff.creationDate,
+                                        'tags': savedCaff.tags,
+                                    }
+                                };
+                                return next();
+                            })();
                         } catch (err) {
                             console.log(err);
                             return res.status(400).end();
