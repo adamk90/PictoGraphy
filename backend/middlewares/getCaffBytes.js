@@ -24,7 +24,7 @@ module.exports = function () {
                     return res.status(400).end();
                 }
                 const caff = Buffer.from(decryptCaff(encryptedData), 'binary');
-                const caffTempFileName = './tmp/' + (new Date()).getMilliseconds() + res.locals.user._id + "_" + res.locals.caff.id + "_tmp.caff";
+                const caffTempFileName = './tmp/' + Date.now() + res.locals.user._id + "_" + res.locals.caff.id + "_tmp.caff";
                 fs.writeFile(caffTempFileName, caff, "utf8", (err) => {
                     if (err) {
                         console.log(err);
@@ -32,6 +32,10 @@ module.exports = function () {
                     }
                     readStream = fs.createReadStream(caffTempFileName);
                     readStream.on('open', () => {
+                        res.writeHead(200, {
+                            "Content-Type": "application/octet-stream",
+                            "Content-Disposition": "attachment; filename=" + res.locals.caff._id + ".caff"
+                        });
                         readStream.pipe(res);
                     });
                     readStream.on('error', (err) => {
