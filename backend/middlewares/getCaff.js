@@ -20,6 +20,7 @@ module.exports = function (objectRepository, needResult) {
                     console.log('Caff found: ', caff);
                     res.locals.caff = caff;
                     if (needResult) {
+                        let transaction = await objectRepository.Transaction.findOne({'_customer': res.locals.user._id, '_product': caff._id}).exec();
                         res.data = {
                             'caff': {
                                 'id': caff._id,
@@ -28,6 +29,7 @@ module.exports = function (objectRepository, needResult) {
                                 'creator': caff.creator,
                                 'creationDate': caff.creationDate,
                                 'tags': caff.tags,
+                                'isOwner': transaction !== null || caff._owner.userName === res.locals.user.userName,
                                 'comments': caff._comments.map((comment) => {return {'id': comment._id, 'comment': comment.text, 'user': comment.username, 'date': comment.date}})
                             }
                         };
