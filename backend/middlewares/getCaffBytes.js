@@ -34,7 +34,7 @@ module.exports = function () {
                     readStream = fs.createReadStream(caffTempFileName);
                     readStream.on('open', () => {
                         res.writeHead(200, {
-                            "Content-Type": "application/octet-stream",
+                            "Content-Type": "application/octet",
                             "Content-Disposition": "attachment; filename=" + res.locals.caff._id + ".caff"
                         });
                         readStream.pipe(res);

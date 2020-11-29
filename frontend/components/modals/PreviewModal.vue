@@ -164,8 +164,12 @@ export default {
     },
 
     downloadCaff (caffId) {
-      this.$axios.get(endpoints.download(caffId)).then(({ data }) => {
-        download(data, `${caffId}.caff`)
+      this.$axios({
+        url: endpoints.download(caffId),
+        method: 'GET',
+        responseType: 'blob'
+      }).then((response) => {
+        download(response.data, caffId + '.caff')
       })
     },
 
