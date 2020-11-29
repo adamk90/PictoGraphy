@@ -67,8 +67,8 @@ export default {
   server: {
     port: '3001',
     https: {
-      key: fs.readFileSync('./ssl/key.pem'),
-      cert: fs.readFileSync('./ssl/cert.pem')
+      key: fs.readFileSync('./ssl/localhost.key'),
+      cert: fs.readFileSync('./ssl/localhost.crt')
     }
   },
 

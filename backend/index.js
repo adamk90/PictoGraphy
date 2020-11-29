@@ -44,8 +44,8 @@ app.use((err, req, res, next) => {
 });
 
 const httpsOptions = {
-    key: fs.readFileSync('./ssl/key.pem'),
-    cert: fs.readFileSync('./ssl/cert.pem')
+    key: fs.readFileSync('./ssl/localhost.key'),
+    cert: fs.readFileSync('./ssl/localhost.crt')
 };
 
 const server = https.createServer(httpsOptions, app).listen(3000, function() {
