@@ -12,7 +12,10 @@ module.exports = function (objectRepository) {
                 res.locals.caff._comments.push(savedComment._id);
                 await res.locals.caff.save();
                 res.data = {
-                    'commentId': savedComment._id
+                    'id': savedComment._id,
+                    'comment': savedComment.text,
+                    'user': savedComment.username,
+                    'date': savedComment.date
                 };
                 return next();
             } catch (err) {

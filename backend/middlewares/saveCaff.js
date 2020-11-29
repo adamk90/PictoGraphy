@@ -28,6 +28,7 @@ module.exports = function (objectRepository) {
                 const caffFileName = "./caffs/" + res.locals.caff.id + "_encrypted.caff";
                 fs.writeFile(previewFileName, res.locals.caff.previewBmp, "binary", (err) => {
                     if (err) {
+                        console.log(err)
                         console.log("Error while saving preview to: ", previewFileName);
                         delete res.locals.caff.previewBmp;
                     } else {

@@ -2,6 +2,7 @@ const validObjectId = require('mongoose').Types.ObjectId.isValid;
 
 module.exports = function (objectRepository, needResult) {
     return async function(req, res, next) {
+        res.set('Access-Control-Allow-Origin', '*');
         if (req.params && req.params.itemid && res.locals.user) {
             if (!validObjectId(req.params.itemid)) {
                 console.log('Invalid caff id: ', req.params.itemid);

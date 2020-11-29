@@ -16,6 +16,7 @@ function decryptCaff(encoded) {
 
 module.exports = function () {
     return async function(req, res, next) {
+        res.set('Access-Control-Allow-Origin', '*');
         if (res.locals.caff) {
             let caffFileName = './caffs/' + res.locals.caff._id + "_encrypted.caff";
             fs.readFile(caffFileName, 'utf8', (err, encryptedData) => {
