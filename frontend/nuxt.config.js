@@ -1,4 +1,5 @@
 import endpoints from './utils/endpoints.js'
+import fs from 'fs'
 
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
@@ -63,7 +64,12 @@ export default {
   },
 
   server: {
-    host: '0.0.0.0'
+    host: '0.0.0.0',
+    port: '3001',
+    https: {
+      key: fs.readFileSync('./ssl/key.pem'),
+      cert: fs.readFileSync('./ssl/cert.pem')
+    }
   },
 
   auth: {
@@ -94,7 +100,7 @@ export default {
 
   proxy: {
     '/api/': {
-      target: 'https://192.168.10.122:3000',
+      target: 'https://127.0.0.1:3000',
       xfwd: true,
       changeOrigin: true,
       secure: false,

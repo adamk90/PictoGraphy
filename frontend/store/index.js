@@ -2,7 +2,7 @@ import endpoints from '~/utils/endpoints'
 
 export const state = () => ({
   error: null,
-  imageServer: 'https://192.168.10.122:3000',
+  imageServer: 'https://127.0.0.1:3000',
   caffs: []
 })
 
