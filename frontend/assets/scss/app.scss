@@ -10,3 +10,12 @@
     text-decoration: none;
   }
 }
+
+.remove-button {
+  cursor: pointer;
+  color: $primary;
+
+  &:hover {
+    color: darken($primary, 20);
+  }
+}

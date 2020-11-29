@@ -19,7 +19,9 @@ export default {
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
-    '~/plugins/icons.js',
+    '~/plugins/injector.js',
+    '~/plugins/validator.js',
+    '~/plugins/wrapper.js',
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -46,6 +48,10 @@ export default {
   bootstrapVue: {
     bootstrapCSS: false,
     bootstrapVueCSS: false
+  },
+
+  router: {
+    middleware: 'clearError'
   },
 
   styleResources: {
@@ -75,7 +81,8 @@ export default {
       login: '/auth/login',
       logout: '/auth/login',
       home: '/'
-    }
+    },
+    resetOnError: true
   },
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
@@ -87,9 +94,10 @@ export default {
 
   proxy: {
     '/api/': {
-      target: 'http://127.0.0.2:8000',
+      target: 'https://192.168.10.122:3000',
       xfwd: true,
-      changeOrigin: true
+      changeOrigin: true,
+      secure: false,
     }
   },
 

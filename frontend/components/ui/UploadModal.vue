@@ -7,12 +7,12 @@
     static
     hide-footer
     body-class="p-5"
-    @hidden="image = null"
+    @hidden="file = null; $store.commit('clearError')"
   >
     <b-form-file
-      v-if="!image"
-      v-model="image"
+      v-model="file"
       style="height: 200px"
+      @input="uploadFile"
     >
       <template v-slot:placeholder>
         <div class="text-center">
@@ -27,23 +27,47 @@
           </div>
         </div>
       </template>
+
+      <template v-slot:file-name>
+        <div class="text-center">
+          <div>{{ file.name }}</div>
+          <b-spinner variant="primary" />
+        </div>
+      </template>
     </b-form-file>
 
-    <div v-else class="text-center">
-      <div>{{ image.name }}</div>
-
-      <b-button variant="primary" class="mt-3">
-        Feltöltés
-      </b-button>
-    </div>
+    <picto-form-error />
   </b-modal>
 </template>
 
 <script>
+import endpoints from '~/utils/endpoints'
 export default {
   data () {
     return {
-      image: null
+      file: null
+    }
+  },
+
+  methods: {
+    uploadFile () {
+      if (this.file) {
+        this.$store.commit('clearError')
+        const formData = new FormData()
+
+        formData.append('files', this.file)
+
+        this.$axios.post(endpoints.upload, formData)
+          .then(({ data }) => {
+            this.$bvModal.hide('create-modal')
+            this.$toast(this.$bvToast, 'Sikeres fájlfeltöltés', this.file.name)
+            this.$store.commit('addCaff', data.caff)
+          })
+          .catch(() => {
+            this.file = null
+            this.$store.commit('setError', 'Hiba a feltöltés közben.')
+          })
+      }
     }
   }
 }

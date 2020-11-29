@@ -3,7 +3,7 @@
     <div class="container">
       <b-navbar-brand to="/">
         <h3 class="m-0">
-          Pictography
+          🖼PictoGraphy
         </h3>
       </b-navbar-brand>
 
@@ -11,15 +11,17 @@
 
       <b-collapse id="nav-collapse" is-nav>
         <b-navbar-nav class="ml-auto d-flex align-items-center">
-          <b-nav-form>
+          <b-nav-form v-if="$route.fullPath !== '/my-caff'" @submit.stop.prevent>
             <div class="border rounded-pill px-2">
               <b-button size="sm" class="search-button" type="submit">
                 <b-icon-search />
               </b-button>
               <b-form-input
+                v-model="search.keyword"
                 size="sm"
                 class="search-input"
                 placeholder="Keresés"
+                @input="startSearch"
               />
             </div>
           </b-nav-form>
@@ -33,13 +35,17 @@
               <b-avatar variant="info" size="36px" />
             </template>
 
-            <div class="container mt-2">
-              <b-avatar variant="info" size="lg" class="m-auto" />
+            <div class="container mt-2 text-center">
+              <div class="w-100">
+                <b-avatar variant="info" size="lg" class="m-auto" />
+              </div>
 
-              <div class="mt-2">
+              <div class="mt-2 w-100">
+                {{ $auth.user.username }}
+              </div>
+              <div class="w-100">
                 {{ $auth.user.email }}
               </div>
-              <div>{{ $auth.user.email }}</div>
 
               <b-button variant="outline-primary" class="mt-2 w-100">
                 <nuxt-link to="/my-caff">
@@ -66,6 +72,16 @@
 
 <script>
 export default {
+  data () {
+    return {
+      search: {
+        timeOut: null,
+        clearTime: 500,
+        keyword: ''
+      }
+    }
+  },
+
   methods: {
     removeUser () {
       this.$bvModal.msgBoxConfirm('Biztosan törölni szeretnéd a profilod?', {
@@ -82,6 +98,14 @@ export default {
             this.$auth.logout()
           }
         })
+    },
+
+    startSearch () {
+      clearTimeout(this.search.timeOut)
+
+      this.search.timeOut = setTimeout(function () {
+        this.$store.dispatch('getCaffs', { text: this.search.keyword, force: true })
+      }.bind(this), this.search.clearTime)
     }
   }
 }
@@ -106,15 +130,6 @@ export default {
 
   &::placeholder {
     color: white;
-  }
-}
-
-.remove-button {
-  cursor: pointer;
-  color: $primary;
-
-  &:hover {
-    color: darken($primary, 20);
   }
 }
 </style>

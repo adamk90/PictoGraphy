@@ -4,13 +4,14 @@
       <h1 class="text-center mb-4">
         Pictography
       </h1>
-      <b-form-group>
-        <b-form-input v-model="user.email" placeholder="Felhasználónév" />
-      </b-form-group>
-      <b-form-group>
-        <b-form-input v-model="user.password" type="password" placeholder="Jelszó" />
-      </b-form-group>
-      <b-button variant="primary" type="submit">
+
+      <picto-input :field="$v.user.username" label="Felhasználónév" />
+
+      <picto-input :field="$v.user.password" type="password" label="Jelszó" />
+
+      <picto-form-error />
+
+      <b-button variant="primary" type="submit" :disabled="$v.$invalid || $store.getters.hasError">
         Bejelentkezés
       </b-button>
     </b-form>
@@ -31,21 +32,34 @@
 </template>
 
 <script>
+import { required } from 'vuelidate/lib/validators'
+
 export default {
   layout: 'auth',
 
   data () {
     return {
       user: {
-        email: '',
+        username: '',
         password: ''
       }
     }
   },
 
+  validations: {
+    user: {
+      username: { required },
+      password: { required }
+    }
+  },
+
   methods: {
     login () {
-      this.$auth.loginWith('local', { data: this.user })
+      if (!this.$v.$invalid) {
+        this.$auth.loginWith('local', { data: this.user }).catch(() => {
+          this.$store.commit('setError', 'Hibás felhasználónév vagy jelszó.')
+        })
+      }
     }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="image-container">
-    <b-img-lazy class="image-aspect" :src="src" fluid />
+    <b-img-lazy class="image-aspect" :src="$store.state.imageServer + src" fluid />
 
     <div class="overlay">
       <slot />
