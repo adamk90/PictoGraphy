@@ -23,6 +23,7 @@ const saveCaff = require('../middlewares/saveCaff');
 const parseCaff = require('../middlewares/parseCaff');
 const getCaffBytes = require('../middlewares/getCaffBytes');
 const sanitizeMW = require('../middlewares/sanitizeMW');
+const getUserData = require('../middlewares/getUserData');
  
 module.exports = function(app) {
     let objectRepository = {
@@ -63,7 +64,7 @@ module.exports = function(app) {
      * }
      * Successful response:
      * {
-     *  'commentId': id
+     *  'comment': comment
      * }
      */
     app.post('/api/caff/:itemid/comment',
@@ -96,7 +97,7 @@ module.exports = function(app) {
      * Success: 200
      * Error: 400
      */
-    app.get('/api/caff/:itemid/:commentid/delete',
+    app.delete('/api/comment/:itemid/:commentid',
         authenticateJWT(),
         sanitizeMW(),
         getUser(objectRepository),
@@ -173,6 +174,26 @@ module.exports = function(app) {
         generateJWT(),
         sendResponse()
     );
+
+
+    /*
+    * Request params:
+    * -
+    * Successful respone:
+    * {
+    *   user:  
+    *           userName
+    *           email
+    *           isAdmin
+    *           _id
+    *}
+    */
+    app.get('/api/user',
+        authenticateJWT(),
+        getUserData(objectRepository),
+        sendResponse()
+    );
+
 
     /*
      * Request params:
