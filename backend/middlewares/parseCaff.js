@@ -10,34 +10,34 @@ const fs = require('fs');
  */
 
 module.exports = function () {
-	return async function(req, res, next) {
-		let caffBytes;
-		for (file in req.files) {
-			if (req.files.hasOwnProperty(file)) {
-				caffBytes = req.files[file];
-				break;
-			}
-		}
-		if (caffBytes) {
-			let obj = caffParser.parse(caffBytes.data);
-			if (obj.Error) {
-				console.log("Error while parsing Caff: ", obj.Error);
-				return res.status(400).end();
-			} else {
-				let previewBytes = Uint8Array.from(Object.values(obj.Preview));
-				let tags = [...new Set(Object.values(obj.Tags))];
-				let creationDate = new Date(obj.Year, obj.Month - 1, obj.Day, obj.Hour, obj.Minute, 0, 0);
-				let creator = obj.Creator;
-				res.locals.caff = {
-					'caffBytes': caffBytes.data,
-					'previewBmp': previewBytes,
-					'uploader': res.locals.user.userName,
-					'creator': creator,
-					'creationDate': creationDate,
-					'tags': tags
-				};
-			}
-		}
-		return next();
-	};
+    return async function(req, res, next) {
+        let caffBytes;
+        for (file in req.files) {
+            if (req.files.hasOwnProperty(file)) {
+                caffBytes = req.files[file];
+                break;
+            }
+        }
+        if (caffBytes) {
+            let obj = caffParser.parse(caffBytes.data);
+            if (obj.Error) {
+                console.log("Error while parsing Caff: ", obj.Error);
+                return res.status(400).end();
+            } else {
+                let previewBytes = Uint8Array.from(Object.values(obj.Preview));
+                let tags = [...new Set(Object.values(obj.Tags))];
+                let creationDate = new Date(obj.Year, obj.Month - 1, obj.Day, obj.Hour, obj.Minute, 0, 0);
+                let creator = obj.Creator;
+                res.locals.caff = {
+                    'caffBytes': caffBytes.data,
+                    'previewBmp': previewBytes,
+                    'uploader': res.locals.user.userName,
+                    'creator': creator,
+                    'creationDate': creationDate,
+                    'tags': tags
+                };
+            }
+        }
+        return next();
+    };
 };

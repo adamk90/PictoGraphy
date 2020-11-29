@@ -2,10 +2,16 @@ const Schema = require('mongoose').Schema;
 const db = require('../config/db');
 
 const User = db.model('User', {
-	userName: String,
-	password: String,
-	email: String,
-	admin: Boolean
+    userName: {
+        type: String,
+        unique: true
+    },
+    password: String,
+    email: {
+        type: String,
+        unique: true,
+    },
+    admin: Boolean
 });
 
 module.exports = User;
