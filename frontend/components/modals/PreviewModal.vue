@@ -20,7 +20,7 @@
             CAFF törlése
           </b-button>
 
-          <b-button v-if="bought" variant="primary" @click="downloadCaff(image.id)">
+          <b-button v-if="image.isOwner" variant="primary" @click="downloadCaff(image.id)">
             <b-icon-download />
             Letöltés
           </b-button>
